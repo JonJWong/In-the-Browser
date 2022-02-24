@@ -1,0 +1,19 @@
+{
+  "name": "js-the-groove",
+  "version": "1.0.0",
+  "description": "JS based 4-panel arrow game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonJWong/JS-the-groove.git"
+  },
+  "author": "Jonathan Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonJWong/JS-the-groove/issues"
+  },
+  "homepage": "https://github.com/JonJWong/JS-the-groove#readme"
+}
