@@ -6,4 +6,14 @@
 ## Features
 
 - Users can select a difficulty for the current song
-- 
+- When the song finishes, they will be shown a summary screen which has their gameplay stats, like points and judgements
+
+#
+### Technologies used
+- Keymaster.js
+- Howler.js
+
+#
+### Future Plans
+- Add the ability to upload custom songs
+- Add the ability to change song options through an options menu (scroll rate, note skin)
