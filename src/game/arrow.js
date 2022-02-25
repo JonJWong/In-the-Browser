@@ -7,6 +7,7 @@ class Arrow extends OnScreenElement {
     this.rotation = this.getRotation();
     this.pos = arrowOpts['pos'];
     this.vel = arrowOpts['vel'];
+    this.scale = .25;
     this.img;
     this.receptor = arrowOpts['receptor'] || false;
   }
@@ -16,7 +17,7 @@ class Arrow extends OnScreenElement {
     let img = new Image();
     let rotation = this.rotation;
     let [x, y] = this.pos
-    let scale = .25;
+    let scale = this.scale;
 
     img.addEventListener('load', function() {
       ctx.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
@@ -42,7 +43,9 @@ class Arrow extends OnScreenElement {
   }
 
   getDistance(otherArrow) {
-    
+    let [ourX, ourY] = this.pos;
+    let [theirX, theirY] = otherArrow.pos;
+    return theirY - ourY
   }
 }
 
