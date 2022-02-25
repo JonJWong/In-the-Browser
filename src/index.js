@@ -5,12 +5,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
-  const img = new Image();
-  img.addEventListener('load', function() {
-    ctx.drawImage(img, 50, 50);
-  })
-  img.src = '/assets/images/Arrow.png';
   window.Arrow = Arrow;
   window.playArea = playArea;
+
+  let arrOpt = {
+    direction: 'left',
+    imgUrl: '/assets/images/Arrow.png',
+    pos: [200, 200]
+  }
+  let arr = new Arrow(arrOpt);
+  let img = new Image();
+  arr.draw(ctx, 90)
   console.log('DOM fully loaded and parsed');
 })
