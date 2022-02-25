@@ -11,6 +11,8 @@ class Arrow extends OnScreenElement {
     this.receptor = false;
   }
 
+
+  // This is hard-coded for 4 panels. need to refactor to make scalable
   draw(ctx) {
     let img = new Image();
     let rotation = this.rotation;
@@ -25,6 +27,7 @@ class Arrow extends OnScreenElement {
     img.src = this.imgUrl;
   }
 
+  // This is hard-coded for 4 panels, need to refactor to make scalable
   getRotation() {
     const pi = Math.PI;
     switch (this.direction) {
