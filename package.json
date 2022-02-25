@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "JS based 4-panel arrow game",
   "main": "index.js",
-  "browserslist": [
-    "defaults"  
-  ],
   "scripts": {
     "watch": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
   },
+  "browserslist": [
+    "defaults"  
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JonJWong/JS-the-groove.git"
