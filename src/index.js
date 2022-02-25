@@ -8,13 +8,33 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.Arrow = Arrow;
   window.playArea = playArea;
 
-  let arrOpt = {
+  let leftOpt = {
     direction: 'left',
     imgUrl: '/assets/images/Arrow.png',
-    pos: [200, 200]
+    pos: [50, 50]
   }
-  let arr = new Arrow(arrOpt);
-  let img = new Image();
-  arr.draw(ctx, 90)
+  let downOpt = {
+    direction: 'down',
+    imgUrl: '/assets/images/Arrow.png',
+    pos: [125, 50]
+  }
+  let upOpt = {
+    direction: 'up',
+    imgUrl: '/assets/images/Arrow.png',
+    pos: [200, 50]
+  }
+  let rightOpt = {
+    direction: 'right',
+    imgUrl: '/assets/images/Arrow.png',
+    pos: [275, 50]
+  }
+  let left = new Arrow(leftOpt);
+  left.draw(ctx)
+  let down = new Arrow(downOpt);
+  down.draw(ctx)
+  let up = new Arrow(upOpt);
+  up.draw(ctx)
+  let right = new Arrow(rightOpt);
+  right.draw(ctx)
   console.log('DOM fully loaded and parsed');
 })

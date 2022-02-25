@@ -1,18 +1,22 @@
 const OnScreenElement = require('./on_screen_element.js')
 
 class Arrow extends OnScreenElement {
-  constructor(arrowOptions) {
-    super(arrowOptions)
-    this.direction = arrowOptions['direction'];
-    this.receptor = false;
-    this.pos = arrowOptions['pos'];
+  constructor(arrowOpts) {
+    super(arrowOpts)
+    this.direction = arrowOpts['direction'];
+    this.rotation = this.getRotation();
+    this.pos = arrowOpts['pos'];
+    this.vel = arrowOpts['vel'];
     this.img;
+    this.receptor = false;
   }
 
-  draw(ctx, rotation) {
+  draw(ctx) {
     let img = new Image();
-    let scale = .3;
+    let rotation = this.rotation;
     let [x, y] = this.pos
+    let scale = .25;
+
     img.addEventListener('load', function() {
       ctx.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
       ctx.rotate(rotation);
@@ -21,15 +25,17 @@ class Arrow extends OnScreenElement {
     img.src = this.imgUrl;
   }
 
-  rotate() {
-    switch (this.dir) {
+  getRotation() {
+    const pi = Math.PI;
+    switch (this.direction) {
       case 'left':
-
+        return pi / 2
       case 'down':
-
+        return 0
       case 'up':
-
+        return pi
       case 'right':
+        return pi * 1.5
     }
   }
 }
