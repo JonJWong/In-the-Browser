@@ -11,7 +11,6 @@ class Arrow extends OnScreenElement {
     this.receptor = arrowOpts['receptor'] || false;
   }
 
-
   // This is hard-coded for 4 panels. need to refactor to make scalable
   draw(ctx) {
     let img = new Image();
@@ -40,6 +39,10 @@ class Arrow extends OnScreenElement {
       case 'right':
         return pi * 1.5
     }
+  }
+
+  getDistance(otherArrow) {
+    
   }
 }
 
