@@ -12,7 +12,7 @@
 #
 ## Wireframe
 
-
+<img src="https://github.com/JonJWong/JS-the-groove/blob/main/assets/images/wireframe.png"></img>
 
 #
 ### Technologies used
