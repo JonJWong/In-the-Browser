@@ -11,7 +11,7 @@
 
 #
 ## Wireframe
-[Wireframe](https://wireframe.cc/gV7PuL)
+![Wireframe](https://wireframe.cc/gV7PuL)
 #
 ### Technologies used
 - Keymaster.js
