@@ -41,5 +41,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
   // up.draw(ctx)
   // let right = new Arrow(rightOpt);
   // right.draw(ctx)
+  // console.log(left, down, up, right)
   console.log('DOM fully loaded and parsed');
 })

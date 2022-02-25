@@ -8,7 +8,7 @@ class Arrow extends OnScreenElement {
     this.pos = arrowOpts['pos'];
     this.vel = arrowOpts['vel'];
     this.img;
-    this.receptor = false;
+    this.receptor = arrowOpts['receptor'] || false;
   }
 
 
