@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "JS based 4-panel arrow game",
   "main": "index.js",
+  "browserslist": [
+    "defaults"  
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
