@@ -2,11 +2,14 @@ const OnScreenElement = require('./on_screen_element.js')
 
 class Arrow extends OnScreenElement {
   constructor(arrowOpts) {
-    super(arrowOpts)
+    super(arrowOpts);
+    this.game = arrowOpts['game'];
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = [50, 50];
     this.setHorizPos();
+    // even though velocity has 2 nums, we'll only be using the Y since arrows
+    // will only be moving upwards
     this.velocity = arrowOpts['velocity'];
     this.scale = .25;
     this.size = 268 * this.scale;
@@ -47,6 +50,10 @@ class Arrow extends OnScreenElement {
       ctx.drawImage(img, -img.width / 2, -img.height / 2);
     })
     img.src = this.imgUrl;
+  }
+
+  step() {
+
   }
 
   // This is hard-coded for 4 panels, need to refactor to make scalable

@@ -31,3 +31,8 @@
 - Add the ability to change song options through an options menu (scroll rate, note skin)
 - Add a volume slider
 - Custom keybinds to assign preferred keys to arrows
+
+#
+### Credit:
+- Benpai for Notice Me Benpai 2 charts
+- Peter's scalable noteskins for SM5

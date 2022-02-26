@@ -47,6 +47,7 @@ class Target {
       // if the arrows are in the same lane
       if (this.pos[1] === arrow.pos[1]){
         let dist = tar.getDistance(arrow);
+        return dist < 65
       }
     })
   }
