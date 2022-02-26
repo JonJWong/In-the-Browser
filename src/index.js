@@ -1,46 +1,23 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-  const playArea = require('./game/play_area.js');
   const Arrow = require('./game/arrow.js');
   const Target = require('./game/target.js');
+  const playArea = require('./game/play_area.js');
+  const Chart = require('./chart/chart.js');
 
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
   window.Arrow = Arrow;
-  window.playArea = playArea;
   window.Target = Target;
+  window.playArea = playArea;
+  window.Chart = Chart;
 
   let tar = new Target(4);
   tar.render(ctx);
 
-  // let leftOpt = {
-  //   direction: 'left',
-  //   imgUrl: '/assets/images/Arrow.png',
-  //   pos: [50, 50]
-  // }
-  // let downOpt = {
-  //   direction: 'down',
-  //   imgUrl: '/assets/images/Arrow.png',
-  //   pos: [125, 50]
-  // }
-  // let upOpt = {
-  //   direction: 'up',
-  //   imgUrl: '/assets/images/Arrow.png',
-  //   pos: [200, 50]
-  // }
-  // let rightOpt = {
-  //   direction: 'right',
-  //   imgUrl: '/assets/images/Arrow.png',
-  //   pos: [275, 50]
-  // }
-  // let left = new Arrow(leftOpt);
-  // left.draw(ctx)
-  // let down = new Arrow(downOpt);
-  // down.draw(ctx)
-  // let up = new Arrow(upOpt);
-  // up.draw(ctx)
-  // let right = new Arrow(rightOpt);
-  // right.draw(ctx)
-  // console.log(left, down, up, right)
+
+  // const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
+  // let dpc = new Chart(opts);
+  // dpc
   console.log('DOM fully loaded and parsed');
 })
