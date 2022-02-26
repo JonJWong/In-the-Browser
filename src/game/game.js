@@ -1,5 +1,6 @@
 const Arrow = require('./arrow.js');
 const Receptor = require('./arrow.js');
+const Util = require('/src/util.js');
 
 class Game {
   constructor(gameOpts) {
@@ -11,7 +12,7 @@ class Game {
   }
 
   addArrow(arrowDirection) {
-
+    let opts = Util.arrowOpts();
   }
 }
 

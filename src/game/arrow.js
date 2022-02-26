@@ -15,6 +15,7 @@ class Arrow extends OnScreenElement {
     this.size = 268 * this.scale;
     this.img;
     this.isATarget = arrowOpts['target'] || false;
+    this.quantization;
   }
 
   setHorizPos() {
@@ -70,6 +71,28 @@ class Arrow extends OnScreenElement {
     let ourY = this.pos[1];
     let theirY = otherArrow.pos[1];
     return theirY - ourY
+  }
+
+  setQuantization(quantization) {
+    this.quantization = quantization;
+  }
+
+  colorPicker() {
+    let color = "";
+    if (!this.isATarget) {
+      color = "grey"
+    } else {
+      switch (this.quantization) {
+        case 4:
+
+        case 8:
+
+        case 16:
+
+        case 32:
+
+      }
+    }
   }
 }
 

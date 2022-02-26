@@ -40,7 +40,11 @@ class Chart {
   }
 
   getMeasures(difficulty) {
-    let chart = {};
+    let steps = {};
+    let chart = {
+      "steps": steps,
+      "difficulty": difficulty[5].slice(12, difficulty[5].length - 1)
+    };
     let measure = 0;
     for (let g = 10; g < difficulty.length; g++) {
       let line = difficulty[g];
@@ -48,8 +52,8 @@ class Chart {
         measure += 1
         continue
       } else if ('01234M'.includes(line[0])) {
-        chart[measure] ||= [];
-        chart[measure].push(line)
+        steps[measure] ||= [];
+        steps[measure].push(line)
       } else {
         continue;
       }
