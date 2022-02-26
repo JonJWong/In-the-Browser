@@ -7,11 +7,11 @@ class Arrow extends OnScreenElement {
     this.rotation = this.getRotation();
     this.pos = [50, 50];
     this.setHorizPos();
-    this.vel = arrowOpts['vel'];
+    this.velocity = arrowOpts['velocity'];
     this.scale = .25;
     this.size = 268 * this.scale;
     this.img;
-    this.receptor = arrowOpts['receptor'] || false;
+    this.isATarget = arrowOpts['target'] || false;
   }
 
   setHorizPos() {

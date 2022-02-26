@@ -1,17 +1,17 @@
 window.addEventListener("DOMContentLoaded", (event) => {
   const playArea = require('./game/play_area.js');
   const Arrow = require('./game/arrow.js');
-  const Receptor = require('./game/receptor.js');
+  const Target = require('./game/target.js');
 
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
   window.Arrow = Arrow;
   window.playArea = playArea;
-  window.Receptor = Receptor;
+  window.Target = Target;
 
-  let rec = new Receptor(4);
-  rec.render(ctx);
+  let tar = new Target(4);
+  tar.render(ctx);
 
   // let leftOpt = {
   //   direction: 'left',
