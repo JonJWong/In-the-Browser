@@ -1,23 +1,24 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-  const Arrow = require('./game/arrow.js');
-  const Target = require('./game/target.js');
-  const playArea = require('./game/play_area.js');
-  const Chart = require('./chart/chart.js');
-
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
-  window.Arrow = Arrow;
-  window.Target = Target;
-  window.playArea = playArea;
+  const Game = require('/src/game/game.js');
+  const Util = require('/src/util.js')
+  const Chart = require('/src/chart/chart.js')
+  window.Game = Game;
+  window.Util = Util;
   window.Chart = Chart;
 
-  let tar = new Target(4);
-  tar.render(ctx);
+  const gameOpts = {
+    numTargets: 4,
+    speed: 5,
+  }
 
+  window.g = new Game(gameOpts);
+  // g.startMoving();
 
-  // const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
-  // let dpc = new Chart(opts);
-  // dpc
+  const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
+  let dpc = new Chart(opts);
+  dpc
   console.log('DOM fully loaded and parsed');
 })

@@ -1,42 +1,9 @@
 const Arrow = require('/src/game/arrow.js');
-
+const Options = require('/src/game/options.js')
 const Util = {
-  targetOpts() {
-    let targetOpts = {
-      imgUrl: '/assets/images/Arrow.png',
-      velocity: [0, 0],
-      position: [50, 50],
-      target: true
-    };
-    return targetOpts
-  },
-
-  arrowOpts() {
-    let arrowOpts = {
-      imgUrl: '/assets/images/Arrow.png',
-      velocity: [0, 0],
-      position: [50, 50],
-      target: false
-    };
-    return arrowOpts
-  },
-
-  createTarget(i) {
-    let targetOpts = this.targetOpts()
-    switch (i) {
-      case 0:
-        targetOpts['direction'] = 'left';
-        return new Arrow(targetOpts);
-      case 1:
-        targetOpts['direction'] = 'down';
-        return new Arrow(targetOpts);
-      case 2:
-        targetOpts['direction'] = 'up';
-        return new Arrow(targetOpts);
-      case 3:
-        targetOpts['direction'] = 'right';
-        return new Arrow(targetOpts);
-    }
+  randomDirectionGenerator() {
+    const dirs = ['left', 'down', 'up', 'right'];
+    return dirs[Math.floor(Math.random() * 4)];
   },
 };
 

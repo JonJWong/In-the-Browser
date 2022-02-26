@@ -43,7 +43,8 @@ class Chart {
     let steps = {};
     let chart = {
       "steps": steps,
-      "difficulty": difficulty[5].slice(12, difficulty[5].length - 1)
+      "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
+      "rating": difficulty[6].slice(7, difficulty[6].length - 1)
     };
     let measure = 0;
     for (let g = 10; g < difficulty.length; g++) {
