@@ -10,11 +10,6 @@ class Target {
   // This is hard-coded for 4 panels, need to refactor to make scalable
   addTargets(num) {
     for (let i = 0; i < num; i++) {
-      let targetOpts = {
-        imgUrl: '/assets/images/Arrow.png',
-        velocity: [0, 0],
-        target: true
-      }
       let target = Util.createTarget(i);
       this.targets.push(target)
     }
@@ -23,7 +18,6 @@ class Target {
   render(ctx) {
     this.targets.forEach(tar => {
       tar.draw(ctx)
-      console.log(tar)
     })
   }
 

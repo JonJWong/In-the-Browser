@@ -7,11 +7,12 @@ class Game {
     this.maxScore = gameOpts['numNotes'] * 5;
     this.targets = new Target(gameOpts['numTargets']);
     this.arrows = [];
+    this.speed = gameOpts['speed']; // arrow velocity
     // add chart as an attribute
   }
 
   addArrow(arrowDirection) {
-
+    
   }
 }
 
