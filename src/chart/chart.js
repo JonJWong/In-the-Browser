@@ -32,7 +32,6 @@ class Chart {
     }
     
     this.metadata = metaAndDiffs.slice(0, 1);
-    console.log(metaAndDiffs)
     metaAndDiffs.forEach((diff, i) => {
       if (i !== 0) {
         this.difficulties.push(this.getMeasures(diff))
@@ -48,7 +47,7 @@ class Chart {
       if (line.startsWith(',') || line.startsWith('//')) {
         measure += 1
         continue
-      } else if (line.startsWith('0') || line.startsWith('1')) {
+      } else if ('01234M'.includes(line[0])) {
         chart[measure] ||= [];
         chart[measure].push(line)
       } else {
