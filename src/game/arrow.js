@@ -5,11 +5,32 @@ class Arrow extends OnScreenElement {
     super(arrowOpts)
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
-    this.pos = arrowOpts['pos'];
+    this.pos = [50, 50];
+    this.setHorizPos();
     this.vel = arrowOpts['vel'];
     this.scale = .25;
+    this.size = 268 * this.scale;
     this.img;
     this.receptor = arrowOpts['receptor'] || false;
+  }
+
+  setHorizPos() {
+    let start = 50;
+    let gap = 75;
+    switch(this.direction) {
+      case 'left':
+        this.pos[0] = start;
+        break;
+      case 'down':
+        this.pos[0] = start + gap;
+        break;
+      case 'up':
+        this.pos[0] = start + (gap * 2);
+        break;
+      case 'right':
+        this.pos[0] = start + (gap * 3);
+        break;
+    }
   }
 
   // This is hard-coded for 4 panels. need to refactor to make scalable
