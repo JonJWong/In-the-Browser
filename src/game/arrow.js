@@ -15,7 +15,7 @@ class Arrow extends OnScreenElement {
   }
 
   setHorizPos() {
-    let start = 50;
+    let start = this.pos[0];
     let gap = 75;
     switch(this.direction) {
       case 'left':
@@ -37,9 +37,10 @@ class Arrow extends OnScreenElement {
   draw(ctx) {
     let img = new Image();
     let rotation = this.rotation;
-    let [x, y] = this.pos
+    let [x, y] = this.pos;
     let scale = this.scale;
 
+    // make sure that the image is loaded before trying to draw it
     img.addEventListener('load', function() {
       ctx.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
       ctx.rotate(rotation);
@@ -50,22 +51,21 @@ class Arrow extends OnScreenElement {
 
   // This is hard-coded for 4 panels, need to refactor to make scalable
   getRotation() {
-    const pi = Math.PI;
     switch (this.direction) {
       case 'left':
-        return pi / 2
+        return Math.PI / 2
       case 'down':
         return 0
       case 'up':
-        return pi
+        return Math.PI
       case 'right':
-        return pi * 1.5
+        return Math.PI * 1.5
     }
   }
 
   getDistance(otherArrow) {
-    let [ourX, ourY] = this.pos;
-    let [theirX, theirY] = otherArrow.pos;
+    let ourY = this.pos[1];
+    let theirY = otherArrow.pos[1];
     return theirY - ourY
   }
 }
