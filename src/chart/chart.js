@@ -22,18 +22,22 @@ class Chart {
       for(let i = breakpoint; i < chartRows.length; i++) {
         
         if (chartRows[i].includes('//--')) {
-          metaAndDiffs.push(currentPart);
           breakpoint = i + 1;
           doneParsing = false;
           break;
         }
-
         currentPart.push(chartRows[i]);
       }
+      metaAndDiffs.push(currentPart)
     }
     
-    this.metadata = metaAndDiffs.splice(0, 1);
-    this.getMeasures(metaAndDiffs[1]);
+    this.metadata = metaAndDiffs.slice(0, 1);
+    console.log(metaAndDiffs)
+    metaAndDiffs.forEach((diff, i) => {
+      if (i !== 0) {
+        this.difficulties.push(this.getMeasures(diff))
+      }
+    })
   }
 
   getMeasures(difficulty) {
@@ -51,7 +55,7 @@ class Chart {
         continue;
       }
     }
-    console.log(chart)
+    return chart
   }
 }
 
