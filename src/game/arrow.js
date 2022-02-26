@@ -10,7 +10,7 @@ class Arrow extends OnScreenElement {
     this.setHorizPos();
     // even though velocity has 2 nums, we'll only be using the Y since arrows
     // will only be moving upwards
-    this.velocity = arrowOpts['velocity'];
+    this.velocity = arrowOpts['velocity'] || [0, 0];
     this.scale = .25;
     this.size = 268 * this.scale;
     this.img;
@@ -50,10 +50,6 @@ class Arrow extends OnScreenElement {
       ctx.drawImage(img, -img.width / 2, -img.height / 2);
     })
     img.src = this.imgUrl;
-  }
-
-  step() {
-
   }
 
   // This is hard-coded for 4 panels, need to refactor to make scalable

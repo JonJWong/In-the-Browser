@@ -10,7 +10,9 @@ class Game {
     // add chart as an attribute
   }
 
-  // readline info
+  addArrow(arrowDirection) {
+
+  }
 }
 
 module.exports = Game;

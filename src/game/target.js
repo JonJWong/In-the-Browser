@@ -1,4 +1,5 @@
 const Arrow = require('./arrow.js');
+const Util = require('../util.js');
 
 class Target {
   constructor(num) {
@@ -14,24 +15,8 @@ class Target {
         velocity: [0, 0],
         target: true
       }
-      switch (i) {
-        case 0:
-          targetOpts['direction'] = 'left';
-          this.targets.push(new Arrow(targetOpts));
-          break;
-        case 1:
-          targetOpts['direction'] = 'down';
-          this.targets.push(new Arrow(targetOpts));
-          break;
-        case 2:
-          targetOpts['direction'] = 'up';
-          this.targets.push(new Arrow(targetOpts));
-          break;
-        case 3:
-          targetOpts['direction'] = 'right';
-          this.targets.push(new Arrow(targetOpts));
-          break;
-      }
+      let target = Util.createTarget(i);
+      this.targets.push(target)
     }
   }
 
