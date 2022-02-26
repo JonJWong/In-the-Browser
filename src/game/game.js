@@ -8,11 +8,10 @@ class Game {
     this.targets = new Target(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
-    // add chart as an attribute
   }
 
   addArrow(arrowDirection) {
-    
+
   }
 }
 
