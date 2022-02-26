@@ -32,26 +32,26 @@ class Chart {
       }
     }
     
-    this.metadata = metaAndDiffs.slice(0, 1);
-    this.populateDifficulties(metaAndDiffs);
-
+    this.metadata = metaAndDiffs.splice(0, 1);
+    this.getMeasures(metaAndDiffs[1]);
   }
 
-  populateDifficulties(chart) {
-    chart.forEach((diff, i) => {
-      if (i !== 0) {
-        this.difficulties.push(diff)
-      }
-    })
-  }
-
-  getChart(difficulty) {
+  getMeasures(difficulty) {
     let chart = {};
-    let measure = false;
-    while (!measure) {
-
+    let measure = 0;
+    for (let g = 10; g < difficulty.length; g++) {
+      let line = difficulty[g];
+      if (line.startsWith(',') || line.startsWith('//')) {
+        measure += 1
+        continue
+      } else if (line.startsWith('0') || line.startsWith('1')) {
+        chart[measure] ||= [];
+        chart[measure].push(line)
+      } else {
+        continue;
+      }
     }
-    
+    console.log(chart)
   }
 }
 
