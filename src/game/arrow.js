@@ -6,7 +6,7 @@ class Arrow extends OnScreenElement {
     this.game = arrowOpts['game'];
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
-    this.pos = [50, 50];
+    this.pos = arrowOpts['position'];
     this.setHorizPos();
     // even though velocity has 2 nums, we'll only be using the Y since arrows
     // will only be moving upwards
@@ -51,6 +51,11 @@ class Arrow extends OnScreenElement {
       ctx.drawImage(img, -img.width / 2, -img.height / 2);
     })
     img.src = this.imgUrl;
+  }
+
+  move() {
+    let [x, y] = this.pos;
+    let [a, b] = this.velocity;
   }
 
   // This is hard-coded for 4 panels, need to refactor to make scalable

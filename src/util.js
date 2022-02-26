@@ -5,18 +5,20 @@ const Util = {
     let targetOpts = {
       imgUrl: '/assets/images/Arrow.png',
       velocity: [0, 0],
+      position: [50, 50],
       target: true
     };
     return targetOpts
   },
 
   arrowOpts() {
-    let targetOpts = {
+    let arrowOpts = {
       imgUrl: '/assets/images/Arrow.png',
       velocity: [0, 0],
-      target: true
+      position: [50, 50],
+      target: false
     };
-    return targetOpts
+    return arrowOpts
   },
 
   createTarget(i) {
