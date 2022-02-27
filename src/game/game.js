@@ -38,9 +38,22 @@ class Game {
   }
 
   moveArrows() {
-    this.arrows.forEach(arrow => arrow.move())
+    this.arrows.forEach(arrow => {
+      arrow.move()
+      if (this.isOutOfBounds(arrow.pos)) this.removeArrow(arrow);
+    })
   }
 
+  removeArrow(arrow) {
+    let removeIndex = this.arrows.indexOf(arrow);
+    this.arrows.splice(removeIndex, 1);
+  }
+
+  checkKeyPress(direction) {
+    // target indices 0 => left, 1 => down, 2 => up, 3 => right
+  }
+
+  // this is only temporary until game_view is working
   startMoving() {
     setInterval(() => {
       this.step();

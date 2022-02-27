@@ -11,8 +11,26 @@ class Target {
   // This is hard-coded for 4 panels, need to refactor to make scalable
   addTargets(num) {
     for (let i = 0; i < num; i++) {
-      let target = Util.createTarget(i);
+      let target = this.createTarget(i);
       this.targets.push(target)
+    }
+  }
+
+  createTarget(i) {
+    let targetOpts = Options.targetOpts()
+    switch (i) {
+      case 0:
+        targetOpts['direction'] = 'left';
+        return new Arrow(targetOpts);
+      case 1:
+        targetOpts['direction'] = 'down';
+        return new Arrow(targetOpts);
+      case 2:
+        targetOpts['direction'] = 'up';
+        return new Arrow(targetOpts);
+      case 3:
+        targetOpts['direction'] = 'right';
+        return new Arrow(targetOpts);
     }
   }
 

@@ -1,4 +1,5 @@
 const Game = require("./game");
+const Keymaster = require('../keymaster.js')
 
 class GameView {
 
@@ -11,5 +12,12 @@ class GameView {
     setInterval(() => {
       
     }, 20);
+  }
+
+  bindKeys() {
+    key('left', () => this.game)
+    key('down', () => this.game)
+    key('up', () => this.game)
+    key('right', () => this.game)
   }
 }
