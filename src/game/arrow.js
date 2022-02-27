@@ -13,7 +13,7 @@ class Arrow extends OnScreenElement {
     this.velocity = arrowOpts['velocity'] || [0, 0];
     this.scale = .25;
     this.size = 268 * this.scale;
-    this.img;
+    this.img = this.setImg();
     this.isATarget = arrowOpts['target'] || false;
     this.quantization;
   }
@@ -37,20 +37,20 @@ class Arrow extends OnScreenElement {
     }
   }
 
-  // This is hard-coded for 4 panels. need to refactor to make scalable
-  render(ctx) {
+  setImg() {
     let img = new Image();
-    let rotation = this.rotation;
-    let [x, y] = this.pos;
-    let scale = this.scale;
-
-    // make sure that the image is loaded before trying to draw it
-    img.addEventListener('load', function() {
-      ctx.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
-      ctx.rotate(rotation);
-      ctx.drawImage(img, -img.width / 2, -img.height / 2);
+    img.addEventListener('load', () => {
+      // set scale and origin
+      ctx.setTransform(this.scale, 0, 0, this.scale, this.pos[0], this.pos[1]);
+      ctx.rotate(this.rotation);
     })
     img.src = this.imgUrl;
+    return img;
+  }
+
+  // This is hard-coded for 4 panels. need to refactor to make scalable
+  render(ctx) {
+    ctx.drawImage(this.img, this.pos[0], this.pos[1], this.size, this.size)
   }
 
   move() {
