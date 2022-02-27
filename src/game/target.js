@@ -16,11 +16,11 @@ class Target {
     }
   }
 
-  render(ctx) {
-    this.targets.forEach(tar => {
-      tar.render(ctx)
-    })
-  }
+  // render(ctx) {
+  //   this.targets.forEach(tar => {
+  //     tar.render(ctx)
+  //   })
+  // }
 
   checkHit(arrow) {
     this.targets.forEach(tar => {

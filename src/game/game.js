@@ -42,8 +42,8 @@ class Game {
 
   startMoving() {
     setInterval(() => {
-      this.drawArrows(ctx);
       this.step();
+      this.drawArrows(ctx);
     }, 20)
   }
 }
