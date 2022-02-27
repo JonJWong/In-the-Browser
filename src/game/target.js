@@ -1,5 +1,6 @@
 const Arrow = require('./arrow.js');
-const Util = require('../util.js');
+const Options = require('./options.js');
+const Util = require('../util.js')
 
 class Target {
   constructor(num) {
@@ -17,7 +18,7 @@ class Target {
 
   render(ctx) {
     this.targets.forEach(tar => {
-      tar.draw(ctx)
+      tar.render(ctx)
     })
   }
 

@@ -38,7 +38,7 @@ class Arrow extends OnScreenElement {
   }
 
   // This is hard-coded for 4 panels. need to refactor to make scalable
-  draw(ctx) {
+  render(ctx) {
     let img = new Image();
     let rotation = this.rotation;
     let [x, y] = this.pos;
@@ -56,6 +56,7 @@ class Arrow extends OnScreenElement {
   move() {
     let [x, y] = this.pos;
     let [a, b] = this.velocity;
+    this.pos = [x + a, y + b];
   }
 
   // This is hard-coded for 4 panels, need to refactor to make scalable

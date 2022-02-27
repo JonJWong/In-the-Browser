@@ -1,7 +1,6 @@
 const Arrow = require('./arrow.js');
-const Target = require('./arrow.js');
 const Target = require('./target.js');
-const Util = require('/src/util.js');
+const Options = require('./options.js');
 
 class Game {
   constructor(gameOpts) {
@@ -14,16 +13,11 @@ class Game {
   }
 
   addArrow(arrowDirection) {
-    let opts = Util.arrowOpts();
+    let opts = Options.arrowOpts();
     opts['direction'] = arrowDirection;
-    opts['velocity'][1] = this._getArrowSpeed(opts['velocity'], this.speed);
+    opts['velocity'] = [0, -this.speed];
     let newArrow = new Arrow(opts);
     this.arrows.push(newArrow);
-  }
-
-  _getArrowSpeed(vel, speed) {
-    let original = vel[1];
-    return original + speed;
   }
 
   isOutOfBounds(pos) {
@@ -31,7 +25,27 @@ class Game {
     return (x > 1000 || y > 1000 || x < 0 || y < 0)
   }
 
-  
+  drawArrows(ctx) {
+    ctx.clearRect(0, 0, 1000, 1000);
+    this.targets.targets.concat(this.arrows).forEach(arrow =>{
+      arrow.render(ctx);
+    })
+  }
+
+  step() {
+    this.moveArrows();
+  }
+
+  moveArrows() {
+    this.arrows.forEach(arrow => arrow.move())
+  }
+
+  startMoving() {
+    setInterval(() => {
+      this.drawArrows(ctx);
+      this.step();
+    }, 20)
+  }
 }
 
 module.exports = Game;
