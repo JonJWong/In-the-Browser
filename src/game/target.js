@@ -16,12 +16,6 @@ class Target {
     }
   }
 
-  // render(ctx) {
-  //   this.targets.forEach(tar => {
-  //     tar.render(ctx)
-  //   })
-  // }
-
   checkHit(arrow) {
     this.targets.forEach(tar => {
       // if the arrows are in the same lane

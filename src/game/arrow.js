@@ -39,9 +39,6 @@ class Arrow extends OnScreenElement {
 
   preloadImg() {
     let img = new Image();
-    img.addEventListener('load', () => {
-      // set scale and origin
-    })
     img.src = this.imgUrl;
     return img;
   }
@@ -91,19 +88,15 @@ class Arrow extends OnScreenElement {
 
   colorPicker() {
     let color = "";
-    if (!this.isATarget) {
-      color = "grey"
-    } else {
-      switch (this.quantization) {
-        case 4:
+    switch (this.quantization) {
+      case 4:
 
-        case 8:
+      case 8:
 
-        case 16:
+      case 16:
 
-        case 32:
+      case 32:
 
-      }
     }
   }
 }

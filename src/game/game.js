@@ -26,7 +26,6 @@ class Game {
   }
 
   drawArrows(ctx) {
-    ctx.setTransform(1,0,0,1,0,0)
     ctx.clearRect(0, 0, 1000, 1000);
     this.targets.targets.concat(this.arrows).forEach(arrow =>{
       arrow.render(ctx);
@@ -35,6 +34,7 @@ class Game {
 
   step() {
     this.moveArrows();
+    // add code here to check for hits later?
   }
 
   moveArrows() {
