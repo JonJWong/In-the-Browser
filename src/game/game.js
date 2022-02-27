@@ -5,10 +5,10 @@ const Options = require('./options.js');
 class Game {
   constructor(gameOpts) {
     this.score = 0;
+    // need to change this to come from the chart instead;
     this.maxScore = gameOpts['numNotes'] * 5;
     this.targets = new Target(gameOpts['numTargets']);
     this.arrows = [];
-    this.targets = new Target(4);
     this.speed = gameOpts['speed']; // arrow velocity
   }
 
@@ -51,6 +51,11 @@ class Game {
 
   checkKeyPress(direction) {
     // target indices 0 => left, 1 => down, 2 => up, 3 => right
+
+  }
+
+  preloadBg() {
+    let img = new Image();
   }
 
   // this is only temporary until game_view is working

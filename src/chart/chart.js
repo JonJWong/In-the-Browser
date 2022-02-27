@@ -3,6 +3,7 @@ class Chart {
     this.directory = chartOpts['stepDir'];
     this.audio = chartOpts['audioDir'];
     this.metadata;
+    this.numNotes = 0;
     this.difficulties = [];
     this.getChartInfo(this.directory);
   }
@@ -44,7 +45,8 @@ class Chart {
     let chart = {
       "steps": steps,
       "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
-      "rating": difficulty[6].slice(7, difficulty[6].length - 1)
+      "rating": difficulty[6].slice(7, difficulty[6].length - 1),
+      "stepCount": 0
     };
     let measure = 0;
     for (let g = 10; g < difficulty.length; g++) {
@@ -55,6 +57,11 @@ class Chart {
       } else if ('01234M'.includes(line[0])) {
         steps[measure] ||= [];
         steps[measure].push(line)
+        for (let i = 0; i < line.length; i++) {
+          if (line[i] === '1' || line[i] === '2') {
+            chart["stepCount"] += 1
+          }
+        }
       } else {
         continue;
       }

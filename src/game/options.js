@@ -20,6 +20,22 @@ const Options = {
     };
     return arrowOpts
   },
+
+  chartOpts() {
+    let chartOpts = {
+      stepDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ssc',
+      audioDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ogg'
+    }
+    return chartOpts;
+  },
+
+  gameOpts() {
+    let gameOpts = {
+      numTargets: 4,
+      speed: 5,
+    }
+    return gameOpts;
+  }
 }
 
 module.exports = Options;

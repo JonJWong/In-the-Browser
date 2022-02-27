@@ -14,9 +14,9 @@ class GameView {
   }
 
   bindKeys() {
-    key('left', () => this.game)
-    key('down', () => this.game)
-    key('up', () => this.game)
-    key('right', () => this.game)
+    key('left', () => this.game.checkKeyPress('left'));
+    key('down', () => this.game.checkKeyPress('down'));
+    key('up', () => this.game.checkKeyPress('up'));
+    key('right', () => this.game.checkKeyPress('right'));
   }
 }
