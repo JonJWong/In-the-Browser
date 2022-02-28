@@ -32,7 +32,8 @@ const Options = {
     let gameOpts = {
       numTargets: 4,
       speed: 5,
-      chartOpts: this.chartOpts()
+      chartOpts: this.chartOpts(),
+      difficulty: 9
     }
     return gameOpts;
   }

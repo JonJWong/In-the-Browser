@@ -41,16 +41,6 @@ class Chart {
     })
   }
 
-  selectDifficulty(rating) {
-    let selected;
-    this.difficulties.forEach(diff => {
-      Object.keys(diff).forEach(key => {
-        if (diff['rating'] === rating) selected = diff;
-      })
-    })
-    return selected
-  }
-
   getMeasures(difficulty) {
     let steps = {};
     let chart = {

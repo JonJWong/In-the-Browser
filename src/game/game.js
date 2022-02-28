@@ -13,6 +13,7 @@ class Game {
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
+    this.getStepsAndCount(gameOpts['difficulty']);
 
     this.bg = new Image();
     this.bg.src = this.chart.background;
@@ -24,6 +25,20 @@ class Game {
     opts['velocity'] = [0, -this.speed];
     let newArrow = new Arrow(opts);
     this.arrows.push(newArrow);
+  }
+
+  getStepsAndCount(rating) {
+    let difficulty;
+    let stepCount = 0;
+    this.chart.difficulties.forEach(diff => {
+      if (diff["rating"] === rating){
+        const correct = diff;
+        difficulty = correct["steps"];
+        stepCount = diff["stepCount"];
+      }
+    })
+    this.difficulty = difficulty;
+    this.stepCount = stepCount * 5;
   }
 
   isOutOfBounds(pos) {
