@@ -8,7 +8,7 @@ class Arrow extends OnScreenElement {
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = arrowOpts['position'];
-    this.scale = .25;
+    this.scale = .35;
     this.size = 268 * this.scale;
     this.setHorizPos();
     // even though velocity has 2 nums, we'll only be using the Y since arrows
@@ -24,7 +24,7 @@ class Arrow extends OnScreenElement {
 
   setHorizPos() {
     const startPos = this.pos[0];
-    const gap = 75;
+    const gap = 103;
     switch(this.direction) {
       case 'left':
         this.pos[0] = startPos + (gap * 0);
