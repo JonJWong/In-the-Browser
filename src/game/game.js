@@ -13,7 +13,6 @@ class Game {
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
-    this.getStepsAndCount(gameOpts['difficulty']);
 
     this.bg = new Image();
     this.bg.src = this.chart.background;
@@ -38,7 +37,7 @@ class Game {
       }
     })
     this.difficulty = difficulty;
-    this.stepCount = stepCount * 5;
+    this.maxScore = stepCount * 5;
   }
 
   isOutOfBounds(pos) {
