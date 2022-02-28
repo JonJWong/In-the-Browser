@@ -41,7 +41,6 @@ class Game {
 
   step() {
     this.moveArrows();
-    // add code here to check for hits later?
   }
 
   moveArrows() {

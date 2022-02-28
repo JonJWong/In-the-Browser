@@ -1,7 +1,7 @@
 class Chart {
   constructor(chartOpts) {
     this.directory = chartOpts['stepDir'];
-    this.audio = chartOpts['audioDir'];
+    this.audio = new Audio(chartOpts['audioDir']);
     this.background = chartOpts['bgDir'];
     this.metadata;
     this.difficulties = [];

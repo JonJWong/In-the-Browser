@@ -14,6 +14,15 @@ class GameView {
     }, 20);
   }
 
+  playAudio() {
+    this.audio = this.game.chart.audio;
+    this.audio.play();
+  }
+
+  changeVolume(num) {
+    this.audio.volume = num;
+  }
+
   bindKeys() {
     key('left', () => this.game.checkKeyPress('left'));
     key('down', () => this.game.checkKeyPress('down'));
