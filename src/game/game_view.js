@@ -1,5 +1,6 @@
 const Game = require("./game");
-const Keymaster = require('../keymaster.js')
+const Options = require('/src/game/options.js');
+const Keymaster = require('../keymaster.js');
 
 class GameView {
   constructor(gameOpts) {
@@ -8,7 +9,7 @@ class GameView {
   }
 
   start() {
-    // 7392 + 9 ms from start of audio to first note
+    this.game.getStepsAndCount(Options.gameOpts()['difficulty'])
     this.playAudio();
     this.changeVolume(.05);
     setInterval(() => {

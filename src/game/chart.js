@@ -47,7 +47,8 @@ class Chart {
       "steps": steps,
       "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
       "rating": parseInt(difficulty[6].slice(7, difficulty[6].length - 1)),
-      "stepCount": 0
+      "stepCount": 0,
+      "startPoint": 0
     };
     let measure = 0;
     for (let g = 10; g < difficulty.length; g++) {
@@ -56,6 +57,10 @@ class Chart {
         measure += 1
         continue
       } else if ('01234M'.includes(line[0])) {
+        if (!chart['startPoint'] 
+          && (line.includes('1') || line.includes('2') || line.includes('4'))){
+          chart['startPoint'] = measure;
+          }  
         steps[measure] ||= [];
         steps[measure].push(line)
         for (let i = 0; i < line.length; i++) {
@@ -67,6 +72,7 @@ class Chart {
         continue;
       }
     }
+    chart['measureCount'] = measure;
     return chart
   }
 }

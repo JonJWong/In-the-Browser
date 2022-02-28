@@ -111,7 +111,7 @@ class Game {
 
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
-  getJudgement(distance) {
+  getJudgementAddScore(distance) {
     if (distance < 0) distance = -distance;
     switch (true) {
       case (distance < 5):
@@ -160,12 +160,39 @@ class Game {
     }
   }
 
-  // this is only temporary until game_view is working
-  startMoving() {
-    setInterval(() => {
-      this.step();
-      this.drawArrows(ctx);
-    }, 20)
+  // 7392 + 9 ms from start of audio to first note
+  // distance from targets from spawn is 960-150 (= 810)
+  // with speed(5) it takes 162 ticks to get to the top, with each tick as 20ms
+  // formula timeToTop = (distance / speed) * tick-delay
+  // formula timeToStart = 7392 + 9 - timeToTop (?)
+  // 3240ms to travel from bottom to miss
+  // 462ms 1/4 notes @ 130bpm
+  // 231ms 1/8 notes @ 130bpm
+  // 115ms 1/16 notes @ 130bpm
+  // 58ms 1/32 notes @ 130bpm
+  // async delay should take in bpm
+  delay(bpm, quantization) {
+    // 1 minute / bpm = quarter note in ms
+    const minuteInMs = 60000;
+    let delay = 0;
+    switch (quantization) {
+      case 4:
+        delay = (minuteInMs / (bpm * 1))
+      case 8:
+        delay = (minuteInMs / (bpm * 2))
+      case 16:
+        delay = (minuteInMs / (bpm * 4))
+      case 32:
+        delay = (minuteInMs / (bpm * 8))
+    }
+    setTimeout(() => {
+    }, delay)
+  }
+
+  async placeArrowsFromChart() {
+    for (let i = 0; i < Object.keys(this.difficulty).length; i++) {
+      
+    }
   }
 }
 
