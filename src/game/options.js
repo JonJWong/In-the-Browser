@@ -23,7 +23,7 @@ const Options = {
     let chartOpts = {
       stepDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ssc',
       audioDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ogg',
-      bgDir: '/assets/chart/drop_pop_candy/drop_pop_candy_bg_wide.png'
+      bgDir: '/assets/chart/drop_pop_candy/drop_pop_candy_bg.png'
     }
     return chartOpts;
   },

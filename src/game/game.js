@@ -29,10 +29,10 @@ class Game {
     let [x, y] = pos;
     return (x > 1000 || y > 1000 || x < 0 || y < 0)
   }
-
+  
   drawArrows(ctx) {
-    ctx.clearRect(0, 0, 1000, 1000);
-    ctx.drawImage(this.bg, 0, 0)
+    ctx.clearRect(0, 0, 1280, 960);
+    ctx.drawImage(this.bg, 0, 0, 1280, 960)
     this.targets.concat(this.arrows).forEach(arrow =>{
       arrow.render(ctx);
     })
