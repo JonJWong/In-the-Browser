@@ -46,7 +46,10 @@ class Game {
   moveArrows() {
     this.arrows.forEach(arrow => {
       arrow.move()
-      if (this.isOutOfBounds(arrow.pos)) this.removeArrow(arrow);
+      if (this.isOutOfBounds(arrow.pos)) {
+        this.removeArrow(arrow);
+        this.score -= 13;
+      };
     })
   }
 
@@ -57,11 +60,39 @@ class Game {
 
   
   checkKeyPress(direction) {
+    const target = this.targets[directionToIndex[direction]]
     // target indices left: 0, down: 1, up: 2, right: 3
-    // change this for a traditional for loop so you can delete arrow[i] when you hit it
-    for (const arrow of this.arrows) {
-      const target = this.targets[directionToIndex[direction]];
+    for (let i = 0; i < this.arrows.length; i++) {
+      let arrow = this.arrows[i];
+      if (arrow.direction === direction) {
+        let distance = target.getDistance(arrow);
+        console.log(`distance = ${distance}`)
+        console.log(`judgement = ${this.getJudgement(distance)}`);
+        console.log(`score = ${this.score}`)
+        this.removeArrow(arrow)
+      }
+    }
+  }
 
+  // currently hard-coded for distance, need to figure out how to do this
+  // with ms timing later?
+  getJudgement(distance) {
+    switch (true) {
+      case (distance < 10):
+        this.score += 5;
+        return 'fantastic'
+      case (distance < 20):
+        this.score += 4;
+        return 'excellent'
+      case (distance < 40):
+        this.score += 2;
+        return 'great'
+      case (distance < 70):
+        this.score += 0;
+        return 'decent'
+      case (distance < 90):
+        this.score -= 4;
+        return 'way off'
     }
   }
 

@@ -9,7 +9,8 @@ class GameView {
 
   start() {
     setInterval(() => {
-      
+      this.game.step();
+      this.game.drawArrows(ctx);
     }, 20);
   }
 
@@ -20,3 +21,5 @@ class GameView {
     key('right', () => this.game.checkKeyPress('right'));
   }
 }
+
+module.exports = GameView;
