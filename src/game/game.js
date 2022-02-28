@@ -3,6 +3,7 @@ const Options = require('./options.js');
 const Chart = require('./chart.js');
 
 const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
+const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
 
 class Game {
   constructor(gameOpts) {
@@ -18,11 +19,11 @@ class Game {
     this.bg.src = this.chart.background;
   }
 
-  addArrow(arrowDirection) {
-    let opts = Options.arrowOpts();
-    opts['direction'] = arrowDirection;
-    opts['velocity'] = [0, -this.speed];
-    let newArrow = new Arrow(opts);
+  addArrow(arrowDirection, arrowOpts) {
+    arrowOpts ||= Options.arrowOpts();
+    arrowOpts['direction'] = arrowDirection;
+    arrowOpts['velocity'] = [0, -this.speed];
+    let newArrow = new Arrow(arrowOpts);
     this.arrows.push(newArrow);
   }
 
@@ -31,13 +32,14 @@ class Game {
     let stepCount = 0;
     this.chart.difficulties.forEach(diff => {
       if (diff["rating"] === rating){
-        const correct = diff;
-        difficulty = correct["steps"];
+        difficulty = diff;
         stepCount = diff["stepCount"];
       }
     })
     this.difficulty = difficulty;
+    this.steps = difficulty["steps"];
     this.maxScore = stepCount * 5;
+    this.bpm = parseInt(this.chart.metadata[0][23].slice(12))
   }
 
   isOutOfBounds(pos) {
@@ -141,8 +143,8 @@ class Game {
     return targets;
   }
 
-  createTarget(i) {
-    let targetOpts = Options.targetOpts()
+  createTarget(i, targetOpts) {
+    targetOpts ||= Options.targetOpts()
     targetOpts['game'] = this;
     switch (i) {
       case 0:
@@ -189,9 +191,24 @@ class Game {
     }, delay)
   }
 
-  async placeArrowsFromChart() {
-    for (let i = 0; i < Object.keys(this.difficulty).length; i++) {
-      
+  placeArrowsFromChart() {
+    for (let i = 1; i < this.difficulty.measureCount; i++) {
+      const measure = this.steps['i'];
+      console.log(measure);
+      const quantization = measure.length;
+      measure.forEach((beat, j) => {
+        switch(beat[j]) {
+          case '1':
+            this.game.addArrow(indexToDirection['j']);
+            delay(this.bpm, quantization);
+          case '2':
+            this.game.addArrow(indexToDirection['j']);
+            delay(this.bpm, quantization);
+          case '4':
+            this.game.addArrow(indexToDirection['j']);
+            delay(this.bpm, quantization);
+        }
+      })
     }
   }
 }

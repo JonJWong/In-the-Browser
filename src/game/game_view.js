@@ -1,15 +1,15 @@
 const Game = require("./game");
-const Options = require('/src/game/options.js');
 const Keymaster = require('../keymaster.js');
 
 class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
+    this.difficulty = gameOpts['difficulty'];
     this.ctx = ctx;
   }
 
   start() {
-    this.game.getStepsAndCount(Options.gameOpts()['difficulty'])
+    this.game.getStepsAndCount(this.difficulty)
     this.playAudio();
     this.changeVolume(.05);
     setInterval(() => {
