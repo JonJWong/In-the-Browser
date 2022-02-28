@@ -41,12 +41,22 @@ class Chart {
     })
   }
 
+  selectDifficulty(rating) {
+    let selected;
+    this.difficulties.forEach(diff => {
+      Object.keys(diff).forEach(key => {
+        if (diff['rating'] === rating) selected = diff;
+      })
+    })
+    return selected
+  }
+
   getMeasures(difficulty) {
     let steps = {};
     let chart = {
       "steps": steps,
       "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
-      "rating": difficulty[6].slice(7, difficulty[6].length - 1),
+      "rating": parseInt(difficulty[6].slice(7, difficulty[6].length - 1)),
       "stepCount": 0
     };
     let measure = 0;

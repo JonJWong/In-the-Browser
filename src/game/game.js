@@ -67,7 +67,7 @@ class Game {
       if (this.isOutOfBounds(arrow.pos)) {
         console.log("MISS")
         this.removeArrow(arrow);
-        this.score -= 13;
+        this.score -= 12;
         this.combo = 0;
       };
     })
@@ -113,7 +113,7 @@ class Game {
         this.score += 0;
         return 'DECENT'
       case (distance < 60):
-        this.score -= 4;
+        this.score -= 6;
         return 'WAY OFF'
     }
   }

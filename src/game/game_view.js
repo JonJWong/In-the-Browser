@@ -8,7 +8,9 @@ class GameView {
   }
 
   start() {
+    // 7392 + 9 ms from start of audio to first note
     this.playAudio();
+    this.changeVolume(.05);
     setInterval(() => {
       this.game.step();
       this.game.drawArrows(ctx);
