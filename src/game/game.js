@@ -51,22 +51,18 @@ class Game {
   }
 
   removeArrow(arrow) {
-    let removeIndex = this.arrows.indexOf(arrow);
+    const removeIndex = this.arrows.indexOf(arrow);
     this.arrows.splice(removeIndex, 1);
   }
 
   
   checkKeyPress(direction) {
-    // target indices 0 => left, 1 => down, 2 => up, 3 => right
-    for (let i = 0; i < this.arrows.length; i++) {
-      const target = this.targets[j];
-      // working on this
-      directionToIndex[direction];
+    // target indices left: 0, down: 1, up: 2, right: 3
+    // change this for a traditional for loop so you can delete arrow[i] when you hit it
+    for (const arrow of this.arrows) {
+      const target = this.targets[directionToIndex[direction]];
+
     }
-  }
-
-  hitArrow(direction) {
-
   }
 
   addTargets(num) {
@@ -95,16 +91,6 @@ class Game {
         targetOpts['direction'] = 'right';
         return new Arrow(targetOpts);
     }
-  }
-
-  checkHit(arrow) {
-    this.targets.forEach(tar => {
-      // if the arrows are in the same lane
-      if (this.pos[1] === arrow.pos[1]){
-        let dist = tar.getDistance(arrow);
-        return dist < 65
-      }
-    })
   }
 
   // this is only temporary until game_view is working
