@@ -1,5 +1,4 @@
 const Arrow = require('./arrow.js');
-const Target = require('./target.js');
 const Options = require('./options.js');
 
 class Game {
@@ -7,7 +6,7 @@ class Game {
     this.score = 0;
     // need to change this to come from the chart instead;
     this.maxScore = gameOpts['numNotes'] * 5;
-    this.targets = new Target(gameOpts['numTargets']);
+    this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
   }
@@ -27,7 +26,7 @@ class Game {
 
   drawArrows(ctx) {
     ctx.clearRect(0, 0, 1000, 1000);
-    this.targets.targets.concat(this.arrows).forEach(arrow =>{
+    this.targets.concat(this.arrows).forEach(arrow =>{
       arrow.render(ctx);
     })
   }
@@ -51,11 +50,71 @@ class Game {
 
   checkKeyPress(direction) {
     // target indices 0 => left, 1 => down, 2 => up, 3 => right
+    let j;
+    switch (direction) {
+      case 'left':
+        j = 0;
+        break;
+      case 'down':
+        j = 1;
+        break;
+      case 'up':
+        j = 2;
+        break;
+      case 'right':
+        j = 3;
+        break;
+    }
+    for (let i = 0; i < this.arrows.length; i++) {
+      const target = this.targets[j];
+      
+    }
+  }
+
+  hitArrow(direction) {
 
   }
 
   preloadBg() {
     let img = new Image();
+  }
+
+  addTargets(num) {
+    const targets = [];
+    for (let i = 0; i < num; i++) {
+      let target = this.createTarget(i);
+      targets.push(target)
+    }
+    return targets;
+  }
+
+  createTarget(i) {
+    let targetOpts = Options.targetOpts()
+    targetOpts['game'] = this;
+    switch (i) {
+      case 0:
+        targetOpts['direction'] = 'left';
+        return new Arrow(targetOpts);
+      case 1:
+        targetOpts['direction'] = 'down';
+        return new Arrow(targetOpts);
+      case 2:
+        targetOpts['direction'] = 'up';
+        return new Arrow(targetOpts);
+      case 3:
+        targetOpts['direction'] = 'right';
+        return new Arrow(targetOpts);
+    }
+  }
+
+  checkHit(arrow) {
+    this.targets.forEach(tar => {
+      // if the arrows are in the same lane
+      if (this.pos[1] === arrow.pos[1]){
+        let dist = tar.getDistance(arrow);
+        return dist < 65
+      }
+    })
   }
 
   // this is only temporary until game_view is working

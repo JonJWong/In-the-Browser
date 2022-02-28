@@ -1,5 +1,3 @@
-const Arrow = require('./arrow.js');
-
 const Options = {
   targetOpts() {
     let targetOpts = {

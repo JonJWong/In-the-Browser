@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   const Game = require('/src/game/game.js');
   const Util = require('/src/util.js')
-  const Chart = require('/src/chart/chart.js')
+  const Chart = require('/src/game/chart.js')
   window.Game = Game;
   window.Util = Util;
   window.Chart = Chart;
@@ -17,8 +17,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.g = new Game(gameOpts);
   // g.startMoving();
 
-  const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
-  let dpc = new Chart(opts);
-  dpc
+  // const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
+  // let dpc = new Chart(opts);
+  // dpc
   console.log('DOM fully loaded and parsed');
 })
