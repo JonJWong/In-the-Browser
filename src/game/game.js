@@ -1,14 +1,20 @@
 const Arrow = require('./arrow.js');
 const Options = require('./options.js');
+const Chart = require('./chart.js');
+
+const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
 
 class Game {
   constructor(gameOpts) {
     this.score = 0;
+    this.chart = new Chart(gameOpts['chartOpts']);
     // need to change this to come from the chart instead;
-    this.maxScore = gameOpts['numNotes'] * 5;
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
+
+    this.bg = new Image();
+    this.bg.src = this.chart.background;
   }
 
   addArrow(arrowDirection) {
@@ -26,6 +32,7 @@ class Game {
 
   drawArrows(ctx) {
     ctx.clearRect(0, 0, 1000, 1000);
+    ctx.drawImage(this.bg, 0, 0)
     this.targets.concat(this.arrows).forEach(arrow =>{
       arrow.render(ctx);
     })
@@ -48,35 +55,18 @@ class Game {
     this.arrows.splice(removeIndex, 1);
   }
 
+  
   checkKeyPress(direction) {
     // target indices 0 => left, 1 => down, 2 => up, 3 => right
-    let j;
-    switch (direction) {
-      case 'left':
-        j = 0;
-        break;
-      case 'down':
-        j = 1;
-        break;
-      case 'up':
-        j = 2;
-        break;
-      case 'right':
-        j = 3;
-        break;
-    }
     for (let i = 0; i < this.arrows.length; i++) {
       const target = this.targets[j];
-      
+      // working on this
+      directionToIndex[direction];
     }
   }
 
   hitArrow(direction) {
 
-  }
-
-  preloadBg() {
-    let img = new Image();
   }
 
   addTargets(num) {

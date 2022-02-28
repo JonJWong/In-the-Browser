@@ -3,16 +3,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.ctx = canvasEl.getContext('2d');
 
   const Game = require('/src/game/game.js');
-  const Util = require('/src/util.js')
-  const Chart = require('/src/game/chart.js')
+  const Util = require('/src/util.js');
+  const Options = require('/src/game/options.js');
+  const Chart = require('/src/game/chart.js');
   window.Game = Game;
   window.Util = Util;
+  window.Options = Options;
   window.Chart = Chart;
 
-  const gameOpts = {
-    numTargets: 4,
-    speed: 5,
-  }
+  const gameOpts = Options.gameOpts();
 
   window.g = new Game(gameOpts);
   // g.startMoving();

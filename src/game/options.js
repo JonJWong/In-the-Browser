@@ -22,7 +22,8 @@ const Options = {
   chartOpts() {
     let chartOpts = {
       stepDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ssc',
-      audioDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ogg'
+      audioDir: '/assets/chart/drop_pop_candy/drop_pop_candy.ogg',
+      bgDir: '/assets/chart/drop_pop_candy/drop_pop_candy_bg_wide.png'
     }
     return chartOpts;
   },
@@ -31,6 +32,7 @@ const Options = {
     let gameOpts = {
       numTargets: 4,
       speed: 5,
+      chartOpts: this.chartOpts()
     }
     return gameOpts;
   }
