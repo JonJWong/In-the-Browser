@@ -3,7 +3,7 @@ const Options = {
     let targetOpts = {
       imgUrl: '/assets/images/Arrow.png',
       velocity: [0, 0],
-      position: [50, 50],
+      position: [50, 150],
       target: true
     };
     return targetOpts

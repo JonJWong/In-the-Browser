@@ -7,6 +7,7 @@ const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
 class Game {
   constructor(gameOpts) {
     this.score = 0;
+    this.combo = 0;
     this.chart = new Chart(gameOpts['chartOpts']);
     // need to change this to come from the chart instead;
     this.targets = this.addTargets(gameOpts['numTargets']);
@@ -27,7 +28,7 @@ class Game {
 
   isOutOfBounds(pos) {
     let [x, y] = pos;
-    return (x > 1000 || y > 1000 || x < 0 || y < 0)
+    return (x > 1000 || y > 1000 || x < 90 || y < 90)
   }
   
   drawArrows(ctx) {
@@ -49,6 +50,7 @@ class Game {
       if (this.isOutOfBounds(arrow.pos)) {
         this.removeArrow(arrow);
         this.score -= 13;
+        this.combo = 0;
       };
     })
   }
@@ -66,10 +68,15 @@ class Game {
       let arrow = this.arrows[i];
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
-        console.log(`distance = ${distance}`)
+        if (distance > 60) break;
+
         console.log(`judgement = ${this.getJudgement(distance)}`);
+        console.log(`distance = ${distance}`)
         console.log(`score = ${this.score}`)
-        this.removeArrow(arrow)
+        
+        this.removeArrow(arrow);
+        this.combo += 1;
+        break;
       }
     }
   }
@@ -77,22 +84,23 @@ class Game {
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
   getJudgement(distance) {
+    if (distance < 0) distance = -distance;
     switch (true) {
-      case (distance < 10):
+      case (distance < 5):
         this.score += 5;
-        return 'fantastic'
-      case (distance < 20):
+        return 'FANTASTIC!'
+      case (distance < 10):
         this.score += 4;
-        return 'excellent'
-      case (distance < 40):
+        return 'EXCELLENT!'
+      case (distance < 20):
         this.score += 2;
-        return 'great'
-      case (distance < 70):
+        return 'GREAT!'
+      case (distance < 45):
         this.score += 0;
-        return 'decent'
-      case (distance < 90):
+        return 'DECENT'
+      case (distance < 60):
         this.score -= 4;
-        return 'way off'
+        return 'WAY OFF'
     }
   }
 
