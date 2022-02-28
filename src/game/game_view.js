@@ -8,6 +8,7 @@ class GameView {
   }
 
   start() {
+    this.playAudio();
     setInterval(() => {
       this.game.step();
       this.game.drawArrows(ctx);

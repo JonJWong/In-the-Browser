@@ -30,17 +30,35 @@ class Game {
     let [x, y] = pos;
     return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
+
+  render(ctx) {
+    ctx.clearRect(0, 0, 1280, 960);
+    this.drawBg(ctx);
+    this.drawTargets(ctx);
+    this.drawArrows(ctx);
+  }
+
+  drawBg(ctx) {
+    ctx.drawImage(this.bg, 0, 0, 1280, 960)
+  }
   
   drawArrows(ctx) {
-    ctx.clearRect(0, 0, 1280, 960);
-    ctx.drawImage(this.bg, 0, 0, 1280, 960)
-    this.targets.concat(this.arrows).forEach(arrow =>{
+    this.arrows.forEach(arrow =>{
       arrow.render(ctx);
     })
   }
 
+  drawTargets(ctx) {
+    this.targets.forEach(target => {
+      target.render(ctx);
+    })
+  }
+
   step() {
+    this.drawBg(ctx);
+    this.drawTargets(ctx);
     this.moveArrows();
+    this.drawArrows(ctx);
   }
 
   moveArrows() {
