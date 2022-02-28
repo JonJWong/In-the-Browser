@@ -28,7 +28,7 @@ class Game {
 
   isOutOfBounds(pos) {
     let [x, y] = pos;
-    return (x > 1000 || y > 1000 || x < 90 || y < 90)
+    return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
   
   drawArrows(ctx) {
@@ -48,6 +48,7 @@ class Game {
     this.arrows.forEach(arrow => {
       arrow.move()
       if (this.isOutOfBounds(arrow.pos)) {
+        console.log("MISS")
         this.removeArrow(arrow);
         this.score -= 13;
         this.combo = 0;
@@ -69,13 +70,9 @@ class Game {
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
-
-        console.log(`judgement = ${this.getJudgement(distance)}`);
-        console.log(`distance = ${distance}`)
-        console.log(`score = ${this.score}`)
-        
         this.removeArrow(arrow);
         this.combo += 1;
+        console.log(this.combo);
         break;
       }
     }
