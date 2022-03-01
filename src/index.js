@@ -15,11 +15,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.Chart = Chart;
 
   const gameOpts = Options.gameOpts();
-
   window.g = new GameView(gameOpts);
   g.bindKeys();
 
-  let button = document.getElementById('start');
+  const button = document.getElementById('start');
   button.addEventListener('click', () => {
     g.start(9);
   })

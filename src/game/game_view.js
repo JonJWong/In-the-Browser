@@ -4,7 +4,6 @@ const Keymaster = require('../keymaster.js');
 class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
-    // this.difficulty = gameOpts['difficulty'];
     this.ctx = ctx;
   }
 
@@ -29,7 +28,6 @@ class GameView {
       this.changeVolume(.05);
     }, startPoint) // this delay is only for the 9
     this.game.startChart();
-    // this.game.chartIteration();
   }
 
   playAudio() {

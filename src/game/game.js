@@ -11,10 +11,7 @@ class Game {
     this.score = 0;
     this.combo = 0;
     this.chart = new Chart(gameOpts['chartOpts']);
-    // if (!this.chart.difficulty) {
 
-    // }
-    // debugger
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
@@ -54,7 +51,7 @@ class Game {
     this.difficulty = difficulty;
     this.steps = difficulty["steps"];
     this.maxScore = stepCount * 5;
-    this.bpm = parseInt(this.chart.metadata[0][23].slice(12))
+    this.bpm = parseInt(this.chart.metadata[23].slice(11))
   }
 
   isOutOfBounds(pos) {

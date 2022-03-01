@@ -3,15 +3,15 @@ class Chart {
     this.directory = chartOpts['stepDir'];
     this.audio = new Audio(chartOpts['audioDir']);
     this.background = chartOpts['bgDir'];
+    this.banner = chartOpts['bannerDir'];
     this.metadata;
     this.difficulties = [];
-    // this.syncChart();
-    this.getChartInfo(this.directory);
+    this.syncChart();
   }
 
-  // syncChart() {
-  //   this.getChartInfo(this.directory)
-  // }
+  syncChart() {
+    this.getChartInfo(this.directory)
+  }
   
   async getChartInfo(dir) {
     // let chart = await fetch('../../assets/chart/drop_pop_candy/drop_pop_candy.ssc').then(res => res.text());
@@ -36,20 +36,15 @@ class Chart {
       }
       metaAndDiffs.push(currentPart)
     }
-    
-    this.metadata = metaAndDiffs.slice(0, 1);
-    // debugger
+
+    this.metadata = metaAndDiffs[0].map(datum => {
+      return datum.slice(1, datum.length - 1)
+    });
+
     for (let i = 1; i < metaAndDiffs.length; i++) {
       const diff = metaAndDiffs[i];
       this.difficulties.push(this.getMeasures(diff))
-      // debugger
     }
-
-    // metaAndDiffs.forEach((diff, i) => {
-    //   if (i !== 0) {
-    //     this.difficulties.push(this.getMeasures(diff))
-    //   }
-    // })
   }
 
   getMeasures(difficulty) {
