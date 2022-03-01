@@ -18,11 +18,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   window.g = new GameView(gameOpts);
   g.bindKeys();
-  g.start();
-  // g.startMoving();
 
-  // const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
-  // let dpc = new Chart(opts);
-  // dpc
+  let button = document.getElementById('start');
+  button.addEventListener('click', () => {
+    g.start(9);
+  })
   console.log('DOM fully loaded and parsed');
 })

@@ -11,7 +11,10 @@ class Game {
     this.score = 0;
     this.combo = 0;
     this.chart = new Chart(gameOpts['chartOpts']);
+    // if (!this.chart.difficulty) {
 
+    // }
+    // debugger
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity

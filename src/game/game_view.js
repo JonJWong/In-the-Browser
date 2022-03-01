@@ -4,20 +4,32 @@ const Keymaster = require('../keymaster.js');
 class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
-    this.difficulty = gameOpts['difficulty'];
+    // this.difficulty = gameOpts['difficulty'];
     this.ctx = ctx;
   }
 
-  start() {
-    this.game.getStepsAndCount(this.difficulty)
+  start(difficulty) {
+    // optimized for the 9 idk
+    this.game.getStepsAndCount(difficulty);
+    let startPoint = 0;
+    switch (difficulty) {
+      case 2: case 3:
+        startPoint = 5088;
+        break;
+      case 6: case 8: case 9:
+        startPoint = 3240;
+        break;
+    }
     setInterval(() => {
       this.game.step();
     }, 20);
+    console.log(startPoint)
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.05);
-    }, 3240) // this delay is only for the 9
+    }, startPoint) // this delay is only for the 9
     this.game.startChart();
+    // this.game.chartIteration();
   }
 
   playAudio() {

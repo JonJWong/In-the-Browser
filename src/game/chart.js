@@ -5,9 +5,14 @@ class Chart {
     this.background = chartOpts['bgDir'];
     this.metadata;
     this.difficulties = [];
+    // this.syncChart();
     this.getChartInfo(this.directory);
   }
 
+  // syncChart() {
+  //   this.getChartInfo(this.directory)
+  // }
+  
   async getChartInfo(dir) {
     // let chart = await fetch('../../assets/chart/drop_pop_candy/drop_pop_candy.ssc').then(res => res.text());
     let chart = await fetch(dir).then(res => res.text());
@@ -33,12 +38,18 @@ class Chart {
     }
     
     this.metadata = metaAndDiffs.slice(0, 1);
-    
-    metaAndDiffs.forEach((diff, i) => {
-      if (i !== 0) {
-        this.difficulties.push(this.getMeasures(diff))
-      }
-    })
+    // debugger
+    for (let i = 1; i < metaAndDiffs.length; i++) {
+      const diff = metaAndDiffs[i];
+      this.difficulties.push(this.getMeasures(diff))
+      // debugger
+    }
+
+    // metaAndDiffs.forEach((diff, i) => {
+    //   if (i !== 0) {
+    //     this.difficulties.push(this.getMeasures(diff))
+    //   }
+    // })
   }
 
   getMeasures(difficulty) {
