@@ -179,35 +179,30 @@ class Game {
     let delay = 0;
     switch (quantization) {
       case 4:
-        delay = (minuteInMs / (bpm * 1))
+        delay = (minuteInMs / (bpm * 1));
+        break;
       case 8:
-        delay = (minuteInMs / (bpm * 2))
+        delay = (minuteInMs / (bpm * 2));
+        break;
       case 16:
-        delay = (minuteInMs / (bpm * 4))
-      case 32:
-        delay = (minuteInMs / (bpm * 8))
+        delay = (minuteInMs / (bpm * 4));
+        break
+      case 32:;
+        delay = (minuteInMs / (bpm * 8));
+        break;
     }
     setTimeout(() => {
+      console.log(delay);
     }, delay)
   }
 
   placeArrowsFromChart() {
     for (let i = 1; i < this.difficulty.measureCount; i++) {
-      const measure = this.steps['i'];
-      console.log(measure);
+      const measure = this.steps[`${i}`];
       const quantization = measure.length;
-      measure.forEach((beat, j) => {
-        switch(beat[j]) {
-          case '1':
-            this.game.addArrow(indexToDirection['j']);
-            delay(this.bpm, quantization);
-          case '2':
-            this.game.addArrow(indexToDirection['j']);
-            delay(this.bpm, quantization);
-          case '4':
-            this.game.addArrow(indexToDirection['j']);
-            delay(this.bpm, quantization);
-        }
+      measure.forEach(beat => {
+        // console.log(beat);
+        this.delay(this.bpm, quantization)
       })
     }
   }
