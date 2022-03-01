@@ -5,7 +5,15 @@ class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
     this.ctx = ctx;
-    this.prevVolume = 0;
+    this.currVolume = .5;
+    this.startButtonHandler = this.startButtonHandler.bind(this);
+    this.startButton = document.getElementById('start')
+  }
+
+  startButtonHandler() {
+    this.start(9);
+    this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
+    this.startButton.removeEventListener('click', this.startButtonHandler)
   }
 
   start(difficulty) {
@@ -22,11 +30,12 @@ class GameView {
     }
     setInterval(() => {
       this.game.step();
+      this.updateVolumeButtons();
     }, 20);
     console.log(startPoint)
     setTimeout(() => {
       this.playAudio();
-      this.changeVolume(.05);
+      this.changeVolume(.5);
     }, startPoint) // this delay is only for the 9
     this.game.startChart();
   }
@@ -46,6 +55,38 @@ class GameView {
     key('up', () => this.game.checkKeyPress('up'));
     key('right', () => this.game.checkKeyPress('right'));
   }
+
+  // updateVolumeButtons() {
+  //   if (!this.audio) return;
+  //   const buttons = document.getElementsByClassName('vol-btn');
+  //   for (let button of buttons) {
+  //     if (button.id = "mute") {
+  //       if (this.currVolume > 0) {
+  //         button.textContent = "Mute"
+  //       } else {
+  //         button.textContent = "Unmute"
+  //       }
+  //     }
+  //     if (button.id = "vol-down") {
+  //       if (this.currVolume > 0) {
+  //         button.textContent = "Volume Down (Muted)"
+  //       } else if (this.currVolume === 1){
+  //         button.textContent = "Volume Down (MAX)"
+  //       } else {
+  //         button.textContent =  `Volume Down (${this.currVolume})`
+  //       }
+  //     }
+  //     if (button.id = "vol-up") {
+  //       if (this.currVolume === 1) {
+  //         button.textContent = "Volume Up (MAX)"
+  //       } else if (this.currVolume === 0) {
+  //         button.textContent = "Volume Up (Muted)"
+  //       } else {
+  //         button.textContent = `Volume Up (${this.currVolume})`
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 module.exports = GameView;

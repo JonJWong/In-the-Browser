@@ -17,30 +17,41 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const gameOpts = Options.gameOpts();
   window.g = new GameView(gameOpts);
   g.bindKeys();
-
+  
   const startButton = document.getElementById('start');
-  startButton.addEventListener('click', () => {
-    g.start(9);
-  })
   const volDown = document.getElementById('vol-down');
-  volDown.addEventListener('click', () => {
-    g.changeVolume();
-  })
   const volUp = document.getElementById('vol-up');
-  volUp.addEventListener('click', () => {
-    g.changeVolume();
-  })
   const muteButton = document.getElementById('mute');
+
+  startButton.addEventListener('click', g.startButtonHandler)
+
+  volDown.addEventListener('click', () => {
+    if (g.audio) {
+      if (g.currVolume > 0) {
+        g.currVolume -= .1;
+        g.currVolume = Math.round(g.currVolume * 10) / 10;
+        g.changeVolume(g.currVolume);
+      }
+    }
+  })
+
+  volUp.addEventListener('click', () => {
+    if (g.audio) {
+      if (g.currVolume < 1) {
+        g.currVolume += .1;
+        g.currVolume = Math.round(g.currVolume * 10) / 10;
+        g.changeVolume(g.currVolume);
+      }
+    }
+  })
+
   muteButton.addEventListener('click', () => {
     if (g.audio) {
       if (g.audio.volume > 0) {
-        g.prevVolume = g.audio.volume || 0;
+        g.currVolume = g.audio.volume
         g.changeVolume(0);
-        muteButton.textContent = "Unmute"
-      }
-      if (g.audio.volume === 0) {
-        g.changeVolume(g.prevVolume);
-        muteButton.textContent = "Mute"
+      } else {
+        g.changeVolume(g.currVolume);
       }
     }
   })
