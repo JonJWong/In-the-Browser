@@ -193,14 +193,32 @@ class Game {
     return delay
   }
 
+  placeNoteAfterDelay(i, delay) {
+    setTimeout(() => {
+      this.addArrow(indexToDirection[i])
+    }, delay)
+  }
+
   placeArrowsFromChart() {
-    let maxNotes = this.difficulty.stepCount;
     for (let i = 1; i < this.difficulty.measureCount; i++) {
       // MEASURE LOOP
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
       let delay = this.getDelay(this.bpm, quantization);
-      
+      // console.log(measure)
+
+      setTimeout(() => {
+      for (let note of measure) {
+        // BEATS WITHIN MEASURE
+        for (let i = 0; i < 4; i++) {
+          // LANES PER BEAT
+          let lane = note[i];
+          if (lane === "1" || lane === "2" || lane === "4") {
+              this.addArrow(indexToDirection[i])
+            }
+          }
+        }
+      }, delay)
     }
   }
 }
