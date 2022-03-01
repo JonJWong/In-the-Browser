@@ -55,38 +55,6 @@ class GameView {
     key('up', () => this.game.checkKeyPress('up'));
     key('right', () => this.game.checkKeyPress('right'));
   }
-
-  // updateVolumeButtons() {
-  //   if (!this.audio) return;
-  //   const buttons = document.getElementsByClassName('vol-btn');
-  //   for (let button of buttons) {
-  //     if (button.id = "mute") {
-  //       if (this.currVolume > 0) {
-  //         button.textContent = "Mute"
-  //       } else {
-  //         button.textContent = "Unmute"
-  //       }
-  //     }
-  //     if (button.id = "vol-down") {
-  //       if (this.currVolume > 0) {
-  //         button.textContent = "Volume Down (Muted)"
-  //       } else if (this.currVolume === 1){
-  //         button.textContent = "Volume Down (MAX)"
-  //       } else {
-  //         button.textContent =  `Volume Down (${this.currVolume})`
-  //       }
-  //     }
-  //     if (button.id = "vol-up") {
-  //       if (this.currVolume === 1) {
-  //         button.textContent = "Volume Up (MAX)"
-  //       } else if (this.currVolume === 0) {
-  //         button.textContent = "Volume Up (Muted)"
-  //       } else {
-  //         button.textContent = `Volume Up (${this.currVolume})`
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 module.exports = GameView;

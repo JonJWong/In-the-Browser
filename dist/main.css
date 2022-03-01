@@ -1,16 +1,3 @@
-/*!*************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
-  \*************************************************************************************************************************************/
-#game-canvas {
-  background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
-  background-size: cover;
-  margin: 0 auto;
-}
+#game-canvas{background:url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);background-size:cover;margin:0 auto}.game-controls{float:both;display:block;margin:0 auto;padding:20px;list-style:none}
 
-.game-controls {
-  float: both;
-  display: block;
-  margin: 0 auto;
-  padding: 20px;
-  list-style: none;
-}
+/*# sourceMappingURL=main.css.map*/
