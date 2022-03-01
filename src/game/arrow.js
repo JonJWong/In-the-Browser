@@ -17,9 +17,8 @@ class Arrow extends OnScreenElement {
 
     this.img = new Image();
     this.img.src = this.imgUrl;
-
+    this.isAMine = arrowOpts['isAMine'] || false;
     this.isATarget = arrowOpts['target'] || false;
-    this.quantization;
   }
 
   setHorizPos() {
@@ -78,24 +77,6 @@ class Arrow extends OnScreenElement {
     let ourY = this.pos[1];
     let theirY = otherArrow.pos[1];
     return theirY - ourY
-  }
-
-  setQuantization(quantization) {
-    this.quantization = quantization;
-  }
-
-  colorPicker() {
-    let color = "";
-    switch (this.quantization) {
-      case 4:
-
-      case 8:
-
-      case 16:
-
-      case 32:
-
-    }
   }
 }
 

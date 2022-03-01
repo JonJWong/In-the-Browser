@@ -16,8 +16,22 @@ class Game {
     this.speed = gameOpts['speed']; // arrow velocity
   }
 
-  addArrow(arrowDirection) {
+  addArrow(arrowDirection, quantColorNum) {
     const arrowOpts = Options.arrowOpts();
+    switch (quantColorNum) {
+      case 4:
+        arrowOpts['imgUrl'] = 'assets/images/quarter.png';
+        break;
+      case 8:
+        arrowOpts['imgUrl'] = 'assets/images/eighth.png'
+        break;
+      case 16:
+        arrowOpts['imgUrl'] = 'assets/images/sixteenth.png'
+        break;
+      case 'MINE':
+        arrowOpts['imgUrl'] = 'assets/images/mine.png';
+        break;
+    }
     arrowOpts['direction'] = arrowDirection;
     arrowOpts['velocity'] = [0, -this.speed];
     let newArrow = new Arrow(arrowOpts);
@@ -66,11 +80,13 @@ class Game {
   moveArrows() {
     this.arrows.forEach(arrow => {
       arrow.move()
-      if (this.isOutOfBounds(arrow.pos)) {
-        console.log("MISS")
+      if (this.isOutOfBounds(arrow.pos) && !arrow.isAMine) {
         this.removeArrow(arrow);
-        this.score -= 12;
-        this.combo = 0;
+        if (!arrow.isAMine) {
+          console.log("MISS")
+          this.score -= 12;
+          this.combo = 0;
+        }
       };
     })
   }
@@ -89,6 +105,13 @@ class Game {
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
+        if (distance > 25 && arrow.isAMine) {
+          continue;
+        } else if (distance < 25 && arrow.isAMine) {
+          this.combo = 0;
+          this.score -= 6;
+          this.removeArrow(arrow);
+        };
         this.getJudgementAddScore(distance)
         this.removeArrow(arrow);
         this.combo += 1;
@@ -164,6 +187,17 @@ class Game {
     return minuteInMs / ((quantization / 4) * bpm) - 1
   }
 
+  // R = 1, 5, 9, 13                | num % 4 === 1;
+  // G = 2, 4, 6, 8, 10, 12, 14, 16 | num % 2 === 0;
+  // B = 3, 7, 9, 15                | num % 4 === 3;
+  // R  G  B  G  R  G  B  G  R  G  B  G  R  G  B  G
+  // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
+  getQuantColorNum(i) {
+    if (i % 4 === 1) return 4;
+    if (i % 4 === 3) return 8;
+    if (i % 2 === 0) return 16;
+  }
+
   startChart() {
     this.chartIteration();
   }
@@ -183,15 +217,19 @@ class Game {
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
       let beat = measure[j];
-      this.laneIteration(beat)
+      let quantColorNum = this.getQuantColorNum(j + 1);
+      this.laneIteration(beat, quantColorNum)
       await timer(delay);
     }
   }
 
-  laneIteration(beat) {
+  laneIteration(beat, quantColorNum) {
     for (let k = 0; k < beat.length; k++) {
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
-        this.addArrow(indexToDirection[k])
+        this.addArrow(indexToDirection[k], quantColorNum)
+      }
+      if (beat[k] === 'M') {
+        this.addArrow(indexToDirection[k], 'MINE')
       }
     }
   }
