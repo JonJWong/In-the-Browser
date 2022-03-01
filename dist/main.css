@@ -1,3 +1,151 @@
-#game-canvas{background:url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);background-size:cover;margin:0 auto}.game-controls{float:both;display:block;margin:0 auto;padding:20px;list-style:none}
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  \*************************************************************************************************************************************/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
-/*# sourceMappingURL=main.css.map*/
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@font-face {
+  font-family: Wendy;
+  src: url("../assets/wendy.ttf") format("truetype");
+}
+#information-display {
+  padding: 50px;
+  display: block;
+  align-content: center;
+  background-color: purple;
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#game-canvas {
+  display: block;
+  background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
+  background-size: cover;
+  position: relative;
+  margin: 0 auto;
+  z-index: -1;
+}
+
+h1, h2, h3, h4, span, button {
+  font-family: Wendy;
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-size: 70px;
+}
+
+h2 {
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 40px;
+}
+
+h4 {
+  font-size: 30px;
+}
+
+span {
+  display: inline-block;
+  font-size: 24px;
+  width: 700px;
+}
+
+#love-arrows {
+  width: 500px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-controls {
+  width: 450px;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  padding: 20px;
+  list-style: none;
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 40px;
+  color: grey;
+  border: none;
+  background: none;
+}
+
+button:hover {
+  color: palevioletred;
+  cursor: pointer;
+}
+
+#start {
+  font-size: 60px;
+}
