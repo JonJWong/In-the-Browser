@@ -11,6 +11,8 @@ class GameView {
   }
 
   startButtonHandler() {
+    const menu = document.getElementById('information-display');
+    menu.style.display = "none";
     this.start(9);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
     this.startButton.removeEventListener('click', this.startButtonHandler)
@@ -30,7 +32,6 @@ class GameView {
     }
     setInterval(() => {
       this.game.step();
-      this.updateVolumeButtons();
     }, 20);
     console.log(startPoint)
     setTimeout(() => {
