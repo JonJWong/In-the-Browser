@@ -19,8 +19,8 @@ class Game {
     this.bg.src = this.chart.background;
   }
 
-  addArrow(arrowDirection, arrowOpts) {
-    arrowOpts ||= Options.arrowOpts();
+  addArrow(arrowDirection) {
+    const arrowOpts = Options.arrowOpts();
     arrowOpts['direction'] = arrowDirection;
     arrowOpts['velocity'] = [0, -this.speed];
     let newArrow = new Arrow(arrowOpts);
@@ -103,6 +103,7 @@ class Game {
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
+        this.getJudgementAddScore(distance)
         this.removeArrow(arrow);
         this.combo += 1;
         break;
@@ -178,49 +179,68 @@ class Game {
     let delay = 0;
     switch (quantization) {
       case 4:
-        delay = Math.floor(minuteInMs / (bpm * 1)) + 1;
+        delay = Math.floor(minuteInMs / (bpm * 1));
         break;
       case 8:
-        delay = Math.floor(minuteInMs / (bpm * 2)) + 1;
+        delay = Math.floor(minuteInMs / (bpm * 2));
         break;
       case 16:
         delay = Math.floor(minuteInMs / (bpm * 4));
         break
       case 32:;
-        delay = Math.floor(minuteInMs / (bpm * 8)) + 1;
+        delay = Math.floor(minuteInMs / (bpm * 8));
         break;
     }
     return delay
   }
 
-  placeNoteAfterDelay(i, delay) {
-    setTimeout(() => {
-      this.addArrow(indexToDirection[i])
-    }, delay)
-  }
-
-  placeArrowsFromChart() {
+  async chartIteration() {
+    // goes through the chart, needs to wait for the measure
     for (let i = 1; i < this.difficulty.measureCount; i++) {
-      // MEASURE LOOP
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
       let delay = this.getDelay(this.bpm, quantization);
-      // console.log(measure)
-
-      setTimeout(() => {
-      for (let note of measure) {
-        // BEATS WITHIN MEASURE
-        for (let i = 0; i < 4; i++) {
-          // LANES PER BEAT
-          let lane = note[i];
-          if (lane === "1" || lane === "2" || lane === "4") {
-              this.addArrow(indexToDirection[i])
-            }
-          }
-        }
-      }, delay)
+      await this.measureIteration(measure, delay);
     }
   }
-}
 
+  async measureIteration(measure, delay) {
+    // goes through the measure, needs to wait per note
+    const timer = ms => new Promise(res => setTimeout(res, ms))
+    for (let j = 0; j < measure.length; j++) {
+      let beat = measure[j];
+      await timer(delay);
+      this.laneIteration(beat)
+    }
+  }
+
+  async laneIteration(beat) {
+    for (let k = 0; k < beat.length; k++) {
+      if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
+        this.addArrow(indexToDirection[k])
+      }
+    }
+  }
+
+  placeArrowsFromChart() {
+    
+  }
+}
+// for (let i = 1; i < this.difficulty.measureCount; i++) {
+//   // MEASURE LOOP
+//   const measure = this.steps[`${i}`];
+//   const quantization = measure.length;
+//   let delay = this.getDelay(this.bpm, quantization);
+  
+//   for (let note of measure) {
+//     // BEATS WITHIN MEASURE
+//     for (let i = 0; i < 4; i++) {
+//       // LANES PER BEAT
+//       let lane = note[i];
+//       if (lane === "1" || lane === "2" || lane === "4") {
+//           this.addArrow(indexToDirection[i])
+//         }
+//       }
+//     }
+// }
 module.exports = Game;

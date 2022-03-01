@@ -11,14 +11,14 @@ class GameView {
   start() {
     this.game.getStepsAndCount(this.difficulty)
     this.playAudio();
-    this.changeVolume(.00);
+    this.changeVolume(.05);
     setInterval(() => {
       this.game.step();
       this.game.drawArrows(ctx);
     }, 20);
     setTimeout(() => {
       console.log('delay between notes')
-      this.game.placeArrowsFromChart()
+      this.game.chartIteration()
     }, 4161)
   }
 
