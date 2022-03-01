@@ -10,13 +10,10 @@ class Game {
     this.score = 0;
     this.combo = 0;
     this.chart = new Chart(gameOpts['chartOpts']);
-    // need to change this to come from the chart instead;
+
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
-
-    // this.bg = new Image();
-    // this.bg.src = this.chart.background;
   }
 
   addArrow(arrowDirection) {
@@ -163,24 +160,8 @@ class Game {
   // 58ms 1/32 notes @ 130bpm
   // async delay should take in bpm
   getDelay(bpm, quantization) {
-    // 1 minute / bpm = quarter note in ms
     const minuteInMs = 60000;
-    let delay = 0;
-    switch (quantization) {
-      case 4:
-        delay = Math.floor(minuteInMs / (bpm * 1)) - 1;
-        break;
-      case 8:
-        delay = Math.floor(minuteInMs / (bpm * 2)) - 1;
-        break;
-      case 16:
-        delay = Math.floor(minuteInMs / (bpm * 4)) - 1;
-        break
-      case 32:;
-        delay = Math.floor(minuteInMs / (bpm * 8) - 1);
-        break;
-    }
-    return delay
+    return minuteInMs / ((quantization / 4) * bpm) - 1
   }
 
   startChart() {
@@ -215,21 +196,4 @@ class Game {
     }
   }
 }
-// for (let i = 1; i < this.difficulty.measureCount; i++) {
-//   // MEASURE LOOP
-//   const measure = this.steps[`${i}`];
-//   const quantization = measure.length;
-//   let delay = this.getDelay(this.bpm, quantization);
-  
-//   for (let note of measure) {
-//     // BEATS WITHIN MEASURE
-//     for (let i = 0; i < 4; i++) {
-//       // LANES PER BEAT
-//       let lane = note[i];
-//       if (lane === "1" || lane === "2" || lane === "4") {
-//           this.addArrow(indexToDirection[i])
-//         }
-//       }
-//     }
-// }
 module.exports = Game;
