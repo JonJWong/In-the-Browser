@@ -10,16 +10,15 @@ class GameView {
 
   start() {
     this.game.getStepsAndCount(this.difficulty)
-    this.playAudio();
-    this.changeVolume(.05);
     setInterval(() => {
       this.game.step();
       this.game.drawArrows(ctx);
     }, 20);
     setTimeout(() => {
-      console.log('delay between notes')
-      this.game.chartIteration()
-    }, 4161)
+      this.playAudio();
+      this.changeVolume(.05);
+    }, 3240)
+    this.game.startChart();
   }
 
   playAudio() {

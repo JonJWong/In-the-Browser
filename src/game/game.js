@@ -194,6 +194,10 @@ class Game {
     return delay
   }
 
+  startChart() {
+    this.chartIteration();
+  }
+
   async chartIteration() {
     // goes through the chart, needs to wait for the measure
     for (let i = 1; i < this.difficulty.measureCount; i++) {
@@ -209,12 +213,12 @@ class Game {
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
       let beat = measure[j];
-      await timer(delay);
       this.laneIteration(beat)
+      await timer(delay);
     }
   }
 
-  async laneIteration(beat) {
+  laneIteration(beat) {
     for (let k = 0; k < beat.length; k++) {
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
         this.addArrow(indexToDirection[k])
