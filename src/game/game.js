@@ -105,7 +105,6 @@ class Game {
         if (distance > 60) break;
         this.removeArrow(arrow);
         this.combo += 1;
-        console.log(this.combo);
         break;
       }
     }
@@ -162,12 +161,12 @@ class Game {
     }
   }
 
-  // 7392 + 9 ms from start of audio to first note
+  // 7392 + 9 ms from start of audio to first note (7401)
   // distance from targets from spawn is 960-150 (= 810)
-  // with speed(5) it takes 162 ticks to get to the top, with each tick as 20ms
+  // with speed(5) it takes 162 ticks to get to the targets, with each tick as 20ms
   // formula timeToTop = (distance / speed) * tick-delay
   // formula timeToStart = 7392 + 9 - timeToTop (?)
-  // 3240ms to travel from bottom to miss
+  // 3240ms to travel from bottom to target
   // 462ms 1/4 notes @ 130bpm
   // 231ms 1/8 notes @ 130bpm
   // 115ms 1/16 notes @ 130bpm
@@ -179,28 +178,29 @@ class Game {
     let delay = 0;
     switch (quantization) {
       case 4:
-        delay = (minuteInMs / (bpm * 1));
+        delay = Math.floor(minuteInMs / (bpm * 1)) + 1;
         break;
       case 8:
-        delay = (minuteInMs / (bpm * 2));
+        delay = Math.floor(minuteInMs / (bpm * 2)) + 1;
         break;
       case 16:
-        delay = (minuteInMs / (bpm * 4));
+        delay = Math.floor(minuteInMs / (bpm * 4));
         break
       case 32:;
-        delay = (minuteInMs / (bpm * 8));
+        delay = Math.floor(minuteInMs / (bpm * 8)) + 1;
         break;
     }
     return delay
   }
 
-  async placeArrowsFromChart() {
+  placeArrowsFromChart() {
+    let maxNotes = this.difficulty.stepCount;
     for (let i = 1; i < this.difficulty.measureCount; i++) {
+      // MEASURE LOOP
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
-      measure.forEach(beat => {
-        console.log(beat);
-      })
+      let delay = this.getDelay(this.bpm, quantization);
+      
     }
   }
 }
