@@ -1,7 +1,7 @@
 const Options = {
   targetOpts() {
     let targetOpts = {
-      imgUrl: 'assets/images/Arrow.png',
+      imgUrl: 'assets/images/target.png',
       velocity: [0, 0],
       position: [70, 150],
       target: true
@@ -9,9 +9,39 @@ const Options = {
     return targetOpts
   },
 
-  arrowOpts() {
+  mineOpts() {
+    let targetOpts = {
+      imgUrl: 'assets/images/target.png',
+      velocity: [0, 0],
+      position: [70, 150],
+      target: true
+    };
+    return targetOpts
+  },
+
+  quarterOpts() {
     let arrowOpts = {
-      imgUrl: 'assets/images/Arrow.png',
+      imgUrl: 'assets/images/target.png',
+      velocity: [0, 0],
+      position: [70, 960],
+      target: false
+    };
+    return arrowOpts
+  },
+
+  eighthOpts() {
+    let arrowOpts = {
+      imgUrl: 'assets/images/target.png',
+      velocity: [0, 0],
+      position: [70, 960],
+      target: false
+    };
+    return arrowOpts
+  },
+
+  sixteenthOpts() {
+    let arrowOpts = {
+      imgUrl: 'assets/images/target.png',
       velocity: [0, 0],
       position: [70, 960],
       target: false
