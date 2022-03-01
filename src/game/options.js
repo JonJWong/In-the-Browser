@@ -1,7 +1,7 @@
 const Options = {
   targetOpts() {
     let targetOpts = {
-      imgUrl: './../../assets/images/Arrow.png',
+      imgUrl: 'assets/images/Arrow.png',
       velocity: [0, 0],
       position: [70, 150],
       target: true
@@ -11,7 +11,7 @@ const Options = {
 
   arrowOpts() {
     let arrowOpts = {
-      imgUrl: './../../assets/images/Arrow.png',
+      imgUrl: 'assets/images/Arrow.png',
       velocity: [0, 0],
       position: [70, 960],
       target: false
@@ -21,9 +21,9 @@ const Options = {
 
   chartOpts() {
     let chartOpts = {
-      stepDir: './../../assets/chart/drop_pop_candy/drop_pop_candy.ssc',
-      audioDir: './../../assets/chart/drop_pop_candy/drop_pop_candy.ogg',
-      bgDir: './../../assets/chart/drop_pop_candy/drop_pop_candy_bg.png'
+      stepDir: 'assets/chart/drop_pop_candy/drop_pop_candy.ssc',
+      audioDir: 'assets/chart/drop_pop_candy/drop_pop_candy.ogg',
+      bgDir: 'assets/chart/drop_pop_candy/drop_pop_candy_bg.png'
     }
     return chartOpts;
   },
