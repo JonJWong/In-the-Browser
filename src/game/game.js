@@ -173,7 +173,7 @@ class Game {
   // 115ms 1/16 notes @ 130bpm
   // 58ms 1/32 notes @ 130bpm
   // async delay should take in bpm
-  delay(bpm, quantization) {
+  getDelay(bpm, quantization) {
     // 1 minute / bpm = quarter note in ms
     const minuteInMs = 60000;
     let delay = 0;
@@ -191,18 +191,15 @@ class Game {
         delay = (minuteInMs / (bpm * 8));
         break;
     }
-    setTimeout(() => {
-      console.log(delay);
-    }, delay)
+    return delay
   }
 
-  placeArrowsFromChart() {
+  async placeArrowsFromChart() {
     for (let i = 1; i < this.difficulty.measureCount; i++) {
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
       measure.forEach(beat => {
-        // console.log(beat);
-        this.delay(this.bpm, quantization)
+        console.log(beat);
       })
     }
   }

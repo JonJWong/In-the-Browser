@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   window.g = new GameView(gameOpts);
   g.bindKeys();
+  g.start();
   // g.startMoving();
 
   // const opts = {stepDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ssc", audioDir: "/assets/chart/drop_pop_candy/drop_pop_candy.ogg"};
