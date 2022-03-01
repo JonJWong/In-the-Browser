@@ -36,3 +36,5 @@
 ### Credit:
 - Benpai for Notice Me Benpai 2 charts
 - Peter's scalable noteskins for SM5
+- <a href="https://www.dafont.com/wendy.font">Wendy Font</a>
+- <a href="https://www.dafont.com/bebas-neue.font">Bebas-neue Font</a>
