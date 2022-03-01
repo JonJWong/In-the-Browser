@@ -1,7 +1,6 @@
 const Arrow = require('./arrow.js');
 const Options = require('./options.js');
 const Chart = require('./chart.js');
-const Scoreboard = require('./scoreboard.js');
 
 const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
 const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
