@@ -18,9 +18,31 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.g = new GameView(gameOpts);
   g.bindKeys();
 
-  const button = document.getElementById('start');
-  button.addEventListener('click', () => {
+  const startButton = document.getElementById('start');
+  startButton.addEventListener('click', () => {
     g.start(9);
+  })
+  const volDown = document.getElementById('vol-down');
+  volDown.addEventListener('click', () => {
+    g.changeVolume();
+  })
+  const volUp = document.getElementById('vol-up');
+  volUp.addEventListener('click', () => {
+    g.changeVolume();
+  })
+  const muteButton = document.getElementById('mute');
+  muteButton.addEventListener('click', () => {
+    if (g.audio) {
+      if (g.audio.volume > 0) {
+        g.prevVolume = g.audio.volume || 0;
+        g.changeVolume(0);
+        muteButton.textContent = "Unmute"
+      }
+      if (g.audio.volume === 0) {
+        g.changeVolume(g.prevVolume);
+        muteButton.textContent = "Mute"
+      }
+    }
   })
   console.log('DOM fully loaded and parsed');
 })

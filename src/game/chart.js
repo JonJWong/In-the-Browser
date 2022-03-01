@@ -54,6 +54,7 @@ class Chart {
       "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
       "rating": parseInt(difficulty[6].slice(7, difficulty[6].length - 1)),
       "stepCount": 0,
+      "mineCount": 0,
       "startPoint": 0
     };
     let measure = 0;
@@ -73,6 +74,7 @@ class Chart {
           if (line[i] === '1' || line[i] === '2' || line[i] === '4') {
             chart["stepCount"] += 1
           }
+          if (line[i] === 'M') chart["mineCount"] += 1;
         }
       } else {
         continue;

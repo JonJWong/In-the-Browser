@@ -2,9 +2,7 @@ const OnScreenElement = require('./on_screen_element.js')
 
 class Arrow extends OnScreenElement {
   constructor(arrowOpts) {
-    super(arrowOpts); // IMAGE URL IS HERE
-    this.game = arrowOpts['game'];
-    
+    super(arrowOpts); // IMAGE URL IS HERE    
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = arrowOpts['position'];

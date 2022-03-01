@@ -7,13 +7,23 @@ const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
 
 class Game {
   constructor(gameOpts) {
-    this.score = 0;
-    this.combo = 0;
     this.chart = new Chart(gameOpts['chartOpts']);
-
+    
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
+    
+    this.maxScore;
+    this.score = 0;
+    this.combo = 0;
+    this.fantastics = 0;
+    this.excellents = 0;
+    this.greats = 0;
+    this.decents = 0;
+    this.wayOffs = 0;
+    this.misses = 0;
+    this.minesTotal = 0;
+    this.minesHit = 0;
   }
 
   addArrow(arrowDirection, quantColorNum) {
@@ -41,14 +51,15 @@ class Game {
   getStepsAndCount(rating) {
     let difficulty;
     let stepCount = 0;
-    this.chart.difficulties.forEach(diff => {
+    for (let diff of this.chart.difficulties) {
       if (diff["rating"] === rating){
         difficulty = diff;
         stepCount = diff["stepCount"];
       }
-    })
+    }
     this.difficulty = difficulty;
     this.steps = difficulty["steps"];
+    this.minesTotal = difficulty["mineCount"]
     this.maxScore = stepCount * 5;
     this.bpm = parseInt(this.chart.metadata[23].slice(11))
   }
@@ -83,8 +94,8 @@ class Game {
       if (this.isOutOfBounds(arrow.pos) && !arrow.isAMine) {
         this.removeArrow(arrow);
         if (!arrow.isAMine) {
-          console.log("MISS")
           this.score -= 12;
+          this.misses += 1;
           this.combo = 0;
         }
       };
@@ -105,11 +116,12 @@ class Game {
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
-        if (distance > 25 && arrow.isAMine) {
+        if (arrow.isAMine && distance > 20) {
           continue;
-        } else if (distance < 25 && arrow.isAMine) {
+        } else if (arrow.isAMine && distance < 20) {
           this.combo = 0;
           this.score -= 6;
+          this.minesHit += 1;
           this.removeArrow(arrow);
         };
         this.getJudgementAddScore(distance)
@@ -127,18 +139,23 @@ class Game {
     switch (true) {
       case (distance < 5):
         this.score += 5;
+        this.fantastics += 1;
         return 'FANTASTIC!'
       case (distance < 10):
         this.score += 4;
+        this.excellents += 1;
         return 'EXCELLENT!'
       case (distance < 20):
         this.score += 2;
+        this.greats += 1;
         return 'GREAT!'
       case (distance < 45):
         this.score += 0;
+        this.decents += 1;
         return 'DECENT'
       case (distance < 60):
         this.score -= 6;
+        this.wayOffs += 1;
         return 'WAY OFF'
     }
   }

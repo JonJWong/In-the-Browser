@@ -5,6 +5,7 @@ class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
     this.ctx = ctx;
+    this.prevVolume = 0;
   }
 
   start(difficulty) {
@@ -13,7 +14,7 @@ class GameView {
     let startPoint = 0;
     switch (difficulty) {
       case 2: case 3:
-        startPoint = 5088;
+        startPoint = 5058;
         break;
       case 6: case 8: case 9:
         startPoint = 3240;
