@@ -1,7 +1,7 @@
 const Options = {
   targetOpts() {
     let targetOpts = {
-      imgUrl: '/assets/images/Arrow.png',
+      imgUrl: './../../assets/images/Arrow.png',
       velocity: [0, 0],
       position: [70, 150],
       target: true
@@ -11,7 +11,7 @@ const Options = {
 
   arrowOpts() {
     let arrowOpts = {
-      imgUrl: '/assets/images/Arrow.png',
+      imgUrl: './../../assets/images/Arrow.png',
       velocity: [0, 0],
       position: [70, 960],
       target: false
