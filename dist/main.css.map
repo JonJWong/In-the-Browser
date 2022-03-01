@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":"AAAA,aACE,qEACA,sB","sources":["webpack://js-the-groove/./src/index.scss"],"sourcesContent":["#game-canvas{\n  background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);\n  background-size: cover;\n}"],"names":[],"sourceRoot":""}

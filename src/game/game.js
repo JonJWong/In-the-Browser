@@ -15,8 +15,8 @@ class Game {
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
 
-    this.bg = new Image();
-    this.bg.src = this.chart.background;
+    // this.bg = new Image();
+    // this.bg.src = this.chart.background;
   }
 
   addArrow(arrowDirection) {
@@ -46,17 +46,6 @@ class Game {
     let [x, y] = pos;
     return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
-
-  render(ctx) {
-    ctx.clearRect(0, 0, 1280, 960);
-    this.drawBg(ctx);
-    this.drawTargets(ctx);
-    this.drawArrows(ctx);
-  }
-
-  drawBg(ctx) {
-    ctx.drawImage(this.bg, 0, 0, 1280, 960)
-  }
   
   drawArrows(ctx) {
     this.arrows.forEach(arrow =>{
@@ -71,7 +60,7 @@ class Game {
   }
 
   step() {
-    this.drawBg(ctx);
+    ctx.clearRect(0, 0, 1280, 960);
     this.drawTargets(ctx);
     this.moveArrows();
     this.drawArrows(ctx);
@@ -179,16 +168,16 @@ class Game {
     let delay = 0;
     switch (quantization) {
       case 4:
-        delay = Math.floor(minuteInMs / (bpm * 1));
+        delay = Math.floor(minuteInMs / (bpm * 1)) - 1;
         break;
       case 8:
-        delay = Math.floor(minuteInMs / (bpm * 2));
+        delay = Math.floor(minuteInMs / (bpm * 2)) - 1;
         break;
       case 16:
-        delay = Math.floor(minuteInMs / (bpm * 4));
+        delay = Math.floor(minuteInMs / (bpm * 4)) - 1;
         break
       case 32:;
-        delay = Math.floor(minuteInMs / (bpm * 8));
+        delay = Math.floor(minuteInMs / (bpm * 8) - 1);
         break;
     }
     return delay
@@ -224,10 +213,6 @@ class Game {
         this.addArrow(indexToDirection[k])
       }
     }
-  }
-
-  placeArrowsFromChart() {
-    
   }
 }
 // for (let i = 1; i < this.difficulty.measureCount; i++) {

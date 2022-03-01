@@ -12,12 +12,11 @@ class GameView {
     this.game.getStepsAndCount(this.difficulty)
     setInterval(() => {
       this.game.step();
-      this.game.drawArrows(ctx);
     }, 20);
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.05);
-    }, 3240)
+    }, 3240) // this delay is only for the 9
     this.game.startChart();
   }
 
