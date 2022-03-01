@@ -48,15 +48,20 @@ table {
 }
 
 @font-face {
-  font-family: Wendy;
+  font-family: 'Wendy';
   src: url('../assets/wendy.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: 'Bebas';
+  src: url('../assets/BebasNeue.ttf') format("truetype");
 }
 
 #information-display {
   padding: 50px;
   display: block;
   align-content: center;
-  background-color: purple;
+  background-color: rgb(80, 0, 80);
   width: 750px;
   height: 750px;
   position: absolute;
@@ -80,14 +85,16 @@ table {
   z-index: -1;
 }
 
-h1, h2, h3, h4, span, button {
+h1, h2, h3, h4, span, button, p {
   font-family: Wendy;
   text-align: center;
   color: white;
+  margin-bottom: -5px;
 }
 
 h1 {
-  font-size: 70px;
+  font-size: 90px;
+  margin-bottom: -15px;
 }
 
 h2 {
@@ -95,14 +102,15 @@ h2 {
 }
 
 h3 {
-  font-size: 40px;
+  font-size: 35px;
 }
 
 h4 {
-  font-size: 30px;
+  font-size: 25px;
+  margin-bottom: 50px;
 }
 
-span {
+#game-desc {
   display: inline-block;
   font-size: 24px;
   width: 700px;
@@ -137,8 +145,29 @@ button {
 button:hover {
   color: palevioletred;
   cursor: pointer;
+  padding: 10px;
+  font-size: 60px;
 }
 
 #start {
   font-size: 60px;
+}
+
+#start:hover {
+  font-size: 75px;
+}
+
+.fake-meta {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fake-meta, span{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+  margin-left: 90px;
+  margin-right: 90px;
+  font-family: Bebas;
+  font-size: 15px;
 }
