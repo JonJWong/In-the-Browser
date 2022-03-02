@@ -158,11 +158,13 @@ button {
   background: none;
 }
 
-button:hover {
+button:hover, .difficulty-selected, .speed-selected {
   color: palevioletred;
   cursor: pointer;
   padding: 10px;
   font-size: 60px;
+  margin-top: -5px;
+  margin-bottom: -15px;
 }
 
 #start {
@@ -239,7 +241,7 @@ button:hover {
 }
 
 #scroll-header, #diff-header {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 #credits {

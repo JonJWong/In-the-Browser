@@ -133,7 +133,7 @@ class Game {
     }
   }
 
-  addLife(jugement) {
+  addLife(judgement) {
     if (this.combo > 3 && this.life !== 100) {
       switch (judgement) {
         case 'FANTASTIC': case 'EXCELLENT':
@@ -224,6 +224,7 @@ class Game {
   // R  G  B  G  R  G  B  G  R  G  B  G  R  G  B  G
   // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
   getQuantColorNum(i) {
+    // take into account measure length
     if (i % 4 === 1) return 4;
     if (i % 4 === 3) return 8;
     if (i % 2 === 0) return 16;
