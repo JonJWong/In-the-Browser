@@ -55,6 +55,7 @@ class GameView {
     }
   }
 
+  // for raf refactor
   startAnimating(fps) {
     fpsInterval = 1000 / fps;
     then = Date.now();
@@ -62,21 +63,12 @@ class GameView {
     animate();
   }
 
-  // rafStart() {
-  //   this.game.getStepsAndCount(this.diff);
-
-  //   let stopped = false;
-  //   let frameCount = 0;
-  //   let fps, fpsInterval, startTime, now, then, elapsed;
-
-
-  // }
-
   start() {
     this.game.getStepsAndCount(this.diff);
     let startPoint = this.getStartDelay();
 
     this.interval = setInterval(() => {
+      console.log('running')
       this.game.step();
       if (!this.game.isAlive) {
         this.gameFail();
@@ -127,11 +119,13 @@ class GameView {
   gameFail() {
     this.audio.pause();
     this.game.arrows = [];
+    clearInterval(this.interval);
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `You failed. Please try again, you had 
     ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
     const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
+    window.canvasEl.style.filter = "grayscale(100%)";
   }
 
   restartGame() {

@@ -96,6 +96,8 @@ body {
 #game-canvas{
   display: block;
   background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
+  transition-property: filter;
+  transition-duration: 3s;
   background-size: cover;
   position: absolute;
   margin-left: auto;
@@ -249,7 +251,7 @@ button:hover {
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
-  transform: translate(206%, 232%);
+  transform: translate(175%, 232%);
   top: 0;
   bottom: 0;
   left: 0;
@@ -539,14 +541,15 @@ button:hover {
   transform: translate(130%, -207%)
 }
 
-#github {
-  width: 350px;
-  color: red;
-  height: auto;
+#github-logo {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: rgba(102, 201, 85, 0);
+  border-radius: 25px;
   display: block;
+  width: 50px;
+  height: auto;
   text-align: right;
-  font-family: "Wendy";
-  font-size: 40px;
   position: absolute;
   margin-right: auto;
   margin-left: auto;
@@ -557,5 +560,9 @@ button:hover {
   top: 0;
   bottom: 0;
   z-index: 50;
-  transform: translate(20%, 20%)
+  transform: translate(1200%, 910%)
+}
+
+#github-logo:hover {
+  background-color: rgba(102, 201, 85, 1);
 }
