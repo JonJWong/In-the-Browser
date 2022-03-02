@@ -183,11 +183,39 @@ button:hover {
 }
 
 #game-opts {
-  display: none;
+  padding: 50px;
+  display: block;
+  align-content: center;
+  background-color: rgb(80, 0, 80);
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border: 10px solid black;
 }
 
 #in-game-overlay {
   display: none;
+}
+
+#tooltip {
+  font-size: 30px;
+}
+
+.scroll-rate {
+  margin-top: -10px;
+}
+
+#scroll-header, #diff-header {
+  margin-top: 50px;
 }
 
 #credits {
@@ -199,4 +227,9 @@ button:hover {
   right: 0;
   margin-left: auto;
   margin-right: auto;
+}
+
+#back {
+  margin-top: 40px;
+  font-size: 60px;
 }

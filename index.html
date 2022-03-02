@@ -17,7 +17,7 @@
     <main id="information-display">
 
         <div class="fake-meta">
-            <span>Stepmania JS v1.0.0</span>
+            <span>Step.JS v1.0.0</span>
             <span>node v16.13.2</span>
         </div>
         <div class="fake-meta">
@@ -68,7 +68,11 @@
     </p>
     </main>
     <aside id="game-opts">
-        <div>Difficulty Select</div>
+        <h1>Game Options</h1>
+        <p id="tooltip">You can change the difficulty of the song here, as well as the
+            rate at which the arrows will scroll up the screen.
+        </p>
+        <h2 id="diff-header">Difficulty Select</h2>
         <ul class="difficulty">
             <li>
                 <button value="2">2 - Beginner</button>
@@ -86,6 +90,23 @@
                 <button value="9">9 - Challenge</button>
             </li>
         </ul>
+        <h2 id="scroll-header">Scroll Rate</h2>
+        <h4>note: scroll rate does not dictate the rate you press the notes<br>just
+            how quickly they move up the screen
+        </h4>
+        <ul class="scroll-rate">
+            <li>
+                <button value="3">3 - Slow</button>
+            </li>
+            <li>
+                <button value="5">6 - Normal</button>
+            </li>
+            <li>
+                <button value="8">8 - Fast</button>
+            </li>
+        </ul>
+
+        <button value="back-to-main" id="back">Back to main</button>
     </aside>
     <nav id="in-game-overlay">
         <div>Options</div>
