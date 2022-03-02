@@ -15,11 +15,13 @@ class GameView {
     // this.game.speed = speed;
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
-    const inGameOverlay = document.getElementById('in-game-overlay')
+    const inGameOverlay = document.getElementById('in-game-overlay');
+    const stepStats = document.getElementById('step-statistics-block');
     optMenu.style.display = "none";
     menu.style.display = "none";
     inGameOverlay.style.display = "block";
     this.start(this.diff);
+    stepStats.style.display = "block";
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
     this.startButton.removeEventListener('click', this.startButtonHandler)
   }
@@ -66,7 +68,7 @@ class GameView {
   }
 
   openCloseOpts() {
-    const mainMenu = document.getElementById('information-display')
+    const mainMenu = document.getElementById('information-display');
     const optsMenu = document.getElementById('game-opts');
     optsMenu.style.display = optsMenu.style.display === 'none' ? 'none' : 'block';
     mainMenu.style.display = mainMenu.style.display === 'none' ? 'block' : 'none';

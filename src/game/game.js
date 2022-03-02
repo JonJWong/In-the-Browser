@@ -24,7 +24,7 @@ class Game {
     this.wayOffs = 0;
     this.misses = 0;
     this.minesTotal = 0;
-    this.minesHit = 0;
+    this.minesDodged = 0;
   }
 
   addArrow(arrowDirection, quantColorNum) {
@@ -34,13 +34,14 @@ class Game {
         arrowOpts['imgUrl'] = 'assets/images/quarter.png';
         break;
       case 8:
-        arrowOpts['imgUrl'] = 'assets/images/eighth.png'
+        arrowOpts['imgUrl'] = 'assets/images/eighth.png';
         break;
       case 16:
-        arrowOpts['imgUrl'] = 'assets/images/sixteenth.png'
+        arrowOpts['imgUrl'] = 'assets/images/sixteenth.png';
         break;
       case 'MINE':
         arrowOpts['imgUrl'] = 'assets/images/mine.png';
+        arrowOpts['isAMine'] = true;
         break;
     }
     arrowOpts['direction'] = arrowDirection;
@@ -86,19 +87,39 @@ class Game {
     ctx.clearRect(0, 0, 1280, 960);
     this.drawTargets(ctx);
     this.moveArrows();
+    this.updateStepStats();
     this.drawArrows(ctx);
+  }
+
+  updateStepStats() {
+    const stepStats = document.getElementsByClassName('judgement');
+    stepStats['fantastic'].textContent = `Fantastics: ${this.fantastics}`;
+    stepStats['excellent'].textContent = `Excellents: ${this.excellents}`;
+    stepStats['great'].textContent = `Greats: ${this.greats}`;
+    stepStats['decent'].textContent = `Decents: ${this.decents}`;
+    stepStats['way-off'].textContent = `WayOffs: ${this.wayOffs}`;
+    stepStats['misses'].textContent = `Misses: ${this.misses}`;
+    stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
+    stepStats['percentage-score'].textContent = `${(this.score / this.maxScore).toFixed(2)}%`;
+    
+    const chartStats = document.getElementsByClassName('chart-stats');
+    chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
+    chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
+    chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
+    chartStats['difficulty-rating'].textContent = `Rating: ${this.difficulty['rating']}`
   }
 
   moveArrows() {
     this.arrows.forEach(arrow => {
       arrow.move()
       if (this.isOutOfBounds(arrow.pos) && !arrow.isAMine) {
+        this.misses += 1;
+        this.score -= 12;
+        this.combo = 0;
         this.removeArrow(arrow);
-        if (!arrow.isAMine) {
-          this.score -= 12;
-          this.misses += 1;
-          this.combo = 0;
-        }
+      } else if (this.isOutOfBounds(arrow.pos) && arrow.isAMine) {
+        this.minesDodged += 1;
+        this.removeArrow(arrow);
       };
     })
   }
@@ -108,7 +129,6 @@ class Game {
     this.arrows.splice(removeIndex, 1);
   }
 
-  
   checkKeyPress(direction) {
     const target = this.targets[directionToIndex[direction]]
     // target indices left: 0, down: 1, up: 2, right: 3
@@ -122,7 +142,7 @@ class Game {
         } else if (arrow.isAMine && distance < 20) {
           this.combo = 0;
           this.score -= 6;
-          this.minesHit += 1;
+          this.life -= 10;
           this.removeArrow(arrow);
         };
         this.getJudgementAddScore(distance)
@@ -151,26 +171,29 @@ class Game {
   getJudgementAddScore(distance) {
     if (distance < 0) distance = -distance;
     switch (true) {
-      case (distance < 5):
+      case (distance < 10):
         this.score += 5;
         this.fantastics += 1;
         this.addLife('FANTASTIC');
-      case (distance < 10):
+        break;
+      case (distance < 20):
         this.score += 4;
         this.excellents += 1;
-        this.addLife('EXCELLENT')
-      case (distance < 20):
+        this.addLife('EXCELLENT');
+        break;
+      case (distance < 30):
         this.score += 2;
         this.greats += 1;
-        this.addLife('GREAT')
-      case (distance < 45):
+        this.addLife('GREAT');
+        break;
+      case (distance < 50):
         this.score += 0;
         this.decents += 1;
-        return 'DECENT'
+        return 'DECENT';
       case (distance < 60):
         this.score -= 6;
         this.wayOffs += 1;
-        return 'WAY OFF'
+        return 'WAY OFF';
     }
   }
 
