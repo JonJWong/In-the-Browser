@@ -13,7 +13,6 @@ class GameView {
   }
 
   startButtonHandler() {
-    // this.game.speed = speed;
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
@@ -26,7 +25,7 @@ class GameView {
 
     this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
-    this.startButton.removeEventListener('click', this.startButtonHandler)
+    // this.startButton.removeEventListener('click', this.startButtonHandler)
   }
 
   start() {
@@ -50,11 +49,10 @@ class GameView {
         break;
     }
 
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.game.step();
       if (!this.game.isGameActive) {
-        this.unBindKeys();
-        this.audio.pause();
+        this.gameFail();
       }
     }, 20);
 
@@ -63,6 +61,48 @@ class GameView {
       this.changeVolume(.5);
     }, startPoint) // the bigger this number, the later the chart
     this.game.startChart();
+  }
+
+  astralReaper() {
+    if (this.game.slayer.isAMine) {
+      return "Your life depleted when you hit a mine."
+    } else {
+      if (this.game.slayer.direction === 'up') {
+        return "Your life depleted when you missed an up arrow."
+      } else {
+        return `Your life depleted when you missed a ${this.game.slayer.direction} arrow.`
+      }
+    }
+  }
+
+  gameFail() {
+    this.audio.pause();
+    this.game.arrows = [];
+    const failMessage = document.getElementById('fail-message');
+    failMessage.textContent = `You failed. Please try again, you had 
+    ${this.game.hits} arrows left. ${this.astralReaper()}`
+    const failScreen = document.getElementById('fail-screen');
+    failScreen.style.display = "block";
+  }
+
+  restartGame() {
+    const menu = document.getElementById('information-display');
+    const optMenu = document.getElementById('game-opts');
+    const inGameOverlay = document.getElementById('in-game-overlay');
+    const stepStats = document.getElementById('step-statistics-block');
+    const failScreen = document.getElementById('fail-screen');
+
+    menu.style.display = "block";
+    optMenu.style.display = "none";
+    inGameOverlay.style.display = "none";
+    stepStats.style.display = "none";
+    failScreen.style.display = "none";
+
+    clearInterval(this.interval);
+
+    const gameOpts = Options.gameOpts();
+    this.game = new Game(gameOpts);
+    this.startButton.textContent = "Start Game";
   }
 
   playAudio() {
@@ -79,13 +119,6 @@ class GameView {
     const optsMenu = document.getElementById('game-opts');
     optsMenu.style.display = optsMenu.style.display === 'none' ? 'none' : 'block';
     mainMenu.style.display = mainMenu.style.display === 'none' ? 'block' : 'none';
-  }
-
-  unBindKeys() {
-    key('left', () => {});
-    key('down', () => {});
-    key('up', () => {});
-    key('right', () => {});
   }
 
   bindKeys() {

@@ -15,9 +15,11 @@ class Game {
     
     this.isGameActive = true;
 
+    this.slayer;
     this.life = 50;
     this.maxScore;
     this.score = 0;
+    this.hits = 0;
     this.combo = 0;
     this.fantastics = 0;
     this.excellents = 0;
@@ -122,6 +124,9 @@ class Game {
         this.score -= 12;
         this.combo = 0;
         this.life -= 10;
+        if (this.life <= 0) {
+          this.slayer = arrow;
+        }
         this.removeArrow(arrow);
       } else if (this.isOutOfBounds(arrow.pos) && arrow.isAMine) {
         this.minesDodged += 1;
@@ -149,11 +154,15 @@ class Game {
           this.combo = 0;
           this.score -= 6;
           this.life -= 10;
+          if (this.life <= 0) {
+            this.slayer = arrow
+          };
           this.removeArrow(arrow);
         };
         this.getJudgementAddScore(distance)
         this.removeArrow(arrow);
         this.combo += 1;
+        this.hits += 1;
         break;
       }
     }

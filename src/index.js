@@ -27,6 +27,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const speedButtons = document.getElementsByClassName('speed-button');
   const hideButtons = document.getElementsByClassName('hide-button');
   const backButton = document.getElementById('back');
+  const restartButton = document.getElementById('restart');
 
   function resetButtons(buttons) {
     for (let button of buttons) {
@@ -69,8 +70,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   startButton.addEventListener('click', g.startButtonHandler)
   optionsButton.addEventListener('click', g.openCloseOpts)
-
   backButton.addEventListener('click', g.openCloseOpts)
+  restartButton.addEventListener('click', g.restartGame)
 
   volDown.addEventListener('click', () => {
     if (g.audio) {
