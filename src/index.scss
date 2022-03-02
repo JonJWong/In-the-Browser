@@ -264,7 +264,7 @@ button:hover {
 }
 
 #hide-bg {
-  margin-top: 30px;
+  margin-top: 15px;
   font-family: "Wendy";
   font-size: 45px;
   display: flex;
@@ -276,7 +276,6 @@ button:hover {
 
 #hide-bg > button {
   font-size: 45px;
-  margin-bottom: 10px;
 }
 
 #hide-bg > button:focus{
@@ -500,4 +499,8 @@ button:hover {
   margin-right: auto;
   left: 0;
   right: 0;
+}
+
+#restart:hover {
+  color: #21CCE8;
 }

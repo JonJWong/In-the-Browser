@@ -90,8 +90,7 @@ class GameView {
     this.audio.pause();
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `Congratulations, you finished with a score of
-    ${this.game.getMoneyScore()}% If you wish to play again, please press restart and choose
-    your settings`
+    ${this.game.getMoneyScore()}%. Thank you for playing.`
     const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
   }
