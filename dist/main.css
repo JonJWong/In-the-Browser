@@ -58,9 +58,12 @@ table {
 body {
   background-color: black;
   overflow: hidden;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInAnimation {
   0% {
     opacity: 0;
   }
@@ -177,6 +180,8 @@ h4 {
 }
 
 button {
+  transition-property: color;
+  transition-duration: 0.5s;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -432,8 +437,6 @@ button:hover {
 }
 
 #end-message {
-  opacity: 100%;
-  transition: opacity 3s;
   margin: 0;
   font-size: 40px;
   font-family: "Wendy";
@@ -462,8 +465,6 @@ button:hover {
 
 #message-message {
   text-align: center;
-  opacity: 100%;
-  transition: opacity 3s;
   margin: 0;
   font-size: 40px;
   font-family: "Wendy";
