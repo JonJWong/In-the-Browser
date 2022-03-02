@@ -1,4 +1,6 @@
 # In-the-Browser
+  <img src="https://github.com/JonJWong/In-the-Browser/blob/main/assets/images/inthebrowser.jpg" alt="In_the_Browser2_banner">
+
   Welcome to In the Browser! This is a fun and interactive Javascript based spin-off of In the Groove, which is a rhythm game where you have to hit the arrows on screen when they reach the targets. There will be a song selected, and multiple difficulties per song.
   
   The arrows will come up the screen, according to the rhythm of the song, and depending on how close to the beat you press they correct key, you will be rewarded more points. Your final score will be shown to you once you pass a song, but if your lifebar reaches 0 from missing too many notes in succession, you will fail!
@@ -32,6 +34,7 @@
 
 #
 ### Future Plans
+- Add a pause button, maybe bound to "Space"
 - Refactor the logic to use requestAnimationFrame() instead of setInterval()
 - Add the ability to upload custom songs.
 - Add the ability to scroll from top to bottom, as well as to change noteskin.

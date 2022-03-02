@@ -96,6 +96,8 @@ body {
 #game-canvas{
   display: block;
   background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
+  transition-property: filter;
+  transition-duration: 3s;
   background-size: cover;
   position: absolute;
   margin-left: auto;
@@ -249,7 +251,7 @@ button:hover {
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
-  transform: translate(206%, 232%);
+  transform: translate(175%, 232%);
   top: 0;
   bottom: 0;
   left: 0;
@@ -357,14 +359,34 @@ button:hover {
 }
 
 .chart-stats {
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
   font-size: 30px;
   font-family: 'Bebas';
   display: flex;
 }
 
-.ss-judgement {
+.ss-judgement-grid {
+  margin-bottom: -12px;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  max-width: 300px;
+  align-items: start;
+  margin-left: 0px;
+  margin-right: auto;
+  transform: translate(0%, -5%)
+}
+
+.ss-judgement-grid:nth-of-type(even) {
+  text-align: right;
+}
+
+.ss-judgement-grid:nth-of-type(odd) {
   text-align: left;
-  margin-top: -17px;
 }
 
 #judgement {
@@ -385,27 +407,27 @@ button:hover {
   transform: translate(-287%, -100%)
 }
 
-#fantastic {
-  color: #21CCE8;
+#fantastic, #fCount {
+  color: rgb(33, 204, 232);
 }
 
-#excellent {
-  color: #e29c18;
+#excellent, #eCount {
+  color: rgb(226, 156, 24);
 }
 
-#great {
-  color: #66c955;
+#great, #gCount {
+  color: rgb(102, 201, 85);
 }
 
-#decent {
-  color: #b45cff;
+#decent, #dCount {
+  color: rgb(180, 92, 255);
 }
 
-#way-off {
-  color: #c9855e;
+#way-off, #woCount {
+  color: rgb(201, 133, 94);
 }
 
-#misses {
+#misses, #missCount {
   color: #ff3030;
 }
 
@@ -526,7 +548,6 @@ button:hover {
   display: block;
   text-align: right;
   font-family: "Wendy";
-  font-size: 100px;
   position: absolute;
   margin-right: auto;
   margin-left: auto;
@@ -536,5 +557,47 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(45%, -180%)
+  z-index: 50;
+  transform: translate(130%, -215%)
+}
+
+#github-logo {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: rgba(102, 201, 85, 0);
+  border-radius: 25px;
+  display: block;
+  width: 50px;
+  height: auto;
+  text-align: right;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  transform: translate(1200%, 910%)
+}
+
+#github-logo:hover {
+  background-color: rgba(102, 201, 85, 1);
+}
+
+#difficulty-rating {
+  background-color: purple;
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
+  display: block;
+  width: 75px;
+  height: 75px;
+  font-family: "Wendy";
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  transform: translate(-849%, -360%);
 }

@@ -55,6 +55,14 @@ class GameView {
     }
   }
 
+  // for raf refactor
+  startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
+  }
+
   start() {
     this.game.getStepsAndCount(this.diff);
     let startPoint = this.getStartDelay();
@@ -110,28 +118,51 @@ class GameView {
   gameFail() {
     this.audio.pause();
     this.game.arrows = [];
+    clearInterval(this.interval);
+
+    const chartStats = document.getElementsByClassName('chart-stats');
+    for (let ele of chartStats) {
+      ele.style.filter = "grayscale(100%)";
+    }
+
+    const stepStats = document.getElementsByClassName('ss-judgement');
+    for (let ele of stepStats) {
+      ele.style.filter = null
+    }
+
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `You failed. Please try again, you had 
     ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
     const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
+    window.canvasEl.style.filter = "grayscale(100%)";
   }
 
   restartGame() {
+    clearInterval(this.interval);
     ctx.clearRect(0, 0, 1280, 960);
+
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
-    const stepStats = document.getElementById('step-statistics-block');
+    const stepStatsBlock = document.getElementById('step-statistics-block');
+    const stepStats = document.getElementsByClassName('ss-judgement');
+    const chartStats = document.getElementsByClassName('chart-stats');
     const judgeText = document.getElementById('judgement');
+
+    for (let ele of chartStats) {
+      ele.style.filter = null
+    }
+    
+    for (let ele of stepStats) {
+      ele.style.filter = null
+    }
     
     menu.style.display = "block";
     optMenu.style.display = "none";
     inGameOverlay.style.display = "none";
-    stepStats.style.display = "none";
+    stepStatsBlock.style.display = "none";
     judgeText.style.display = "none";
-    
-    clearInterval(this.interval);
     
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
@@ -139,6 +170,7 @@ class GameView {
     this.startButton.textContent = "Start Game";
     const failScreen = document.getElementById('end-screen');
     failScreen.style.display = "none";
+    window.canvasEl.style.filter = "grayscale(0%)";
   }
 
   playAudio() {

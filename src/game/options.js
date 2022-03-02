@@ -87,6 +87,17 @@ const Options = {
       difficulty: 9
     }
     return gameOpts;
+  },
+
+  colors() {
+    const colors = {
+    FANTASTIC: 'rgba(33, 204, 232, 1)',
+    EXCELLENT: 'rgba(226, 156, 24, 1)',
+    GREAT: 'rgba(102, 201, 85, 1)',
+    DECENT: 'rgba(180, 92, 255, 1)',
+    WAYOFF: 'rgba(201, 133, 94, 1)'
+    }
+    return colors
   }
 }
 

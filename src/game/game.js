@@ -10,7 +10,6 @@ class Game {
     this.chart = new Chart(gameOpts['chartOpts']);
     
     this.targets = this.addTargets(gameOpts['numTargets']);
-    this.pops = [];
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     this.darkened = 0;
@@ -18,20 +17,23 @@ class Game {
     this.isAlive = true;
     this.chartFinished = false;
 
-    this.slayer;
-    this.life = 50;
-    this.maxScore;
-    this.score = 0;
-    this.hits = 0;
-    this.combo = 0;
+    this.fps = 75;
+
     this.fantastics = 0;
     this.excellents = 0;
     this.greats = 0;
     this.decents = 0;
     this.wayOffs = 0;
     this.misses = 0;
-    this.minesTotal = 0;
+    this.hits = 0;
+    this.score = 0;
+    this.maxScore;
+    this.combo = 0;
     this.minesDodged = 0;
+    this.minesTotal = 0;
+
+    this.slayer;
+    this.life = 50;
   }
 
   addArrow(arrowDirection, quantColorNum) {
@@ -116,7 +118,7 @@ class Game {
 
   darkenLane() {
     ctx.beginPath();
-    ctx.rect(12, 0, 435, 960)
+    ctx.rect(12, 0, 435, 960);
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fill();
   }
@@ -142,15 +144,19 @@ class Game {
   }
 
   updateStepStats() {
+    
+    const stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
+    stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
+    stepStatsGrid['eCount'].textContent = `${this.excellents}`;
+    stepStatsGrid['gCount'].textContent = `${this.greats}`;
+    stepStatsGrid['dCount'].textContent = `${this.decents}`;
+    stepStatsGrid['woCount'].textContent = `${this.wayOffs}`;
+    stepStatsGrid['missCount'].textContent = `${this.misses}`;
+    stepStatsGrid['mineCount'].textContent = `${this.minesDodged}/${this.minesTotal}`;
+
     const stepStats = document.getElementsByClassName('ss-judgement');
-    stepStats['fantastic'].textContent = `Fantastics: ${this.fantastics}`;
-    stepStats['excellent'].textContent = `Excellents: ${this.excellents}`;
-    stepStats['great'].textContent = `Greats: ${this.greats}`;
-    stepStats['decent'].textContent = `Decents: ${this.decents}`;
-    stepStats['way-off'].textContent = `WayOffs: ${this.wayOffs}`;
-    stepStats['misses'].textContent = `Misses: ${this.misses}`;
-    stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
+
     if (this.combo > 0) {
       stepStats['combo-counter'].style.display = 'block'
       stepStats['combo-counter'].textContent = `${this.combo}`;
@@ -163,7 +169,7 @@ class Game {
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
     chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
     chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
-    chartStats['difficulty-rating'].textContent = `Rating: ${this.difficulty["rating"]}`
+    chartStats['difficulty-rating'].textContent = `${this.difficulty["rating"]}`
   }
 
   moveArrows() {
@@ -229,8 +235,8 @@ class Game {
     }
   }
 
-  addLife(judgement) {
-    if (this.combo > 3 && this.life !== 100) {
+  comboRegainLife(judgement) {
+    if (this.combo > 5 && this.life !== 100) {
       switch (judgement) {
         case 'FANTASTIC': case 'EXCELLENT':
           if (this.life + 5 < 100) {
@@ -290,21 +296,21 @@ class Game {
         this.score += 5;
         this.fantastics += 1;
         this.combo += 1;
-        this.addLife('FANTASTIC');
+        this.comboRegainLife('FANTASTIC');
         this.setJudgementEle('Fantastic');
         break;
       case (distance <= 35):
         this.score += 4;
         this.excellents += 1;
         this.combo += 1;
-        this.addLife('EXCELLENT');
+        this.comboRegainLife('EXCELLENT');
         this.setJudgementEle('Excellent');
         break;
       case (distance <= 50):
         this.score += 2;
         this.greats += 1;
         this.combo += 1;
-        this.addLife('GREAT');
+        this.comboRegainLife('GREAT');
         this.setJudgementEle('Great');
         break;
       case (distance <= 60):
@@ -318,7 +324,7 @@ class Game {
         this.wayOffs += 1;
         this.combo = 0;
         this.setJudgementEle('Way-Off');
-        return 'WAY OFF';
+        return 'WAYOFF';
     }
   }
 
@@ -329,25 +335,6 @@ class Game {
       targets.push(target)
     }
     return targets;
-  }
-
-
-  createPop(i, judgement) {
-    let popOpts = Options.popOpts();
-    switch (i) {
-      case 0:
-        targetOpts['direction'] = 'left';
-        return new Arrow(targetOpts);
-      case 1:
-        targetOpts['direction'] = 'down';
-        return new Arrow(targetOpts);
-      case 2:
-        targetOpts['direction'] = 'up';
-        return new Arrow(targetOpts);
-      case 3:
-        targetOpts['direction'] = 'right';
-        return new Arrow(targetOpts);
-    }
   }
 
   createTarget(i) {
@@ -373,11 +360,6 @@ class Game {
     return minuteInMs / ((quantization / 4) * bpm) - 1
   }
 
-  // R = 1, 5, 9, 13                | num % 4 === 1;
-  // G = 2, 4, 6, 8, 10, 12, 14, 16 | num % 2 === 0;
-  // B = 3, 7, 9, 15                | num % 4 === 3;
-  // R  G  B  G  R  G  B  G  R  G  B  G  R  G  B  G
-  // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
   getQuantColorNum(i, length) {
     if (length >= 16) {
       switch(true) {
