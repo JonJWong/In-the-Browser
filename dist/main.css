@@ -374,9 +374,27 @@ button:hover {
   margin-bottom: 1px;
 }
 
-.judgement {
+.ss-judgement {
   text-align: left;
   margin-top: -10px;
+}
+
+#judgement {
+  display: block;
+  text-shadow: 4px 4px 0 #000;
+  width: 250px;
+  height: 50px;
+  position: absolute;
+  font-size: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  transform: translate(-287%, -100%);
 }
 
 #fantastic {
@@ -446,6 +464,7 @@ button:hover {
   width: 200px;
   height: 100px;
   display: block;
+  text-align: right;
   font-family: "Wendy";
   font-size: 100px;
   position: absolute;
@@ -457,5 +476,26 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(75%, 270%);
+  transform: translate(90%, 275%);
+}
+
+#combo-counter {
+  display: block;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  color: white;
+  font-family: "Wendy";
+  font-size: 80px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(-475%, 0%);
+  z-index: 20;
 }

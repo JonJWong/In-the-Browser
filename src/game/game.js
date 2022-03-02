@@ -103,7 +103,7 @@ class Game {
   }
 
   updateStepStats() {
-    const stepStats = document.getElementsByClassName('judgement');
+    const stepStats = document.getElementsByClassName('ss-judgement');
     stepStats['fantastic'].textContent = `Fantastics: ${this.fantastics}`;
     stepStats['excellent'].textContent = `Excellents: ${this.excellents}`;
     stepStats['great'].textContent = `Greats: ${this.greats}`;
@@ -112,6 +112,7 @@ class Game {
     stepStats['misses'].textContent = `Misses: ${this.misses}`;
     stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
+    stepStats['combo-counter'].textContent = `${this.combo}`;
     
     const chartStats = document.getElementsByClassName('chart-stats');
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
@@ -128,6 +129,7 @@ class Game {
         this.score -= 12;
         this.combo = 0;
         this.life -= 10;
+        this.setJudgementEle('Miss');
         if (this.life <= 0) {
           this.slayer = arrow;
         }
@@ -193,6 +195,37 @@ class Game {
     }
   }
 
+  setJudgementEle(judgement) {
+    const judgeText = document.getElementById('judgement');
+    judgeText.style.display = 'block';
+    switch (judgement) {
+      case 'Fantastic':
+        judgeText.textContent = "Fantastic!"
+        judgeText.style.color = '#21CCE8'
+        break;
+      case 'Excellent':
+        judgeText.textContent = "Excellent!"
+        judgeText.style.color = '#e29c18'
+        break;
+      case 'Great':
+        judgeText.textContent = "Great!"
+        judgeText.style.color = '#66c955'
+        break;
+      case 'Decent':
+        judgeText.textContent = "Decent"
+        judgeText.style.color = '#b45cff'
+        break;
+      case 'Way-Off':
+        judgeText.textContent = "Way Off"
+        judgeText.style.color = '#c9855e'
+        break;
+      case 'Miss':
+        judgeText.textContent = "MISS"
+        judgeText.style.color = '#ff3030'
+        break;
+    }
+  }
+
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
   getJudgementAddScore(distance) {
@@ -202,24 +235,29 @@ class Game {
         this.score += 5;
         this.fantastics += 1;
         this.addLife('FANTASTIC');
+        this.setJudgementEle('Fantastic');
         break;
       case (distance < 20):
         this.score += 4;
         this.excellents += 1;
         this.addLife('EXCELLENT');
+        this.setJudgementEle('Excellent');
         break;
       case (distance < 30):
         this.score += 2;
         this.greats += 1;
         this.addLife('GREAT');
+        this.setJudgementEle('Great');
         break;
       case (distance < 50):
         this.score += 0;
         this.decents += 1;
+        this.setJudgementEle('Decent');
         return 'DECENT';
       case (distance < 60):
         this.score -= 6;
         this.wayOffs += 1;
+        this.setJudgementEle('Way-Off');
         return 'WAY OFF';
     }
   }

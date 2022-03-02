@@ -54,7 +54,7 @@ class GameView {
       if (!this.game.isAlive) {
         this.gameFail();
       }
-      if (this.game.isFinished && !this.game.arrows.length) {
+      if (this.game.chartFinished && !this.game.arrows.length) {
         this.gameWin();
       }
     }, 20);
@@ -68,6 +68,8 @@ class GameView {
 
   gameWin() {
     clearInterval(this.interval);
+    const judgeText = document.getElementById('judgement');
+    judgeText.style.display = 'none';
     this.audio.pause();
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `You passed. Congratulations, you finished with a score of
