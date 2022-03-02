@@ -112,7 +112,13 @@ class Game {
     stepStats['misses'].textContent = `Misses: ${this.misses}`;
     stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
-    stepStats['combo-counter'].textContent = `${this.combo}`;
+    if (this.combo > 0) {
+      stepStats['combo-counter'].style.display = 'block'
+      stepStats['combo-counter'].textContent = `${this.combo}`;
+    } else {
+      stepStats['combo-counter'].textContent = 0;
+      stepStats['combo-counter'].style.display = 'none'
+    }
     
     const chartStats = document.getElementsByClassName('chart-stats');
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
@@ -167,7 +173,6 @@ class Game {
         };
         this.getJudgementAddScore(distance)
         this.removeArrow(arrow);
-        this.combo += 1;
         this.hits += 1;
         break;
       }
@@ -234,29 +239,34 @@ class Game {
       case (distance < 10):
         this.score += 5;
         this.fantastics += 1;
+        this.combo += 1;
         this.addLife('FANTASTIC');
         this.setJudgementEle('Fantastic');
         break;
       case (distance < 20):
         this.score += 4;
         this.excellents += 1;
+        this.combo += 1;
         this.addLife('EXCELLENT');
         this.setJudgementEle('Excellent');
         break;
       case (distance < 30):
         this.score += 2;
         this.greats += 1;
+        this.combo += 1;
         this.addLife('GREAT');
         this.setJudgementEle('Great');
         break;
       case (distance < 50):
         this.score += 0;
         this.decents += 1;
+        this.combo = 0;
         this.setJudgementEle('Decent');
         return 'DECENT';
       case (distance < 60):
         this.score -= 6;
         this.wayOffs += 1;
+        this.combo = 0;
         this.setJudgementEle('Way-Off');
         return 'WAY OFF';
     }
