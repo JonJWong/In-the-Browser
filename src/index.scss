@@ -86,7 +86,7 @@ table {
   z-index: -1;
 }
 
-h1, h2, h3, h4, span, button, p {
+h1, h2, h3, h4, span, button, p, div{
   font-family: Wendy;
   text-align: center;
   color: white;
@@ -108,13 +108,15 @@ h3 {
 
 h4 {
   font-size: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 #game-desc {
-  display: inline-block;
+  display: block;
   font-size: 24px;
   width: 700px;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 10px;
   padding-bottom: 70px;
 }
@@ -127,7 +129,7 @@ h4 {
   margin-right: auto;
 }
 
-.game-controls {
+.desc-game-controls {
   width: 450px;
   justify-content: space-evenly;
   margin: 0 auto;
@@ -153,6 +155,7 @@ button:hover {
 }
 
 #start {
+  margin-top: -70px;
   font-size: 60px;
 }
 
@@ -173,4 +176,23 @@ button:hover {
   margin-right: 90px;
   font-family: Bebas;
   font-size: 15px;
+}
+
+#game-opts {
+  display: none;
+}
+
+#in-game-overlay {
+  display: none;
+}
+
+#credits {
+  margin-top: auto;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
