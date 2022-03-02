@@ -49,6 +49,7 @@ table {
 
 body {
   background-color: black;
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -70,7 +71,7 @@ body {
   padding: 50px;
   display: block;
   align-content: center;
-  background-color: rgb(80, 0, 80);
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
   width: 750px;
   height: 750px;
   position: absolute;
@@ -210,7 +211,7 @@ button:hover {
   padding: 50px;
   display: none;
   align-content: center;
-  background-color: rgb(80, 0, 80);
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
   width: 750px;
   height: 750px;
   position: absolute;
@@ -230,7 +231,7 @@ button:hover {
   padding: 15px;
   display: none;
   align-content: center;
-  background-color: rgb(0, 0, 0);
+  background-image: linear-gradient(rgb(157, 0, 255), rgb(0, 157, 255), rgb(0, 157, 255));
   width: 200px;
   height: 120px;
   position: absolute;
@@ -311,11 +312,13 @@ button:hover {
 }
 
 #in-game-header {
+  color: black;
   font-size: 40px;
   margin-top: -5px;
 }
 
 .vol-btn {
+  color: white;
   font-size: 30px;
   margin-bottom: 0px;
 }
@@ -364,9 +367,27 @@ button:hover {
   margin-bottom: 1px;
 }
 
-.judgement {
+.ss-judgement {
   text-align: left;
   margin-top: -10px;
+}
+
+#judgement {
+  display: block;
+  text-shadow: 4px 4px 0 #000;
+  width: 250px;
+  height: 50px;
+  position: absolute;
+  font-size: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  transform: translate(-287%, -100%)
 }
 
 #fantastic {
@@ -393,23 +414,11 @@ button:hover {
   color: #ff3030;
 }
 
-#chart-banner {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#percentage-score {
-  float: right;
-  font-size: 110px;
-  display: block;
-}
-
-#fail-screen {
+#end-screen {
   padding: 15px;
   display: none;
   align-content: center;
-  background-color: rgb(0, 0, 0);
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);;
   width: 400px;
   height: 240px;
   position: absolute;
@@ -426,7 +435,37 @@ button:hover {
   border: 10px solid gray;
 }
 
-#fail-screen > span {
+#end-message {
+  opacity: 100%;
+  transition: opacity 3s;
+  margin: 0;
+  font-size: 40px;
+  font-family: "Wendy";
+}
+
+#message-screen {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);;
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(0%, 0%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border: 10px solid gray;
+}
+
+#message-message {
+  text-align: center;
   opacity: 100%;
   transition: opacity 3s;
   margin: 0;
@@ -436,4 +475,54 @@ button:hover {
 
 #restart:hover {
   margin-top: -15px;
+}
+
+#percentage-score {
+  width: 200px;
+  height: 100px;
+  display: block;
+  text-align: right;
+  font-family: "Wendy";
+  font-size: 100px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(80%, 275%)
+}
+
+#combo-counter {
+  display: block;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  color: white;
+  font-family: "Wendy";
+  font-size: 80px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(-475%, 0%);
+  z-index: 20;
+}
+
+#chart-banner {
+  display: flex;
+  width: 418px;
+  height: 164px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }

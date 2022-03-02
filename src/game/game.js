@@ -12,8 +12,10 @@ class Game {
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
+    this.darkened = 0;
     
-    this.isGameActive = true;
+    this.isAlive = true;
+    this.chartFinished = false;
 
     this.slayer;
     this.life = 50;
@@ -75,31 +77,71 @@ class Game {
     return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
   
-  drawArrows(ctx) {
+  drawArrows() {
     this.arrows.forEach(arrow =>{
       arrow.render(ctx);
     })
   }
 
-  drawTargets(ctx) {
+  drawTargets() {
     this.targets.forEach(target => {
+      this.scaleTarget(target);
       target.render(ctx);
     })
   }
 
+  drawLifebar() {
+    ctx.beginPath();
+    ctx.rect(120, 15, 300, 50);
+    if (this.darkened) {
+      ctx.strokeStyle = "#cccccc"
+    }
+    ctx.lineWidth = 5;
+    ctx.stroke();
+  }
+
+  fillLifebar() {
+    ctx.beginPath();
+    ctx.rect(120, 15, this.life*3, 50);
+    if (this.life === 100) {
+      ctx.fillStyle = "#ffffff"
+    } else if (this.life > 20) {
+      ctx.fillStyle = "#c4c4c4"
+    } else {
+      ctx.fillStyle = "#940c0c"
+    }
+    ctx.fill();
+  }
+
+  darkenLane() {
+    ctx.beginPath();
+    ctx.rect(12, 0, 435, 960)
+    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+    ctx.fill();
+  }
+
   step() {
     if (this.life <= 0) {
-      this.isGameActive = false;
+      this.isAlive = false;
     }
     ctx.clearRect(0, 0, 1280, 960);
+    if (this.darkened) {
+      this.darkenLane();
+    }
+    this.fillLifebar(ctx);
+    this.drawLifebar(ctx);
     this.drawTargets(ctx);
     this.moveArrows();
     this.updateStepStats();
     this.drawArrows(ctx);
   }
 
+  getMoneyScore() {
+    return this.score <= 0 ? 0 : ((this.score / this.maxScore) * 100).toFixed(2)
+  }
+
   updateStepStats() {
-    const stepStats = document.getElementsByClassName('judgement');
+    const stepStats = document.getElementsByClassName('ss-judgement');
     stepStats['fantastic'].textContent = `Fantastics: ${this.fantastics}`;
     stepStats['excellent'].textContent = `Excellents: ${this.excellents}`;
     stepStats['great'].textContent = `Greats: ${this.greats}`;
@@ -107,7 +149,14 @@ class Game {
     stepStats['way-off'].textContent = `WayOffs: ${this.wayOffs}`;
     stepStats['misses'].textContent = `Misses: ${this.misses}`;
     stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
-    stepStats['percentage-score'].textContent = `${Math.max(0, (this.score / this.maxScore).toFixed(2))}%`;
+    stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
+    if (this.combo > 0) {
+      stepStats['combo-counter'].style.display = 'block'
+      stepStats['combo-counter'].textContent = `${this.combo}`;
+    } else {
+      stepStats['combo-counter'].textContent = 0;
+      stepStats['combo-counter'].style.display = 'none'
+    }
     
     const chartStats = document.getElementsByClassName('chart-stats');
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
@@ -124,6 +173,7 @@ class Game {
         this.score -= 12;
         this.combo = 0;
         this.life -= 10;
+        this.setJudgementEle('Miss');
         if (this.life <= 0) {
           this.slayer = arrow;
         }
@@ -142,6 +192,7 @@ class Game {
 
   checkKeyPress(direction) {
     const target = this.targets[directionToIndex[direction]]
+    this.hitTarget(target);
     // target indices left: 0, down: 1, up: 2, right: 3
     for (let i = 0; i < this.arrows.length; i++) {
       let arrow = this.arrows[i];
@@ -161,10 +212,21 @@ class Game {
         };
         this.getJudgementAddScore(distance)
         this.removeArrow(arrow);
-        this.combo += 1;
         this.hits += 1;
         break;
       }
+    }
+  }
+
+  hitTarget(target) {
+    target.scale = .42;
+  }
+  
+  scaleTarget(target) {
+    if (target.scale - .01 > .35) {
+      target.scale -= .01
+    } if (target.scale - .01 < .35) {
+      target.scale = .35
     }
   }
 
@@ -172,12 +234,51 @@ class Game {
     if (this.combo > 3 && this.life !== 100) {
       switch (judgement) {
         case 'FANTASTIC': case 'EXCELLENT':
-          this.life += 5
+          if (this.life + 5 < 100) {
+            this.life += 5
+          } else {
+            this.life = 100;
+          }
           break;
         case 'GREAT':
-          this.life += 3
+          if (this.life + 3 < 100) {
+            this.life += 3
+          } else {
+            this.life = 100;
+          }
           break;
       }
+    }
+  }
+
+  setJudgementEle(judgement) {
+    const judgeText = document.getElementById('judgement');
+    judgeText.style.display = 'block';
+    switch (judgement) {
+      case 'Fantastic':
+        judgeText.textContent = "Fantastic!"
+        judgeText.style.color = '#21CCE8'
+        break;
+      case 'Excellent':
+        judgeText.textContent = "Excellent!"
+        judgeText.style.color = '#e29c18'
+        break;
+      case 'Great':
+        judgeText.textContent = "Great!"
+        judgeText.style.color = '#66c955'
+        break;
+      case 'Decent':
+        judgeText.textContent = "Decent"
+        judgeText.style.color = '#b45cff'
+        break;
+      case 'Way-Off':
+        judgeText.textContent = "Way Off"
+        judgeText.style.color = '#c9855e'
+        break;
+      case 'Miss':
+        judgeText.textContent = "MISS"
+        judgeText.style.color = '#ff3030'
+        break;
     }
   }
 
@@ -189,25 +290,35 @@ class Game {
       case (distance < 10):
         this.score += 5;
         this.fantastics += 1;
+        this.combo += 1;
         this.addLife('FANTASTIC');
+        this.setJudgementEle('Fantastic');
         break;
       case (distance < 20):
         this.score += 4;
         this.excellents += 1;
+        this.combo += 1;
         this.addLife('EXCELLENT');
+        this.setJudgementEle('Excellent');
         break;
       case (distance < 30):
         this.score += 2;
         this.greats += 1;
+        this.combo += 1;
         this.addLife('GREAT');
+        this.setJudgementEle('Great');
         break;
       case (distance < 50):
         this.score += 0;
         this.decents += 1;
+        this.combo = 0;
+        this.setJudgementEle('Decent');
         return 'DECENT';
       case (distance < 60):
         this.score -= 6;
         this.wayOffs += 1;
+        this.combo = 0;
+        this.setJudgementEle('Way-Off');
         return 'WAY OFF';
     }
   }
@@ -289,8 +400,8 @@ class Game {
 
   async chartIteration() {
     // goes through the chart, needs to wait for the measure
-    for (let i = 1; i < this.difficulty.measureCount; i++) {
-      if (!this.isGameActive) {
+    for (let i = 1; i <= this.difficulty.measureCount; i++) {
+      if (!this.isAlive) {
         return;
       }
       const measure = this.steps[`${i}`];
@@ -298,13 +409,14 @@ class Game {
       let delay = this.getDelay(this.bpm, quantization);
       await this.measureIteration(measure, delay);
     }
+    this.chartFinished = true;
   }
 
   async measureIteration(measure, delay) {
     // goes through the measure, needs to wait per note
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
-      if (!this.isGameActive) {
+      if (!this.isAlive) {
         return;
       }
       let beat = measure[j];
@@ -316,7 +428,7 @@ class Game {
 
   laneIteration(beat, quantColorNum) {
     for (let k = 0; k < beat.length; k++) {
-      if (!this.isGameActive) {
+      if (!this.isAlive) {
         return;
       }
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {

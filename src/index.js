@@ -59,12 +59,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
   
   for (let button of hideButtons) {
-    if (parseInt(button.value) === g.darkened) button.classList.add('button-selected');
+    if (parseInt(button.value) === g.game.darkened) button.classList.add('button-selected');
     button.addEventListener('click', () =>{
       resetButtons(hideButtons);
       button.dataset.selected = "true";
       button.classList.add('button-selected');
-      g.darkened = parseInt(button.value);
+      g.game.darkened = parseInt(button.value);
     })
   }
 
@@ -105,5 +105,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
       }
     }
   })
-  console.log('DOM fully loaded and parsed');
+  console.log('Dom_ITG fully loaded and parsed');
 })
