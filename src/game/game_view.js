@@ -39,13 +39,12 @@ class GameView {
     // 648 u/s at speed 5
     this.game.getStepsAndCount(this.diff);
     let startPoint = 0;
-    let speed = this.game.speed
     switch (this.diff) {
       case 2: case 3:
-        startPoint = 5058;
+        startPoint = 8890;
         break;
       case 6: case 8: case 9:
-        startPoint = 3190;
+        startPoint = 5300;
         break;
     }
 
@@ -58,10 +57,14 @@ class GameView {
         this.gameWin();
       }
     }, 20);
-
+    const messageMessage = document.getElementById('message-message');
+    const messageScreen = document.getElementById('message-screen');
+    messageMessage.textContent = "Please wait, loading."
+    messageScreen.style.display = "block";
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.5);
+      messageScreen.style.display = "none";
     }, startPoint) // the bigger this number, the later the chart
     this.game.startChart();
   }

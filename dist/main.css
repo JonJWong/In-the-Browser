@@ -320,6 +320,7 @@ button:hover {
 }
 
 #in-game-header {
+  color: black;
   font-size: 40px;
   margin-top: -5px;
 }
@@ -456,6 +457,36 @@ button:hover {
   font-family: "Wendy";
 }
 
+#message-screen {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(#500050, #500050, black);
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(0%, 0%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border: 10px solid gray;
+}
+
+#message-message {
+  text-align: center;
+  opacity: 100%;
+  transition: opacity 3s;
+  margin: 0;
+  font-size: 40px;
+  font-family: "Wendy";
+}
+
 #restart:hover {
   margin-top: -15px;
 }
@@ -498,4 +529,14 @@ button:hover {
   bottom: 0;
   transform: translate(-475%, 0%);
   z-index: 20;
+}
+
+#chart-banner {
+  display: flex;
+  width: 418px;
+  height: 164px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
