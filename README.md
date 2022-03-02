@@ -32,10 +32,11 @@
 
 #
 ### Future Plans
-- Add the ability to upload custom songs
-- Add the ability to change song options through an options menu (scroll rate, note skin)
-- Add a volume slider
-- Custom keybinds to assign preferred keys to arrows
+- Refactor the logic to use requestAnimationFrame() instead of setInterval()
+- Add the ability to upload custom songs.
+- Add the ability to scroll from top to bottom, as well as to change noteskin.
+- Change volume buttons to a volume slider.
+- Add the ability to use custom keybinds for arrows.
 
 #
 ### Credit:
