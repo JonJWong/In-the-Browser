@@ -28,25 +28,35 @@ class GameView {
     // this.startButton.removeEventListener('click', this.startButtonHandler)
   }
 
-  start() {
-    // ORIGINAL : 3240 for speed 5
-    // 7392 = FIRST ARROW MS AFTER AUDIO STARTS
-    // ALSO THE DELAY BEFORE THE FIRST ARROW IF LINE 50 IS 0
-    // AUDIO PLAYS FOR 4 MEASURES
-    // NEED TO CLOSE THE GAP BY BRINGING THE AUDIO 4 MEASURES CLOSER
-    // ~3696 to get to the top (8 beats)
-    // time to top = 7401
-    // 648 u/s at speed 5
-    this.game.getStepsAndCount(this.diff);
-    let startPoint = 0;
-    switch (this.diff) {
+  getStartDelay() {
+    const speed = this.game.speed;
+    const diff = this.diff;
+
+    switch(diff) {
       case 2: case 3:
-        startPoint = 8890;
-        break;
+        switch(speed) {
+          case 3:
+            return 12615
+          case 5:
+            return 10465
+          case 10:
+            return 8890
+        }
       case 6: case 8: case 9:
-        startPoint = 5300;
-        break;
+        switch (speed) {
+          case 3:
+            return 5300
+          case 5:
+            return 3150
+          case 10:
+            return 1540
+        }
     }
+  }
+
+  start() {
+    this.game.getStepsAndCount(this.diff);
+    let startPoint = this.getStartDelay();
 
     this.interval = setInterval(() => {
       this.game.step();
@@ -57,15 +67,18 @@ class GameView {
         this.gameWin();
       }
     }, 20);
+
     const messageMessage = document.getElementById('message-message');
     const messageScreen = document.getElementById('message-screen');
-    messageMessage.textContent = "Please wait, loading."
+    messageMessage.textContent = "Attempting to sync..."
     messageScreen.style.display = "block";
+
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.5);
       messageScreen.style.display = "none";
     }, startPoint) // the bigger this number, the later the chart
+
     this.game.startChart();
   }
 
@@ -75,7 +88,7 @@ class GameView {
     judgeText.style.display = 'none';
     this.audio.pause();
     const endMessage = document.getElementById('end-message');
-    endMessage.textContent = `You passed. Congratulations, you finished with a score of
+    endMessage.textContent = `Congratulations, you finished with a score of
     ${this.game.getMoneyScore()}% If you wish to play again, please press restart and choose
     your settings`
     const endScreen = document.getElementById('end-screen');

@@ -413,12 +413,6 @@ button:hover {
   color: #ff3030;
 }
 
-#percentage-score {
-  float: right;
-  font-size: 110px;
-  display: block;
-}
-
 #end-screen {
   padding: 15px;
   display: none;
@@ -498,7 +492,7 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(90%, 275%)
+  transform: translate(80%, 275%)
 }
 
 #combo-counter {
