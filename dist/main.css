@@ -356,8 +356,8 @@ button:hover {
 }
 
 #artist-info {
-  margin-top: 0px;
-  margin-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .chart-stats {
@@ -488,7 +488,7 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(80%, 130%);
+  transform: translate(80%, 270%);
 }
 
 #combo-counter {
