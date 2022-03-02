@@ -68,7 +68,7 @@ body {
 }
 
 #information-display {
-  padding: 50px;
+  padding: 25px;
   display: block;
   align-content: center;
   background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
@@ -107,17 +107,19 @@ h1, h2, h3, h4, span, button, p, div, ul, li{
   font-family: Wendy;
   text-align: center;
   color: white;
-  margin-bottom: -5px;
+  margin-bottom: auto;
   cursor: default;
 }
 
 h1 {
   font-size: 90px;
-  margin-bottom: -15px;
+  margin-bottom: -2%;
+  margin-top: -1%;
 }
 
 h2 {
   font-size: 50px;
+  margin-bottom: -10px;
 }
 
 h3 {
@@ -126,7 +128,7 @@ h3 {
 
 h4 {
   font-size: 25px;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
 #game-desc {
@@ -136,7 +138,6 @@ h4 {
   margin-left: auto;
   margin-right: auto;
   padding-top: 10px;
-  padding-bottom: 70px;
 }
 
 #love-arrows {
@@ -149,10 +150,21 @@ h4 {
 
 .desc-game-controls {
   width: 450px;
-  justify-content: space-evenly;
   margin: 0 auto;
-  padding: 20px;
   list-style: none;
+  display: block;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translate(0%, 200%);
 }
 
 button {
@@ -163,6 +175,8 @@ button {
   color: grey;
   border: none;
   background: none;
+  margin-top: -5px;
+  margin-bottom: -5px;
 }
 
 button:hover {
@@ -176,7 +190,7 @@ button:hover {
 }
 
 #start {
-  margin-top: -70px;
+  margin-top: auto;
   font-size: 60px;
 }
 
@@ -188,7 +202,7 @@ button:hover {
 .fake-meta, span{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0px;
+  margin-bottom: auto;
   margin-left: 90px;
   margin-right: 90px;
   font-family: Bebas;
@@ -241,20 +255,20 @@ button:hover {
 }
 
 #game-opts-header {
-  margin-top: -45px;
+  margin-top: auto;
 }
 
 .scroll-rate {
-  margin-top: -10px;
+  margin-top: auto;
 }
 
 #scroll-header, #diff-header {
-  margin-top: 30px;
+  margin-top: auto;
 }
 
 #credits {
   margin-top: auto;
-  margin-bottom: 10px;
+  margin-bottom: auto;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -264,7 +278,7 @@ button:hover {
 }
 
 #hide-bg {
-  margin-top: 15px;
+  margin-top: auto;
   font-family: "Wendy";
   font-size: 45px;
   display: flex;
@@ -274,17 +288,12 @@ button:hover {
   margin-right: auto;
 }
 
-#hide-bg > button {
-  font-size: 45px;
-}
-
-#hide-bg > button:focus{
-  color: palevioletred;
-  cursor: pointer;
+#hide-button:focus {
+  color: palevioletred
 }
 
 #back {
-  margin-top: 40px;
+  margin-top: auto;
   font-size: 60px;
   position: absolute;
   margin-top: auto;
@@ -298,13 +307,17 @@ button:hover {
 #in-game-header {
   color: black;
   font-size: 40px;
-  margin-top: -5px;
+  margin-top: -13px;
 }
 
-.vol-btn {
+.vol-btn, #vol-meter {
   color: white;
   font-size: 30px;
-  margin-bottom: 0px;
+  margin-bottom: auto;
+}
+
+#vol-meter {
+  cursor: default;
 }
 
 #step-statistics-block {
@@ -334,20 +347,19 @@ button:hover {
 }
 
 #artist-info {
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin-top: 0px;
+  margin-bottom: 5px;;
 }
 
 .chart-stats {
   font-size: 30px;
   font-family: 'Bebas';
   display: flex;
-  margin-bottom: 1px;
 }
 
 .ss-judgement {
   text-align: left;
-  margin-top: -10px;
+  margin-top: -17px;
 }
 
 #judgement {
@@ -467,7 +479,7 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(80%, 275%)
+  transform: translate(80%, 130%)
 }
 
 #combo-counter {
@@ -495,6 +507,8 @@ button:hover {
   display: flex;
   width: 418px;
   height: 164px;
+  margin-top: -10px;
+  margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -503,4 +517,23 @@ button:hover {
 
 #restart:hover {
   color: #21CCE8;
+}
+
+#logo {
+  width: 350px;
+  height: auto;
+  display: block;
+  text-align: right;
+  font-family: "Wendy";
+  font-size: 100px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(45%, -180%)
 }
