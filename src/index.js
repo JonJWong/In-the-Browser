@@ -105,5 +105,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
       }
     }
   })
-  console.log('DOM fully loaded and parsed');
+  console.log('Dom_ITG fully loaded and parsed');
 })

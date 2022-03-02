@@ -122,7 +122,7 @@ class GameView {
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
     const stepStats = document.getElementById('step-statistics-block');
-    const failScreen = document.getElementById('fail-screen');
+    const failScreen = document.getElementById('end-screen');
 
     menu.style.display = "block";
     optMenu.style.display = "none";
@@ -134,6 +134,7 @@ class GameView {
 
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
+    this.startButton = document.getElementById('start');
     this.startButton.textContent = "Start Game";
   }
 
