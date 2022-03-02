@@ -23,10 +23,12 @@
 
 #
 ### Technologies used
-- Javascript
-- Vanilla JS
-- Keymaster.js
-- Howler.js
+- Javascript handles the logic of the game.
+- Vanilla JS to handle HTML element interaction, as well as button handling.
+- Keymaster.js to handle key inputs.
+- Canvas API to draw dynamic objects such as arrows, targets, lifebar.
+- SSC files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
+- Webpack and Babel.JS to transpile the scripts
 
 #
 ### Future Plans

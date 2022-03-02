@@ -10,6 +10,7 @@ class Game {
     this.chart = new Chart(gameOpts['chartOpts']);
     
     this.targets = this.addTargets(gameOpts['numTargets']);
+    this.pops = [];
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     this.darkened = 0;
@@ -332,9 +333,27 @@ class Game {
     return targets;
   }
 
-  createTarget(i, targetOpts) {
-    targetOpts ||= Options.targetOpts()
-    targetOpts['game'] = this;
+
+  createPop(i, judgement) {
+    let popOpts = Options.popOpts();
+    switch (i) {
+      case 0:
+        targetOpts['direction'] = 'left';
+        return new Arrow(targetOpts);
+      case 1:
+        targetOpts['direction'] = 'down';
+        return new Arrow(targetOpts);
+      case 2:
+        targetOpts['direction'] = 'up';
+        return new Arrow(targetOpts);
+      case 3:
+        targetOpts['direction'] = 'right';
+        return new Arrow(targetOpts);
+    }
+  }
+
+  createTarget(i) {
+    const targetOpts = Options.targetOpts()
     switch (i) {
       case 0:
         targetOpts['direction'] = 'left';
