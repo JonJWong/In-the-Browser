@@ -87,11 +87,33 @@ class Game {
     })
   }
 
+  drawLifebar(ctx) {
+    ctx.beginPath();
+    ctx.rect(120, 20, 300, 50);
+    ctx.lineWidth = 5;
+    ctx.stroke();
+  }
+
+  fillLifebar(ctx) {
+    ctx.beginPath();
+    ctx.rect(120, 20, this.life*3, 50);
+    if (this.life === 100) {
+      ctx.fillStyle = "#ffffff"
+    } else if (this.life > 20) {
+      ctx.fillStyle = "#c4c4c4"
+    } else {
+      ctx.fillStyle = "#940c0c"
+    }
+    ctx.fill();
+  }
+
   step() {
     if (this.life <= 0) {
       this.isAlive = false;
     }
     ctx.clearRect(0, 0, 1280, 960);
+    this.fillLifebar(ctx);
+    this.drawLifebar(ctx);
     this.drawTargets(ctx);
     this.moveArrows();
     this.updateStepStats();
