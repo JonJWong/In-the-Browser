@@ -45,7 +45,7 @@ class GameView {
         startPoint = 5058;
         break;
       case 6: case 8: case 9:
-        startPoint = 3240;
+        startPoint = 3190;
         break;
     }
 
