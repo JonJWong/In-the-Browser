@@ -37,12 +37,6 @@ const Options = {
       difficulty: 9
     }
     return gameOpts;
-  },
-
-  judgeOpts() {
-    const judgeOpts = {
-    }
-    return judgeOpts;
   }
 }
 
