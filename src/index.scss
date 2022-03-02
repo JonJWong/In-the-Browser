@@ -308,16 +308,13 @@ button:hover {
   color: black;
   font-size: 40px;
   margin-top: -13px;
+  margin-bottom: 20px;
 }
 
-.vol-btn, #vol-meter {
+.vol-btn {
   color: white;
   font-size: 30px;
   margin-bottom: auto;
-}
-
-#vol-meter {
-  cursor: default;
 }
 
 #step-statistics-block {
