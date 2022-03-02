@@ -38,6 +38,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
 
   for (let button of diffButtons) {
+    if (parseInt(button.dataset.number) === g.diff) button.classList.add('button-selected');
     button.addEventListener('click', () =>{
       resetButtons(diffButtons);
       button.dataset.selected = "true";
@@ -47,6 +48,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
 
   for (let button of speedButtons) {
+    if (parseInt(button.dataset.speed) === g.game.speed) button.classList.add('button-selected');
     button.addEventListener('click', () =>{
       resetButtons(speedButtons);
       button.dataset.selected = "true";
@@ -56,6 +58,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
   
   for (let button of hideButtons) {
+    if (parseInt(button.value) === g.darkened) button.classList.add('button-selected');
     button.addEventListener('click', () =>{
       resetButtons(hideButtons);
       button.dataset.selected = "true";
