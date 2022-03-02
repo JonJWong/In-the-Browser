@@ -1,8 +1,6 @@
-const OnScreenElement = require('./on_screen_element.js')
-
-class Arrow extends OnScreenElement {
+class Arrow {
   constructor(arrowOpts) {
-    super(arrowOpts); // IMAGE URL IS HERE    
+    this.imgUrl = arrowOpts['imgUrl']; // IMAGE URL IS HERE    
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = arrowOpts['position'];
@@ -17,6 +15,7 @@ class Arrow extends OnScreenElement {
     this.img.src = this.imgUrl;
     this.isAMine = arrowOpts['isAMine'] || false;
     this.isATarget = arrowOpts['target'] || false;
+    this.isAPop = arrowOpts['isAPop'] || false;
   }
 
   setHorizPos() {

@@ -210,7 +210,7 @@ class Game {
           };
           this.removeArrow(arrow);
         };
-        this.getJudgementAddScore(distance)
+        this.metricsIni(distance);
         this.removeArrow(arrow);
         this.hits += 1;
         break;
@@ -284,37 +284,37 @@ class Game {
 
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
-  getJudgementAddScore(distance) {
+  metricsIni(distance) {
     if (distance < 0) distance = -distance;
     switch (true) {
-      case (distance < 10):
+      case (distance < 20):
         this.score += 5;
         this.fantastics += 1;
         this.combo += 1;
         this.addLife('FANTASTIC');
         this.setJudgementEle('Fantastic');
         break;
-      case (distance < 20):
+      case (distance < 35):
         this.score += 4;
         this.excellents += 1;
         this.combo += 1;
         this.addLife('EXCELLENT');
         this.setJudgementEle('Excellent');
         break;
-      case (distance < 30):
+      case (distance < 50):
         this.score += 2;
         this.greats += 1;
         this.combo += 1;
         this.addLife('GREAT');
         this.setJudgementEle('Great');
         break;
-      case (distance < 50):
+      case (distance < 60):
         this.score += 0;
         this.decents += 1;
         this.combo = 0;
         this.setJudgementEle('Decent');
         return 'DECENT';
-      case (distance < 60):
+      case (distance < 70):
         this.score -= 6;
         this.wayOffs += 1;
         this.combo = 0;
@@ -351,17 +351,6 @@ class Game {
     }
   }
 
-  // 7392 + 9 ms from start of audio to first note (7401)
-  // distance from targets from spawn is 960-150 (= 810)
-  // with speed(5) it takes 162 ticks to get to the targets, with each tick as 20ms
-  // formula timeToTop = (distance / speed) * tick-delay
-  // formula timeToStart = 7392 + 9 - timeToTop (?)
-  // 3240ms to travel from bottom to target
-  // 462ms 1/4 notes @ 130bpm
-  // 231ms 1/8 notes @ 130bpm
-  // 115ms 1/16 notes @ 130bpm
-  // 58ms 1/32 notes @ 130bpm
-  // async delay should take in bpm
   getDelay(bpm, quantization) {
     const minuteInMs = 60000;
     return minuteInMs / ((quantization / 4) * bpm) - 1
