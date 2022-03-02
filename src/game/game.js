@@ -223,7 +223,7 @@ class Game {
   // B = 3, 7, 9, 15                | num % 4 === 3;
   // R  G  B  G  R  G  B  G  R  G  B  G  R  G  B  G
   // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
-  getQuantColorNum(i) {
+  getQuantColorNum(i, length) {
     if (length >= 16) {
       switch(true) {
         case (i % 4 === 1):
@@ -264,7 +264,7 @@ class Game {
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
       let beat = measure[j];
-      let quantColorNum = this.getQuantColorNum(j + 1);
+      let quantColorNum = this.getQuantColorNum(j + 1, measure.length);
       this.laneIteration(beat, quantColorNum)
       await timer(delay);
     }
