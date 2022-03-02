@@ -1,9 +1,9 @@
-# JS-the-groove
-  Welcome to JS the groove! This is a fun and interactive Javascript based rhythm game where you have to hit the arrows on screen when they reach the targets. There will be a song selected, and multiple difficulties per song.
+# In-the-Browser
+  Welcome to In the Browser! This is a fun and interactive Javascript based spin-off of In the Groove, which is a rhythm game where you have to hit the arrows on screen when they reach the targets. There will be a song selected, and multiple difficulties per song.
   
   The arrows will come up the screen, according to the rhythm of the song, and depending on how close to the beat you press they correct key, you will be rewarded more points. Your final score will be shown to you once you pass a song, but if your lifebar reaches 0 from missing too many notes in succession, you will fail!
 
-  <a href="https://jonjwong.github.io/JS-the-groove/">Live Link</a>
+  <a href="https://jonjwong.github.io/In-the-Browser/">Live Link</a>
 
 #
 ## Features / MVPs
@@ -15,7 +15,7 @@
 #
 ## Wireframe
 
-<img src="https://github.com/JonJWong/JS-the-groove/blob/main/assets/images/wireframe.png"></img>
+<img src="https://github.com/JonJWong/In-the-Browser/blob/main/assets/images/wireframe.png"></img>
 
 - In the "Main Game Area", the game would be on standby until the game is started
 - In the "Step Statistics and instructions" area, there will be your score summary, as well as the instructions on how to play the game.
