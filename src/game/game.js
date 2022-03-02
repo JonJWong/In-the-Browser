@@ -200,9 +200,7 @@ class Game {
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
-        if (arrow.isAMine && distance > 20) {
-          continue;
-        } else if (arrow.isAMine && distance < 20) {
+        if (arrow.isAMine && (distance < 10 && distance > -30)) {
           this.combo = 0;
           this.score -= 6;
           this.life -= 10;
@@ -288,34 +286,34 @@ class Game {
   metricsIni(distance) {
     if (distance < 0) distance = -distance;
     switch (true) {
-      case (distance < 20):
+      case (distance <= 20):
         this.score += 5;
         this.fantastics += 1;
         this.combo += 1;
         this.addLife('FANTASTIC');
         this.setJudgementEle('Fantastic');
         break;
-      case (distance < 35):
+      case (distance <= 35):
         this.score += 4;
         this.excellents += 1;
         this.combo += 1;
         this.addLife('EXCELLENT');
         this.setJudgementEle('Excellent');
         break;
-      case (distance < 50):
+      case (distance <= 50):
         this.score += 2;
         this.greats += 1;
         this.combo += 1;
         this.addLife('GREAT');
         this.setJudgementEle('Great');
         break;
-      case (distance < 60):
+      case (distance <= 60):
         this.score += 0;
         this.decents += 1;
         this.combo = 0;
         this.setJudgementEle('Decent');
         return 'DECENT';
-      case (distance < 70):
+      case (distance <= 70):
         this.score -= 6;
         this.wayOffs += 1;
         this.combo = 0;

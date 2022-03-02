@@ -173,18 +173,11 @@ button:hover {
 .button-selected {
   color: palevioletred;
   cursor: pointer;
-  padding: 10px;
-  font-size: 60px;
-  margin-top: -5px;
-  margin-bottom: -15px;
 }
 
 #start {
   margin-top: -70px;
   font-size: 60px;
-}
-
-#start:hover {
 }
 
 .fake-meta {
@@ -289,9 +282,6 @@ button:hover {
 #hide-bg > button:focus{
   color: palevioletred;
   cursor: pointer;
-  padding: 10px;
-  margin-top: -5px;
-  margin-bottom: -5px;
 }
 
 #back {
@@ -316,9 +306,6 @@ button:hover {
   color: white;
   font-size: 30px;
   margin-bottom: 0px;
-}
-
-.vol-btn:hover {
 }
 
 #step-statistics-block {
@@ -463,9 +450,6 @@ button:hover {
   margin: 0;
   font-size: 40px;
   font-family: "Wendy";
-}
-
-#restart:hover {
 }
 
 #percentage-score {
