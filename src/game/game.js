@@ -75,26 +75,27 @@ class Game {
     return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
   
-  drawArrows(ctx) {
+  drawArrows() {
     this.arrows.forEach(arrow =>{
       arrow.render(ctx);
     })
   }
 
-  drawTargets(ctx) {
+  drawTargets() {
     this.targets.forEach(target => {
+      this.scaleTarget(target);
       target.render(ctx);
     })
   }
 
-  drawLifebar(ctx) {
+  drawLifebar() {
     ctx.beginPath();
     ctx.rect(120, 20, 300, 50);
     ctx.lineWidth = 5;
     ctx.stroke();
   }
 
-  fillLifebar(ctx) {
+  fillLifebar() {
     ctx.beginPath();
     ctx.rect(120, 20, this.life*3, 50);
     if (this.life === 100) {
@@ -176,6 +177,7 @@ class Game {
 
   checkKeyPress(direction) {
     const target = this.targets[directionToIndex[direction]]
+    this.hitTarget(target);
     // target indices left: 0, down: 1, up: 2, right: 3
     for (let i = 0; i < this.arrows.length; i++) {
       let arrow = this.arrows[i];
@@ -198,6 +200,18 @@ class Game {
         this.hits += 1;
         break;
       }
+    }
+  }
+
+  hitTarget(target) {
+    target.scale = .42;
+  }
+  
+  scaleTarget(target) {
+    if (target.scale - .01 > .35) {
+      target.scale -= .01
+    } if (target.scale - .01 < .35) {
+      target.scale = .35
     }
   }
 
