@@ -51,6 +51,11 @@ body {
   background-color: black;
 }
 
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+} 
+
 @font-face {
   font-family: 'Wendy';
   src: url('../assets/wendy.ttf') format("truetype");
@@ -97,11 +102,12 @@ body {
   z-index: -1;
 }
 
-h1, h2, h3, h4, span, button, p, div{
+h1, h2, h3, h4, span, button, p, div, ul, li{
   font-family: Wendy;
   text-align: center;
   color: white;
   margin-bottom: -5px;
+  cursor: default;
 }
 
 h1 {
@@ -158,7 +164,16 @@ button {
   background: none;
 }
 
-button:hover, .difficulty-selected, .speed-selected {
+button:hover {
+  color: palevioletred;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 60px;
+  margin-top: -5px;
+  margin-bottom: -15px;
+}
+
+.button-selected {
   color: palevioletred;
   cursor: pointer;
   padding: 10px;
@@ -236,6 +251,10 @@ button:hover, .difficulty-selected, .speed-selected {
   font-size: 30px;
 }
 
+#game-opts-header {
+  margin-top: -45px;
+}
+
 .scroll-rate {
   margin-top: -10px;
 }
@@ -255,9 +274,40 @@ button:hover, .difficulty-selected, .speed-selected {
   margin-right: auto;
 }
 
+#hide-bg {
+  margin-top: 30px;
+  font-family: "Wendy";
+  font-size: 45px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#hide-bg > button {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+#hide-bg > button:focus{
+  color: palevioletred;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
 #back {
   margin-top: 40px;
   font-size: 60px;
+  position: absolute;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 10px;
+  left: 0;
+  right: 0;
 }
 
 #in-game-header {
@@ -274,4 +324,116 @@ button:hover, .difficulty-selected, .speed-selected {
   font-size: 35px;
   margin-bottom: -5px;
   margin-top: -10px;
+}
+
+#step-statistics-block {
+  padding: 15px;
+  display: none;
+  background-color: rgb(0, 0, 0, .85);
+  width: 550px;
+  height: 600px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(50%, -10%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  border: 10px solid gray;
+}
+
+#step-statistics {
+  font-size: 55px;
+  text-align: left;
+  cursor: default;
+}
+
+#artist-info {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.chart-stats {
+  font-size: 30px;
+  font-family: 'Bebas';
+  display: flex;
+  margin-bottom: 1px;
+}
+
+.judgement {
+  text-align: left;
+  margin-top: -10px;
+}
+
+#fantastic {
+  color: #21CCE8;
+}
+
+#excellent {
+  color: #e29c18;
+}
+
+#great {
+  color: #66c955;
+}
+
+#decent {
+  color: #b45cff;
+}
+
+#way-off {
+  color: #c9855e;
+}
+
+#misses {
+  color: #ff3030;
+}
+
+#chart-banner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#percentage-score {
+  float: right;
+  font-size: 110px;
+  display: block;
+}
+
+#fail-screen {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-color: rgb(0, 0, 0);
+  width: 400px;
+  height: 240px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(0%, 0%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border: 10px solid gray;
+}
+
+#fail-screen > span {
+  opacity: 100%;
+  transition: opacity 3s;
+  margin: 0;
+  font-size: 40px;
+  font-family: "Wendy";
+}
+
+#restart:hover {
+  margin-top: -15px;
 }

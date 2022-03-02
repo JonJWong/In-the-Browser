@@ -68,26 +68,26 @@
     </p>
     </main>
     <aside id="game-opts">
-        <h1>Game Options</h1>
+        <h1 id="game-opts-header">Game Options</h1>
         <p id="tooltip">You can change the difficulty of the song here, as well as the
             rate at which the arrows will scroll up the screen.
         </p>
         <h2 id="diff-header">Difficulty Select</h2>
         <ul class="difficulty">
             <li>
-                <button class="difficulty-button" data-number="2">2 - Beginner</button>
+                <button class="difficulty-button" data-selected="" data-number="2">2 - Beginner</button>
             </li>
             <li>
-                <button class="difficulty-button" data-number="3">3 - Easy</button>
+                <button class="difficulty-button" data-selected="" data-number="3">3 - Easy</button>
             </li>
             <li>
-                <button class="difficulty-button" data-number="6">6 - Medium</button>
+                <button class="difficulty-button" data-selected="" data-number="6">6 - Medium</button>
             </li>
             <li>
-                <button class="difficulty-button" data-number="8">8 - Hard</button>
+                <button class="difficulty-button" data-selected="" data-number="8">8 - Hard</button>
             </li>
             <li>
-                <button class="difficulty-button" data-number="9">9 - Challenge</button>
+                <button class="difficulty-button" data-selected="true" data-number="9">9 - Challenge</button>
             </li>
         </ul>
         <h2 id="scroll-header">Scroll Rate</h2>
@@ -96,16 +96,19 @@
         </h4>
         <ul class="scroll-rate">
             <li>
-                <button class="speed-button" data-speed="3">3 - Slow</button>
+                <button class="speed-button" data-selected="" data-speed="3">3 - Slow</button>
             </li>
             <li>
-                <button class="speed-button" data-speed="5">5 - Normal</button>
+                <button class="speed-button" data-selected="true" data-speed="5">5 - Normal</button>
             </li>
             <li>
-                <button class="speed-button" data-speed="10">10 - Fast</button>
+                <button class="speed-button" data-selected="" data-speed="10">10 - Fast</button>
             </li>
         </ul>
-
+        <span id="hide-bg">Darken Lane:
+            <button class="hide-button" data-selected="" value="1">Yes</button>
+            <button class="hide-button" data-selected="true" value="0">No</button>
+        </span>
         <button value="back-to-main" id="back">Back to main</button>
     </aside>
     <nav id="in-game-overlay">
@@ -125,15 +128,28 @@
     <section id="step-statistics-block">
         <img src="/assets/chart/drop_pop_candy/drop_pop_candy_bn.png" alt="chart_banner" id="chart-banner">
         <ul id="step-statistics">
-            <li id="fantastic" data-judge="Fantastics: "></li>
-            <li id="excellent" data-judge="Excellents: "></li>
-            <li id="great" data-judge="Greats: "></li>
-            <li id="decent" data-judge="Decents: "></li>
-            <li id="way-off" data-judge="Way Offs: "></li>
-            <li id="misses" data-judge="Misses: "></li>
-            <li id="mines" data-judge="Mines: "></li>
-            <li id="percentage-score"></li>
+            <ul id="artist-info">
+                <li class="chart-stats" id="artist-name" data-name=""></li>
+                <li class="chart-stats" id="song-title" data-name=""></li>
+                <li class="chart-stats" id="difficulty-name" data-name=""></li>
+                <li class="chart-stats" id="difficulty-rating" data-name=""></li>
+            </ul>
+            <li class="judgement" id="fantastic" data-judge="Fantastics: "></li>
+            <li class="judgement" id="excellent" data-judge="Excellents: "></li>
+            <li class="judgement" id="great" data-judge="Greats: "></li>
+            <li class="judgement" id="decent" data-judge="Decents: "></li>
+            <li class="judgement" id="way-off" data-judge="Way Offs: "></li>
+            <li class="judgement" id="misses" data-judge="Misses: "></li>
+            <li class="judgement" id="mines" data-judge="Mines: "></li>
         </ul>
+            <span class="judgement" id="percentage-score"></span>
+            <span id="judgement" data-judge="">JUDGEMENT!</span>
+            <span id="lifebar" data-life=""></span>
+            <span id="combo-counter" data-combo=""></span>
+    </section>
+    <section id="fail-screen">
+        <span id="fail-message"></span>
+        <button id="restart">Restart Game</button>
     </section>
 </body>
 
