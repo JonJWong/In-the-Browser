@@ -52,6 +52,10 @@ class GameView {
 
     setInterval(() => {
       this.game.step();
+      if (!this.game.isGameActive) {
+        this.unBindKeys();
+        this.audio.pause();
+      }
     }, 20);
 
     setTimeout(() => {
@@ -75,6 +79,13 @@ class GameView {
     const optsMenu = document.getElementById('game-opts');
     optsMenu.style.display = optsMenu.style.display === 'none' ? 'none' : 'block';
     mainMenu.style.display = mainMenu.style.display === 'none' ? 'block' : 'none';
+  }
+
+  unBindKeys() {
+    key('left', () => {});
+    key('down', () => {});
+    key('up', () => {});
+    key('right', () => {});
   }
 
   bindKeys() {
