@@ -108,6 +108,7 @@ h1, h2, h3, h4, span, button, p, div, ul, li {
   text-align: center;
   color: white;
   margin-bottom: -5px;
+  cursor: default;
 }
 
 h1 {
@@ -164,7 +165,16 @@ button {
   background: none;
 }
 
-button:hover, .difficulty-selected, .speed-selected {
+button:hover {
+  color: palevioletred;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 60px;
+  margin-top: -5px;
+  margin-bottom: -15px;
+}
+
+.button-selected {
   color: palevioletred;
   cursor: pointer;
   padding: 10px;
@@ -242,6 +252,10 @@ button:hover, .difficulty-selected, .speed-selected {
   font-size: 30px;
 }
 
+#game-opts-header {
+  margin-top: -45px;
+}
+
 .scroll-rate {
   margin-top: -10px;
 }
@@ -261,9 +275,40 @@ button:hover, .difficulty-selected, .speed-selected {
   margin-right: auto;
 }
 
+#hide-bg {
+  margin-top: 30px;
+  font-family: "Wendy";
+  font-size: 45px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#hide-bg > button {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+#hide-bg > button:focus {
+  color: palevioletred;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
 #back {
   margin-top: 40px;
   font-size: 60px;
+  position: absolute;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 10px;
+  left: 0;
+  right: 0;
 }
 
 #in-game-header {

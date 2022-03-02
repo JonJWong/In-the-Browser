@@ -106,7 +106,7 @@ class Game {
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
     chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
     chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
-    chartStats['difficulty-rating'].textContent = `Rating: ${this.difficulty['rating']}`
+    chartStats['difficulty-rating'].textContent = `Rating: ${this.difficulty["rating"]}`
   }
 
   moveArrows() {

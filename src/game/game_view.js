@@ -9,6 +9,7 @@ class GameView {
     this.currVolume = .5;
     this.startButtonHandler = this.startButtonHandler.bind(this);
     this.startButton = document.getElementById('start')
+    this.darkened = 0;
   }
 
   startButtonHandler() {
@@ -17,11 +18,13 @@ class GameView {
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
     const stepStats = document.getElementById('step-statistics-block');
+
     optMenu.style.display = "none";
     menu.style.display = "none";
     inGameOverlay.style.display = "block";
-    this.start(this.diff);
     stepStats.style.display = "block";
+
+    this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
     this.startButton.removeEventListener('click', this.startButtonHandler)
   }

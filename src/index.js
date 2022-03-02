@@ -23,21 +23,44 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const volDown = document.getElementById('vol-down');
   const volUp = document.getElementById('vol-up');
   const muteButton = document.getElementById('mute');
-  const diffButton = document.getElementsByClassName('difficulty-button');
-  const speedButton = document.getElementsByClassName('speed-button');
+  const diffButtons = document.getElementsByClassName('difficulty-button');
+  const speedButtons = document.getElementsByClassName('speed-button');
+  const hideButtons = document.getElementsByClassName('hide-button');
   const backButton = document.getElementById('back');
 
-  for (let button of speedButton) {
-    if (button.dataset.speed === '5') button.classList.add('speed-selected');
+  function resetButtons(buttons) {
+    for (let button of buttons) {
+      if (button.dataset.selected === "true") {
+        button.classList.remove('button-selected')
+      }
+      button.dataset.selected = "";
+    }
+  }
+
+  for (let button of diffButtons) {
     button.addEventListener('click', () =>{
-      g.game.speed = parseInt(button.dataset.speed)
+      resetButtons(diffButtons);
+      button.dataset.selected = "true";
+      button.classList.add('button-selected');
+      g.diff = parseInt(button.dataset.number);
+    })
+  }
+
+  for (let button of speedButtons) {
+    button.addEventListener('click', () =>{
+      resetButtons(speedButtons);
+      button.dataset.selected = "true";
+      button.classList.add('button-selected');
+      g.game.speed = parseInt(button.dataset.speed);
     })
   }
   
-  for (let button of diffButton) {
-    if (button.dataset.number === '9') button.classList.add('difficulty-selected');
+  for (let button of hideButtons) {
     button.addEventListener('click', () =>{
-      g.diff = parseInt(button.dataset.number)
+      resetButtons(hideButtons);
+      button.dataset.selected = "true";
+      button.classList.add('button-selected');
+      g.darkened = parseInt(button.value);
     })
   }
 
