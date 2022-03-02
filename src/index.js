@@ -19,11 +19,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
   g.bindKeys();
   
   const startButton = document.getElementById('start');
+  const optionsButton = document.getElementById('options-btn');
   const volDown = document.getElementById('vol-down');
   const volUp = document.getElementById('vol-up');
   const muteButton = document.getElementById('mute');
+  const diffButton = document.getElementsByClassName('difficulty-button');
+  const speedButton = document.getElementsByClassName('speed-button');
+  const backButton = document.getElementById('back');
+
+  for (let button of speedButton) {
+    button.addEventListener('click', () =>{
+      g.game.speed = parseInt(button.dataset.speed)
+    })
+  }
+
+  for (let button of diffButton) {
+    button.addEventListener('click', () =>{
+      g.diff = parseInt(button.dataset.number)
+    })
+  }
 
   startButton.addEventListener('click', g.startButtonHandler)
+  optionsButton.addEventListener('click', g.openCloseOpts)
+
+  backButton.addEventListener('click', g.openCloseOpts)
 
   volDown.addEventListener('click', () => {
     if (g.audio) {

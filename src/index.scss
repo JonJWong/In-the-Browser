@@ -77,7 +77,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   border: 10px solid black;
 }
 
@@ -184,7 +184,7 @@ button:hover {
 
 #game-opts {
   padding: 50px;
-  display: block;
+  display: none;
   align-content: center;
   background-color: rgb(80, 0, 80);
   width: 750px;
