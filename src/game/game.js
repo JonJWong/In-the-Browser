@@ -13,7 +13,7 @@ class Game {
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     
-    this.isGameActive = true;
+    this.isAlive = true;
 
     this.slayer;
     this.life = 50;
@@ -89,13 +89,17 @@ class Game {
 
   step() {
     if (this.life <= 0) {
-      this.isGameActive = false;
+      this.isAlive = false;
     }
     ctx.clearRect(0, 0, 1280, 960);
     this.drawTargets(ctx);
     this.moveArrows();
     this.updateStepStats();
     this.drawArrows(ctx);
+  }
+
+  getMoneyScore() {
+    return this.score <= 0 ? 0 : ((this.score / this.maxScore) * 100).toFixed(2)
   }
 
   updateStepStats() {
@@ -107,7 +111,7 @@ class Game {
     stepStats['way-off'].textContent = `WayOffs: ${this.wayOffs}`;
     stepStats['misses'].textContent = `Misses: ${this.misses}`;
     stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
-    stepStats['percentage-score'].textContent = `${Math.max(0, (this.score / this.maxScore).toFixed(2))}%`;
+    stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
     
     const chartStats = document.getElementsByClassName('chart-stats');
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
@@ -172,10 +176,18 @@ class Game {
     if (this.combo > 3 && this.life !== 100) {
       switch (judgement) {
         case 'FANTASTIC': case 'EXCELLENT':
-          this.life += 5
+          if (this.life + 5 < 100) {
+            this.life += 5
+          } else {
+            this.life = 100;
+          }
           break;
         case 'GREAT':
-          this.life += 3
+          if (this.life + 3 < 100) {
+            this.life += 3
+          } else {
+            this.life = 100;
+          }
           break;
       }
     }
@@ -289,8 +301,8 @@ class Game {
 
   async chartIteration() {
     // goes through the chart, needs to wait for the measure
-    for (let i = 1; i < this.difficulty.measureCount; i++) {
-      if (!this.isGameActive) {
+    for (let i = 1; i <= this.difficulty.measureCount; i++) {
+      if (!this.isAlive) {
         return;
       }
       const measure = this.steps[`${i}`];
@@ -298,13 +310,14 @@ class Game {
       let delay = this.getDelay(this.bpm, quantization);
       await this.measureIteration(measure, delay);
     }
+    this.chartFinished = true;
   }
 
   async measureIteration(measure, delay) {
     // goes through the measure, needs to wait per note
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
-      if (!this.isGameActive) {
+      if (!this.isAlive) {
         return;
       }
       let beat = measure[j];
@@ -316,7 +329,7 @@ class Game {
 
   laneIteration(beat, quantColorNum) {
     for (let k = 0; k < beat.length; k++) {
-      if (!this.isGameActive) {
+      if (!this.isAlive) {
         return;
       }
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {

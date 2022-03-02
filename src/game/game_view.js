@@ -51,8 +51,11 @@ class GameView {
 
     this.interval = setInterval(() => {
       this.game.step();
-      if (!this.game.isGameActive) {
+      if (!this.game.isAlive) {
         this.gameFail();
+      }
+      if (this.game.isFinished && !this.game.arrows.length) {
+        this.gameWin();
       }
     }, 20);
 
@@ -61,6 +64,17 @@ class GameView {
       this.changeVolume(.5);
     }, startPoint) // the bigger this number, the later the chart
     this.game.startChart();
+  }
+
+  gameWin() {
+    clearInterval(this.interval);
+    this.audio.pause();
+    const endMessage = document.getElementById('end-message');
+    endMessage.textContent = `You passed. Congratulations, you finished with a score of
+    ${this.game.getMoneyScore()}% If you wish to play again, please press restart and choose
+    your settings`
+    const endScreen = document.getElementById('end-screen');
+    endScreen.style.display = "block";
   }
 
   astralReaper() {
@@ -78,11 +92,11 @@ class GameView {
   gameFail() {
     this.audio.pause();
     this.game.arrows = [];
-    const failMessage = document.getElementById('fail-message');
-    failMessage.textContent = `You failed. Please try again, you had 
-    ${this.game.hits} arrows left. ${this.astralReaper()}`
-    const failScreen = document.getElementById('fail-screen');
-    failScreen.style.display = "block";
+    const endMessage = document.getElementById('end-message');
+    endMessage.textContent = `You failed. Please try again, you had 
+    ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
+    const endScreen = document.getElementById('end-screen');
+    endScreen.style.display = "block";
   }
 
   restartGame() {
