@@ -526,7 +526,6 @@ button:hover {
   display: block;
   text-align: right;
   font-family: "Wendy";
-  font-size: 100px;
   position: absolute;
   margin-right: auto;
   margin-left: auto;
@@ -536,5 +535,27 @@ button:hover {
   right: 0;
   top: 0;
   bottom: 0;
-  transform: translate(45%, -180%)
+  z-index: 50;
+  transform: translate(130%, -207%)
+}
+
+#github {
+  width: 350px;
+  color: red;
+  height: auto;
+  display: block;
+  text-align: right;
+  font-family: "Wendy";
+  font-size: 40px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  transform: translate(20%, 20%)
 }

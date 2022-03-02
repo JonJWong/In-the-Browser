@@ -10,7 +10,7 @@ class Game {
     this.chart = new Chart(gameOpts['chartOpts']);
     
     this.targets = this.addTargets(gameOpts['numTargets']);
-    this.pops = [];
+    // this.pops = [];
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     this.darkened = 0;
@@ -18,20 +18,23 @@ class Game {
     this.isAlive = true;
     this.chartFinished = false;
 
-    this.slayer;
-    this.life = 50;
-    this.maxScore;
-    this.score = 0;
-    this.hits = 0;
-    this.combo = 0;
+    this.fps = 75;
+
     this.fantastics = 0;
     this.excellents = 0;
     this.greats = 0;
     this.decents = 0;
     this.wayOffs = 0;
     this.misses = 0;
-    this.minesTotal = 0;
+    this.hits = 0;
+    this.score = 0;
+    this.maxScore;
+    this.combo = 0;
     this.minesDodged = 0;
+    this.minesTotal = 0;
+
+    this.slayer;
+    this.life = 50;
   }
 
   addArrow(arrowDirection, quantColorNum) {
@@ -116,9 +119,15 @@ class Game {
 
   darkenLane() {
     ctx.beginPath();
-    ctx.rect(12, 0, 435, 960)
+    ctx.rect(12, 0, 435, 960);
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fill();
+  }
+
+  drawLanePop(arrow) {
+    ctx.beginPath();
+    ctx.rect(12, 0, 112.56, 960);
+    
   }
 
   step() {
@@ -332,23 +341,23 @@ class Game {
   }
 
 
-  createPop(i, judgement) {
-    let popOpts = Options.popOpts();
-    switch (i) {
-      case 0:
-        targetOpts['direction'] = 'left';
-        return new Arrow(targetOpts);
-      case 1:
-        targetOpts['direction'] = 'down';
-        return new Arrow(targetOpts);
-      case 2:
-        targetOpts['direction'] = 'up';
-        return new Arrow(targetOpts);
-      case 3:
-        targetOpts['direction'] = 'right';
-        return new Arrow(targetOpts);
-    }
-  }
+  // createPop(i, judgement) {
+  //   let popOpts = Options.popOpts();
+  //   switch (i) {
+  //     case 0:
+  //       popOpts['direction'] = 'left';
+  //       break;
+  //     case 1:
+  //       popOpts['direction'] = 'down';
+  //       break;
+  //     case 2:
+  //       popOpts['direction'] = 'up';
+  //       break;
+  //     case 3:
+  //       popOpts['direction'] = 'right';
+  //       break;
+  //   }
+  // }
 
   createTarget(i) {
     const targetOpts = Options.targetOpts()

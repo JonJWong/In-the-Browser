@@ -55,6 +55,23 @@ class GameView {
     }
   }
 
+  startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
+  }
+
+  // rafStart() {
+  //   this.game.getStepsAndCount(this.diff);
+
+  //   let stopped = false;
+  //   let frameCount = 0;
+  //   let fps, fpsInterval, startTime, now, then, elapsed;
+
+
+  // }
+
   start() {
     this.game.getStepsAndCount(this.diff);
     let startPoint = this.getStartDelay();
