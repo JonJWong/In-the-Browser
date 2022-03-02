@@ -12,8 +12,10 @@ class Game {
     this.targets = this.addTargets(gameOpts['numTargets']);
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
+    this.darkened = 0;
     
     this.isAlive = true;
+    this.chartFinished = false;
 
     this.slayer;
     this.life = 50;
@@ -90,14 +92,17 @@ class Game {
 
   drawLifebar() {
     ctx.beginPath();
-    ctx.rect(120, 20, 300, 50);
+    ctx.rect(120, 15, 300, 50);
+    if (this.darkened) {
+      ctx.strokeStyle = "#cccccc"
+    }
     ctx.lineWidth = 5;
     ctx.stroke();
   }
 
   fillLifebar() {
     ctx.beginPath();
-    ctx.rect(120, 20, this.life*3, 50);
+    ctx.rect(120, 15, this.life*3, 50);
     if (this.life === 100) {
       ctx.fillStyle = "#ffffff"
     } else if (this.life > 20) {
@@ -108,11 +113,21 @@ class Game {
     ctx.fill();
   }
 
+  darkenLane() {
+    ctx.beginPath();
+    ctx.rect(12, 0, 435, 960)
+    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+    ctx.fill();
+  }
+
   step() {
     if (this.life <= 0) {
       this.isAlive = false;
     }
     ctx.clearRect(0, 0, 1280, 960);
+    if (this.darkened) {
+      this.darkenLane();
+    }
     this.fillLifebar(ctx);
     this.drawLifebar(ctx);
     this.drawTargets(ctx);

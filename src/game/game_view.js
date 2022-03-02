@@ -7,7 +7,6 @@ class GameView {
     this.ctx = ctx;
     this.diff = 9;
     this.currVolume = .5;
-    this.darkened = 0;
 
     this.startButtonHandler = this.startButtonHandler.bind(this);
     this.startButton = document.getElementById('start')
