@@ -168,10 +168,6 @@ button {
 button:hover {
   color: palevioletred;
   cursor: pointer;
-  padding: 10px;
-  font-size: 60px;
-  margin-top: -5px;
-  margin-bottom: -15px;
 }
 
 .button-selected {
@@ -189,7 +185,6 @@ button:hover {
 }
 
 #start:hover {
-  font-size: 75px;
 }
 
 .fake-meta {
@@ -324,9 +319,6 @@ button:hover {
 }
 
 .vol-btn:hover {
-  font-size: 35px;
-  margin-bottom: -5px;
-  margin-top: -10px;
 }
 
 #step-statistics-block {
@@ -474,7 +466,6 @@ button:hover {
 }
 
 #restart:hover {
-  margin-top: -15px;
 }
 
 #percentage-score {
