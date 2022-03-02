@@ -1,7 +1,7 @@
 {
-  "name": "js-the-groove",
+  "name": "in-the-browser",
   "version": "1.0.0",
-  "description": "JS based 4-panel arrow game",
+  "description": "A JavaScript-based In The Groove recreation!",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch --mode=development",
@@ -12,14 +12,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JonJWong/JS-the-groove.git"
+    "url": "git+https://github.com/JonJWong/In-the-Browser.git"
   },
   "author": "Jonathan Wong",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JonJWong/JS-the-groove/issues"
+    "url": "https://github.com/JonJWong/In-the-Browser/issues"
   },
-  "homepage": "https://github.com/JonJWong/JS-the-groove#readme",
+  "homepage": "https://github.com/JonJWong/In-the-Browser#readme",
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
