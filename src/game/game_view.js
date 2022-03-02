@@ -14,9 +14,11 @@ class GameView {
   startButtonHandler() {
     // this.game.speed = speed;
     const menu = document.getElementById('information-display');
-    const optMenu = document.getElementById('game-opts')
+    const optMenu = document.getElementById('game-opts');
+    const inGameOverlay = document.getElementById('in-game-overlay')
     optMenu.style.display = "none";
     menu.style.display = "none";
+    inGameOverlay.style.display = "block";
     this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
     this.startButton.removeEventListener('click', this.startButtonHandler)

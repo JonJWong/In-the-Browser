@@ -13,6 +13,7 @@ class Game {
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     
+    this.life = 50;
     this.maxScore;
     this.score = 0;
     this.combo = 0;
@@ -132,6 +133,19 @@ class Game {
     }
   }
 
+  addLife(jugement) {
+    if (this.combo > 3 && this.life !== 100) {
+      switch (judgement) {
+        case 'FANTASTIC': case 'EXCELLENT':
+          this.life += 5
+          break;
+        case 'GREAT':
+          this.life += 3
+          break;
+      }
+    }
+  }
+
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
   getJudgementAddScore(distance) {
@@ -140,15 +154,15 @@ class Game {
       case (distance < 5):
         this.score += 5;
         this.fantastics += 1;
-        return 'FANTASTIC!'
+        this.addLife('FANTASTIC');
       case (distance < 10):
         this.score += 4;
         this.excellents += 1;
-        return 'EXCELLENT!'
+        this.addLife('EXCELLENT')
       case (distance < 20):
         this.score += 2;
         this.greats += 1;
-        return 'GREAT!'
+        this.addLife('GREAT')
       case (distance < 45):
         this.score += 0;
         this.decents += 1;

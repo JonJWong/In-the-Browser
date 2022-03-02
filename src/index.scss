@@ -85,8 +85,15 @@ body {
   display: block;
   background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
   background-size: cover;
-  position: relative;
-  margin: 0 auto;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: -1;
 }
 
@@ -203,7 +210,24 @@ button:hover {
 }
 
 #in-game-overlay {
+  padding: 15px;
   display: none;
+  align-content: center;
+  background-color: rgb(0, 0, 0);
+  width: 200px;
+  height: 120px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(206%, 232%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  border: 10px solid gray;
 }
 
 #tooltip {
@@ -232,4 +256,20 @@ button:hover {
 #back {
   margin-top: 40px;
   font-size: 60px;
+}
+
+#in-game-header {
+  font-size: 40px;
+  margin-top: -5px;
+}
+
+.vol-btn {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+
+.vol-btn:hover {
+  font-size: 35px;
+  margin-bottom: -5px;
+  margin-top: -10px;
 }
