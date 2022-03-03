@@ -95,7 +95,6 @@ class GameView {
     clearInterval(this.interval);
     const judgeText = document.getElementById('judgement');
     judgeText.style.display = 'none';
-    this.audio.pause();
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `Congratulations, you finished with a score of
     ${this.game.getMoneyScore()}%. Thank you for playing.`
