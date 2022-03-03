@@ -31,11 +31,11 @@ When the song ends:
 ## Key functions and logic
 
 The steps are read from a file, and when they are re-generated as arrows, they go through an asynchronous loop with a timer.
-```
+```javaScript
 const timer = ms => new Promise(res => setTimeout(res, ms))
 ```
 The loop first iterates through the measures of the song, and within the measure, for every note, the timer is called. The delay between notes is set by this helper method:
-```
+```javaScript
 getDelay(bpm, quantization) {
   const minuteInMs = 60000;
   return minuteInMs / ((quantization / 4) * bpm) - 1
@@ -43,8 +43,8 @@ getDelay(bpm, quantization) {
 ```
 (the `- 1` takes 1 millisecond away from the delay added to the loop to take into account the natural delay in asynchronous functions.)
 
-With keymaster.js, I was able to bind inputs without relying on eventListeners, which would crowd the event loop. (any additional functions added to the queue will introduce lag in the steps while it is still generating, resulting in the rest of the arrows being off-sync.)
-```
+With keymaster.js, I was able to bind inputs without relying on eventListeners, which would crowd the event loop. *(any additional functions added to the queue will introduce lag in the steps while it is still generating, resulting in the rest of the arrows being off-sync.)*
+```javaScript
 bindKeys() {
   key('left', () => this.game.checkKeyPress('left'));
   key('down', () => this.game.checkKeyPress('down'));
@@ -56,7 +56,7 @@ bindKeys() {
 ### Technologies used
 - Javascript handles the logic of the game.
 - Vanilla JS to handle HTML element interaction, as well as button handling.
-- Keymaster.js to handle key inputs.
+- <a href="https://github.com/madrobby/keymaster">Keymaster.js</a> to handle key inputs.
 - Canvas API to draw dynamic objects such as arrows, targets, lifebar.
 - .ssc files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
 - Webpack and Babel.JS to transpile the scripts
@@ -74,5 +74,6 @@ bindKeys() {
 ### Credit:
 - Benpai for Notice Me Benpai 2 charts
 - Peter's scalable noteskins for SM5
+- <a href="https://github.com/Simply-Love/Simply-Love-SM5">Simply Love ITG</a> team for font, color theme inspiration, and design inspiration.
 - <a href="https://www.dafont.com/wendy.font">Wendy Font</a>
 - <a href="https://www.dafont.com/bebas-neue.font">Bebas-neue Font</a>
