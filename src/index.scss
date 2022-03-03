@@ -359,6 +359,9 @@ button:hover {
 }
 
 .chart-stats {
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
   font-size: 30px;
   font-family: 'Bebas';
   display: flex;
@@ -388,23 +391,23 @@ button:hover {
 }
 
 #fantastic {
-  color: #21CCE8;
+  color: rgb(33, 204, 232);
 }
 
 #excellent {
-  color: #e29c18;
+  color: rgb(226, 156, 24);
 }
 
 #great {
-  color: #66c955;
+  color: rgb(102, 201, 85);
 }
 
 #decent {
-  color: #b45cff;
+  color: rgb(180, 92, 255);
 }
 
 #way-off {
-  color: #c9855e;
+  color: rgb(201, 133, 94);
 }
 
 #misses {
@@ -538,7 +541,7 @@ button:hover {
   top: 0;
   bottom: 0;
   z-index: 50;
-  transform: translate(130%, -207%)
+  transform: translate(130%, -215%)
 }
 
 #github-logo {
@@ -565,4 +568,19 @@ button:hover {
 
 #github-logo:hover {
   background-color: rgba(102, 201, 85, 1);
+}
+
+#difficulty-rating {
+  background-color: purple;
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
+  display: block;
+  width: 75px;
+  height: 75px;
+  font-family: "Wendy";
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  transform: translate(-860%, -360%);
 }

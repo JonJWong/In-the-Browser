@@ -68,7 +68,6 @@ class GameView {
     let startPoint = this.getStartDelay();
 
     this.interval = setInterval(() => {
-      console.log('running')
       this.game.step();
       if (!this.game.isAlive) {
         this.gameFail();
@@ -129,11 +128,14 @@ class GameView {
   }
 
   restartGame() {
+    clearInterval(this.interval);
     ctx.clearRect(0, 0, 1280, 960);
+
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
     const stepStats = document.getElementById('step-statistics-block');
+    const chartStats = document.getElementsByClassName('chart-stats');
     const judgeText = document.getElementById('judgement');
     
     menu.style.display = "block";
@@ -141,8 +143,10 @@ class GameView {
     inGameOverlay.style.display = "none";
     stepStats.style.display = "none";
     judgeText.style.display = "none";
-    
-    clearInterval(this.interval);
+
+    for (let ele of chartStats) {
+      ele.style.filter = "grayscale(0%)"
+    }
     
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);

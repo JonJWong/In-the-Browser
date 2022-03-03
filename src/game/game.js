@@ -10,7 +10,6 @@ class Game {
     this.chart = new Chart(gameOpts['chartOpts']);
     
     this.targets = this.addTargets(gameOpts['numTargets']);
-    // this.pops = [];
     this.arrows = [];
     this.speed = gameOpts['speed']; // arrow velocity
     this.darkened = 0;
@@ -124,12 +123,6 @@ class Game {
     ctx.fill();
   }
 
-  drawLanePop(arrow) {
-    ctx.beginPath();
-    ctx.rect(12, 0, 112.56, 960);
-    
-  }
-
   step() {
     if (this.life <= 0) {
       this.isAlive = false;
@@ -172,7 +165,12 @@ class Game {
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
     chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
     chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
-    chartStats['difficulty-rating'].textContent = `Rating: ${this.difficulty["rating"]}`
+    chartStats['difficulty-rating'].textContent = `${this.difficulty["rating"]}`
+    if (!this.isAlive) {
+      for(let ele of chartStats) {
+        ele.style.filter = "grayscale(100%)"
+      }
+    };
   }
 
   moveArrows() {
@@ -327,7 +325,7 @@ class Game {
         this.wayOffs += 1;
         this.combo = 0;
         this.setJudgementEle('Way-Off');
-        return 'WAY OFF';
+        return 'WAYOFF';
     }
   }
 
@@ -339,25 +337,6 @@ class Game {
     }
     return targets;
   }
-
-
-  // createPop(i, judgement) {
-  //   let popOpts = Options.popOpts();
-  //   switch (i) {
-  //     case 0:
-  //       popOpts['direction'] = 'left';
-  //       break;
-  //     case 1:
-  //       popOpts['direction'] = 'down';
-  //       break;
-  //     case 2:
-  //       popOpts['direction'] = 'up';
-  //       break;
-  //     case 3:
-  //       popOpts['direction'] = 'right';
-  //       break;
-  //   }
-  // }
 
   createTarget(i) {
     const targetOpts = Options.targetOpts()

@@ -1,6 +1,6 @@
 class Arrow {
   constructor(arrowOpts) {
-    this.imgUrl = arrowOpts['imgUrl']; // IMAGE URL IS HERE    
+    this.imgUrl = arrowOpts['imgUrl'];  
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = arrowOpts['position'];
@@ -39,11 +39,6 @@ class Arrow {
   
   // This is hard-coded for 4 panels. need to refactor to make scalable
   render(ctx) {
-    // let scale = this.scale;
-    // let [x, y] = this.pos;
-    // let rotation = this.rotation;
-    // let img = this.img;
-
     ctx.setTransform(this.scale, 0, 0, this.scale, this.pos[0], this.pos[1]);
     ctx.rotate(this.rotation);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2)
