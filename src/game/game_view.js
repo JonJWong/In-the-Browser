@@ -125,7 +125,7 @@ class GameView {
       ele.style.filter = "grayscale(100%)";
     }
 
-    const stepStats = document.getElementById('step-statistics-block');
+    const stepStats = document.getElementsByClassName('ss-judgement');
     for (let ele of stepStats) {
       ele.style.filter = null
     }
@@ -145,7 +145,8 @@ class GameView {
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
-    const stepStats = document.getElementById('step-statistics-block');
+    const stepStatsBlock = document.getElementById('step-statistics-block');
+    const stepStats = document.getElementsByClassName('ss-judgement');
     const chartStats = document.getElementsByClassName('chart-stats');
     const judgeText = document.getElementById('judgement');
 
@@ -160,7 +161,7 @@ class GameView {
     menu.style.display = "block";
     optMenu.style.display = "none";
     inGameOverlay.style.display = "none";
-    stepStats.style.display = "none";
+    stepStatsBlock.style.display = "none";
     judgeText.style.display = "none";
     
     const gameOpts = Options.gameOpts();
