@@ -52,6 +52,18 @@ bindKeys() {
   key('right', () => this.game.checkKeyPress('right'));
 }
 ```
+All the arrows are sourced from one image so there would not have to be one image per arrow direction, and in order to do that, before each arrow gets rendered I rotated the canvas to draw it, and then reset the rotation. Inside of that function, I also incremented the rotation of the mine that was being rendered so that they spin.
+```javaScript
+  render(ctx) {
+    if (this.isAMine) {
+      this.rotation += .1
+    }
+    ctx.setTransform(this.scale, 0, 0, this.scale, this.pos[0], this.pos[1]);
+    ctx.rotate(this.rotation);
+    ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2)
+    ctx.setTransform(1,0,0,1,0,0)
+  }
+  ```
 #
 ### Technologies used
 - javaScript handles the logic of the game.
@@ -78,3 +90,10 @@ bindKeys() {
 - <a href="https://github.com/Simply-Love/Simply-Love-SM5">Simply Love ITG</a> team for font, color theme inspiration, and design inspiration.
 - <a href="https://www.dafont.com/wendy.font">Wendy Font</a>
 - <a href="https://www.dafont.com/bebas-neue.font">Bebas-neue Font</a>
+
+<p style="display: none">Changes to add:
+Freis:
+Make options save and carry over between plays.
+Add some delay to when the results screen shows up after fail.
+Fix CSS or make it more scalable for options menu, still too crowded.
+</p>
