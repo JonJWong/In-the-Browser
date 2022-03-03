@@ -166,11 +166,6 @@ class Game {
     chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
     chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
     chartStats['difficulty-rating'].textContent = `${this.difficulty["rating"]}`
-    if (!this.isAlive) {
-      for(let ele of chartStats) {
-        ele.style.filter = "grayscale(100%)"
-      }
-    };
   }
 
   moveArrows() {

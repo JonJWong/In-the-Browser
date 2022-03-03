@@ -119,6 +119,17 @@ class GameView {
     this.audio.pause();
     this.game.arrows = [];
     clearInterval(this.interval);
+
+    const chartStats = document.getElementsByClassName('chart-stats');
+    for (let ele of chartStats) {
+      ele.style.filter = "grayscale(100%)";
+    }
+
+    const stepStats = document.getElementById('step-statistics-block');
+    for (let ele of stepStats) {
+      ele.style.filter = null
+    }
+
     const endMessage = document.getElementById('end-message');
     endMessage.textContent = `You failed. Please try again, you had 
     ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
@@ -137,16 +148,20 @@ class GameView {
     const stepStats = document.getElementById('step-statistics-block');
     const chartStats = document.getElementsByClassName('chart-stats');
     const judgeText = document.getElementById('judgement');
+
+    for (let ele of chartStats) {
+      ele.style.filter = null
+    }
+    
+    for (let ele of stepStats) {
+      ele.style.filter = null
+    }
     
     menu.style.display = "block";
     optMenu.style.display = "none";
     inGameOverlay.style.display = "none";
     stepStats.style.display = "none";
     judgeText.style.display = "none";
-
-    for (let ele of chartStats) {
-      ele.style.filter = "grayscale(0%)"
-    }
     
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
@@ -154,6 +169,7 @@ class GameView {
     this.startButton.textContent = "Start Game";
     const failScreen = document.getElementById('end-screen');
     failScreen.style.display = "none";
+    window.canvasEl.style.filter = "grayscale(0%)";
   }
 
   playAudio() {
