@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", (event) => {
+  // document.querySelector('body').style.zoom = `${1 / window.devicePixelRatio * 100}%`;
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 

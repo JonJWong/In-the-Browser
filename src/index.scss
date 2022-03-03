@@ -220,7 +220,6 @@ button:hover {
 }
 
 #game-opts {
-  padding: 50px;
   display: none;
   align-content: center;
   background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
@@ -383,6 +382,7 @@ button:hover {
 
 .ss-judgement-grid:nth-of-type(even) {
   text-align: right;
+  justify-self: end;
 }
 
 .ss-judgement-grid:nth-of-type(odd) {
