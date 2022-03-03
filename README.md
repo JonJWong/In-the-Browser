@@ -16,11 +16,11 @@ Inside of the options menu, users will be able to:
 - Select song difficulty, and scroll rate, and then return to the main menu.
 
 During Gameplay:
-- Arrows are generated from an .ssc file that is taken from an original simfile (SM5).
+- Arrows are generated from an `.ssc` file that is taken from an original simfile (SM5).
 - There will be the player's lifebar at the top of the screen. If this reaches 0, you fail!
 - While the song plays, judgements are reflected live, on-screen within the statistics block, as well as on the lane when an arrow is pressed.
 - A combo counter will appear when arrows are hit, that reflects how many arrows were hit in succession without missing.
-- Points and score are awarded based on how accurately the arrows are hit, and current score is displayed in a % on the right hand side.
+- Points and score are awarded based on how accurately the arrows are hit, and current score is displayed in a percentage on the right hand side.
 - Users can mute/unmute the song audio, as well as restart the song with a button that appears on pass/fail.
 
 When the song ends:
@@ -43,7 +43,7 @@ getDelay(bpm, quantization) {
 ```
 (the `- 1` takes 1 millisecond away from the delay added to the loop to take into account the natural delay in asynchronous functions.)
 
-With keymaster.js, I was able to bind inputs without relying on eventListeners, which would crowd the event loop. *(any additional functions added to the queue will introduce lag in the steps while it is still generating, resulting in the rest of the arrows being off-sync.)*
+With keymaster.js, I was able to bind inputs without relying on `"keyUp"` and `"keyDown"` `eventListeners`, which would crowd the event loop. *(any additional functions added to the queue will introduce lag in the steps while it is still generating, resulting in the rest of the arrows being off-sync.)*
 ```javaScript
 bindKeys() {
   key('left', () => this.game.checkKeyPress('left'));
@@ -54,17 +54,17 @@ bindKeys() {
 ```
 #
 ### Technologies used
-- Javascript handles the logic of the game.
-- Vanilla JS to handle HTML element interaction, as well as button handling.
+- javaScript handles the logic of the game.
+- Vanilla JS to handle HTML element interaction, as well as button interaction.
 - <a href="https://github.com/madrobby/keymaster">Keymaster.js</a> to handle key inputs.
 - Canvas API to draw dynamic objects such as arrows, targets, lifebar.
-- .ssc files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
+- `.ssc` files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
 - Webpack and Babel.JS to transpile the scripts
 
 #
 ### Future Plans
-- Add a pause button, maybe bound to "Space"
-- Refactor the logic to use requestAnimationFrame() instead of setInterval()
+- Add a pause button, maybe bound to `"Space"`
+- Refactor the logic to use `requestAnimationFrame()` instead of `setInterval()`
 - Add the ability to upload custom songs.
 - Add the ability to scroll from top to bottom, as well as to change noteskin.
 - Change volume buttons to a volume slider.
@@ -72,8 +72,9 @@ bindKeys() {
 
 #
 ### Credit:
-- Benpai for Notice Me Benpai 2 charts
 - Peter's scalable noteskins for SM5
+- Benpai for Notice Me Benpai 2 charts
+- Dom-ITG for the amazing banners for In The Browser
 - <a href="https://github.com/Simply-Love/Simply-Love-SM5">Simply Love ITG</a> team for font, color theme inspiration, and design inspiration.
 - <a href="https://www.dafont.com/wendy.font">Wendy Font</a>
 - <a href="https://www.dafont.com/bebas-neue.font">Bebas-neue Font</a>
