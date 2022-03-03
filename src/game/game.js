@@ -144,14 +144,15 @@ class Game {
   }
 
   updateStepStats() {
+    const stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
+    stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
+    stepStatsGrid['eCount'].textContent = `${this.excellents}`;
+    stepStatsGrid['gCount'].textContent = `${this.greats}`;
+    stepStatsGrid['dCount'].textContent = `${this.decents}`;
+    stepStatsGrid['woCount'].textContent = `${this.wayOffs}`;
+    stepStatsGrid['missCount'].textContent = `${this.misses}`;
+    stepStatsGrid['mineCount'].textContent = `${this.minesDodged}/${this.minesTotal}`;
     const stepStats = document.getElementsByClassName('ss-judgement');
-    stepStats['fantastic'].textContent = `Fantastics: ${this.fantastics}`;
-    stepStats['excellent'].textContent = `Excellents: ${this.excellents}`;
-    stepStats['great'].textContent = `Greats: ${this.greats}`;
-    stepStats['decent'].textContent = `Decents: ${this.decents}`;
-    stepStats['way-off'].textContent = `WayOffs: ${this.wayOffs}`;
-    stepStats['misses'].textContent = `Misses: ${this.misses}`;
-    stepStats['mines'].textContent = `Mines: ${this.minesDodged}/${this.minesTotal}`;
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
     if (this.combo > 0) {
       stepStats['combo-counter'].style.display = 'block'

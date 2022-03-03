@@ -367,9 +367,19 @@ button:hover {
   display: flex;
 }
 
-.ss-judgement {
+.ss-judgement-grid {
   text-align: left;
-  margin-top: -17px;
+  margin-bottom: -12px;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  max-width: 300px;
+  align-items: start;
+  margin-left: 0px;
+  margin-right: auto;
+  transform: translate(0%, -5%)
 }
 
 #judgement {
@@ -390,27 +400,27 @@ button:hover {
   transform: translate(-287%, -100%)
 }
 
-#fantastic {
+#fantastic, #fCount {
   color: rgb(33, 204, 232);
 }
 
-#excellent {
+#excellent, #eCount {
   color: rgb(226, 156, 24);
 }
 
-#great {
+#great, #gCount {
   color: rgb(102, 201, 85);
 }
 
-#decent {
+#decent, #dCount {
   color: rgb(180, 92, 255);
 }
 
-#way-off {
+#way-off, #woCount {
   color: rgb(201, 133, 94);
 }
 
-#misses {
+#misses, #missCount {
   color: #ff3030;
 }
 
