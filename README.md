@@ -1,6 +1,6 @@
   <img src="https://github.com/JonJWong/In-the-Browser/blob/main/assets/images/inthebrowser.jpg" alt="In_the_Browser2_banner"
   style="display: block; width: 50%; height: auto; margin: 0 auto"></img>  
-  Welcome to In the Browser! This is a fun and interactive Javascript based spin-off of In the Groove, which is a rhythm game where you have to hit the arrows on screen when they reach the targets. There will be a song selected, and multiple difficulties per song.
+  Welcome to In the Browser! This is a fun and interactive Javascript based spin-off of In the Groove 2, which is a rhythm game where you have to hit the arrows on screen when they reach the targets. There will be a song selected, and multiple difficulties per song.
 
   The arrows will come up the screen, according to the rhythm of the song, and depending on how close to the beat you press they correct key, you will be rewarded more points. Your final score will be shown to you once you pass a song, but if your lifebar reaches 0 from missing too many notes in succession, you will fail!
 
@@ -16,7 +16,7 @@ Inside of the options menu, users will be able to:
 - Select song difficulty, and scroll rate, and then return to the main menu.
 
 During Gameplay:
-- Arrows are generated from an SSC file that is taken from an original simfile (SM5).
+- Arrows are generated from an .ssc file that is taken from an original simfile (SM5).
 - There will be the player's lifebar at the top of the screen. If this reaches 0, you fail!
 - While the song plays, judgements are reflected live, on-screen within the statistics block, as well as on the lane when an arrow is pressed.
 - A combo counter will appear when arrows are hit, that reflects how many arrows were hit in succession without missing.
@@ -30,15 +30,35 @@ When the song ends:
 #
 ## Key functions and logic
 
+The steps are read from a file, and when they are re-generated as arrows, they go through an asynchronous loop with a timer.
+```
+const timer = ms => new Promise(res => setTimeout(res, ms))
+```
+The loop first iterates through the measures of the song, and within the measure, for every note, the timer is called. The delay between notes is set by this helper method:
+```
+getDelay(bpm, quantization) {
+  const minuteInMs = 60000;
+  return minuteInMs / ((quantization / 4) * bpm) - 1
+}
+```
+(the `- 1` takes 1 millisecond away from the delay added to the loop to take into account the natural delay in asynchronous functions.)
 
-
+With keymaster.js, I was able to bind inputs without relying on eventListeners, which would crowd the event loop. (any additional functions added to the queue will introduce lag in the steps while it is still generating, resulting in the rest of the arrows being off-sync.)
+```
+bindKeys() {
+  key('left', () => this.game.checkKeyPress('left'));
+  key('down', () => this.game.checkKeyPress('down'));
+  key('up', () => this.game.checkKeyPress('up'));
+  key('right', () => this.game.checkKeyPress('right'));
+}
+```
 #
 ### Technologies used
 - Javascript handles the logic of the game.
 - Vanilla JS to handle HTML element interaction, as well as button handling.
 - Keymaster.js to handle key inputs.
 - Canvas API to draw dynamic objects such as arrows, targets, lifebar.
-- SSC files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
+- .ssc files from Stepmania 5 hold the steps for the song, which are then parsed out via JS.
 - Webpack and Babel.JS to transpile the scripts
 
 #
