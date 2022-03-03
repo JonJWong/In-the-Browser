@@ -293,21 +293,21 @@ class Game {
         this.score += 5;
         this.fantastics += 1;
         this.combo += 1;
-        this.addLife('FANTASTIC');
+        this.comboRegainLife('FANTASTIC');
         this.setJudgementEle('Fantastic');
         break;
       case (distance <= 35):
         this.score += 4;
         this.excellents += 1;
         this.combo += 1;
-        this.addLife('EXCELLENT');
+        this.comboRegainLife('EXCELLENT');
         this.setJudgementEle('Excellent');
         break;
       case (distance <= 50):
         this.score += 2;
         this.greats += 1;
         this.combo += 1;
-        this.addLife('GREAT');
+        this.comboRegainLife('GREAT');
         this.setJudgementEle('Great');
         break;
       case (distance <= 60):
