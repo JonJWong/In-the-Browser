@@ -368,7 +368,6 @@ button:hover {
 }
 
 .ss-judgement-grid {
-  text-align: left;
   margin-bottom: -12px;
 }
 
@@ -380,6 +379,14 @@ button:hover {
   margin-left: 0px;
   margin-right: auto;
   transform: translate(0%, -5%)
+}
+
+.ss-judgement-grid:nth-of-type(even) {
+  text-align: right;
+}
+
+.ss-judgement-grid:nth-of-type(odd) {
+  text-align: left;
 }
 
 #judgement {

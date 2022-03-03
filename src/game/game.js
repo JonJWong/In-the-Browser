@@ -232,8 +232,8 @@ class Game {
     }
   }
 
-  addLife(judgement) {
-    if (this.combo > 3 && this.life !== 100) {
+  comboRegainLife(judgement) {
+    if (this.combo > 5 && this.life !== 100) {
       switch (judgement) {
         case 'FANTASTIC': case 'EXCELLENT':
           if (this.life + 5 < 100) {
