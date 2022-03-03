@@ -144,6 +144,7 @@ class Game {
   }
 
   updateStepStats() {
+    
     const stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
     stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
     stepStatsGrid['eCount'].textContent = `${this.excellents}`;
@@ -152,8 +153,10 @@ class Game {
     stepStatsGrid['woCount'].textContent = `${this.wayOffs}`;
     stepStatsGrid['missCount'].textContent = `${this.misses}`;
     stepStatsGrid['mineCount'].textContent = `${this.minesDodged}/${this.minesTotal}`;
+
     const stepStats = document.getElementsByClassName('ss-judgement');
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
+
     if (this.combo > 0) {
       stepStats['combo-counter'].style.display = 'block'
       stepStats['combo-counter'].textContent = `${this.combo}`;
@@ -357,11 +360,6 @@ class Game {
     return minuteInMs / ((quantization / 4) * bpm) - 1
   }
 
-  // R = 1, 5, 9, 13                | num % 4 === 1;
-  // G = 2, 4, 6, 8, 10, 12, 14, 16 | num % 2 === 0;
-  // B = 3, 7, 9, 15                | num % 4 === 3;
-  // R  G  B  G  R  G  B  G  R  G  B  G  R  G  B  G
-  // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16
   getQuantColorNum(i, length) {
     if (length >= 16) {
       switch(true) {
