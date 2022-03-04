@@ -8,9 +8,13 @@ class GameView {
     this.diff = 9;
     this.currVolume = .5;
 
+    this.fps = 75;
+    this.fpsInterval = 1000 / this.fps;
+
     this.startButtonHandler = this.startButtonHandler.bind(this);
     this.startButton = document.getElementById('start')
     this.restartGame = this.restartGame.bind(this);
+    this.animate = this.animate.bind(this);
   }
 
   startButtonHandler() {
@@ -55,19 +59,16 @@ class GameView {
     }
   }
 
-  // for raf refactor
-  startAnimating(fps) {
-    fpsInterval = 1000 / fps;
-    then = Date.now();
-    startTime = then;
-    animate();
-  }
-
-  start() {
-    this.game.getStepsAndCount(this.diff);
-    let startPoint = this.getStartDelay();
-
-    this.interval = setInterval(() => {
+  animate() {
+    // this.game.step();
+    this.frame = requestAnimationFrame(this.animate)
+    
+    this.now = Date.now();
+    let elapsed = this.now - this.then
+    
+    if (elapsed > this.fpsInterval) {
+      this.then = this.now - (elapsed % this.fpsInterval);
+      
       this.game.step();
       if (!this.game.isAlive) {
         this.gameFail();
@@ -75,7 +76,33 @@ class GameView {
       if (this.game.chartFinished && !this.game.arrows.length) {
         this.gameWin();
       }
-    }, 20);
+    }
+  }
+
+  start() {
+    this.game.getStepsAndCount(this.diff);
+    // let startPoint = this.getStartDelay();
+    this.then = Date.now();
+    this.startTime = this.then
+    this.animate();
+    // this.interval = setInterval(() => {
+      // this.game.step();
+      // if (!this.game.isAlive) {
+      //   this.gameFail();
+      // }
+      // if (this.game.chartFinished && !this.game.arrows.length) {
+      //   this.gameWin();
+      // }
+    // }, 20);
+
+    let rafStart;
+
+    switch (this.diff) {
+      case 2: case 3: case 6:
+        rafStart = 7392;
+      case 8: case 9:
+        rafStart = 1050;
+    }
 
     const messageMessage = document.getElementById('message-message');
     const messageScreen = document.getElementById('message-screen');
@@ -86,13 +113,13 @@ class GameView {
       this.playAudio();
       this.changeVolume(.5);
       messageScreen.style.display = "none";
-    }, startPoint) // the bigger this number, the later the chart
+    }, rafStart) // the bigger this number, the later the chart
 
     this.game.startChart();
   }
 
   gameWin() {
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
     const judgeText = document.getElementById('judgement');
     judgeText.style.display = 'none';
     const endMessage = document.getElementById('end-message');
@@ -100,6 +127,7 @@ class GameView {
     ${this.game.getMoneyScore()}%. Thank you for playing.`
     const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
+    cancelAnimationFrame(this.frame);
   }
 
   astralReaper() {
@@ -117,7 +145,7 @@ class GameView {
   gameFail() {
     this.audio.pause();
     this.game.arrows = [];
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
 
     const chartStats = document.getElementsByClassName('chart-stats');
     for (let ele of chartStats) {
@@ -135,10 +163,11 @@ class GameView {
     const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
     window.canvasEl.style.filter = "grayscale(100%)";
+    cancelAnimationFrame(this.frame);
   }
 
   restartGame() {
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
     ctx.clearRect(0, 0, 1280, 960);
 
     const menu = document.getElementById('information-display');

@@ -1,3 +1,609 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:"";content:none}table{border-collapse:collapse;border-spacing:0}body{background-color:#000;overflow:hidden;animation:fadeInAnimation ease 3s;animation-iteration-count:1;animation-fill-mode:forwards}@keyframes fadeInAnimation{0%{opacity:0}100%{opacity:1}}@font-face{font-family:"Wendy";src:url("../assets/wendy.ttf") format("truetype")}@font-face{font-family:"Bebas";src:url("../assets/BebasNeue.ttf") format("truetype")}#information-display{padding:25px;display:block;align-content:center;background-image:linear-gradient(#500050, #500050, black);width:750px;height:750px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;top:0;bottom:0;left:0;right:0;z-index:2;border:10px solid #000}#game-canvas{display:block;background:url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);transition-property:filter;transition-duration:3s;background-size:cover;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;top:0;bottom:0;left:0;right:0;z-index:-1}h1,h2,h3,h4,span,button,p,div,ul,li{font-family:Wendy;text-align:center;color:#fff;margin-bottom:auto;cursor:default}h1{font-size:90px;margin-bottom:-2%;margin-top:-1%}h2{font-size:50px;margin-bottom:-10px}h3{font-size:35px}h4{font-size:25px;margin-bottom:auto}#game-desc{display:block;font-size:24px;width:700px;margin-left:auto;margin-right:auto;padding-top:10px}#love-arrows{width:500px;height:auto;display:block;margin-left:auto;margin-right:auto}.desc-game-controls{width:450px;margin:0 auto;list-style:none;display:block;width:300px;height:100px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;top:0;bottom:0;left:0;right:0;transform:translate(0%, 200%)}button{transition-property:color;transition-duration:.5s;display:block;margin-left:auto;margin-right:auto;font-size:40px;color:gray;border:none;background:none;margin-top:-5px;margin-bottom:-5px}button:hover{color:#db7093;cursor:pointer}.button-selected{color:#db7093;cursor:pointer}#start{margin-top:auto;font-size:60px}.fake-meta{margin-left:auto;margin-right:auto}.fake-meta,span{display:flex;justify-content:space-between;margin-bottom:auto;margin-left:90px;margin-right:90px;font-family:Bebas;font-size:15px}#game-opts{display:none;align-content:center;background-image:linear-gradient(#500050, #500050, black);width:750px;height:750px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;top:0;bottom:0;left:0;right:0;z-index:1;border:10px solid #000}#in-game-overlay{padding:15px;display:none;align-content:center;background-image:linear-gradient(#9d00ff, #009dff, #009dff);width:200px;height:120px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;transform:translate(175%, 232%);top:0;bottom:0;left:0;right:0;z-index:3;border:10px solid gray}#tooltip{font-size:30px}#game-opts-header{margin-top:auto}.scroll-rate{margin-top:auto}#scroll-header,#diff-header{margin-top:auto}#credits{margin-top:auto;margin-bottom:auto;position:absolute;bottom:0;left:0;right:0;margin-left:auto;margin-right:auto}#hide-bg{margin-top:auto;font-family:"Wendy";font-size:45px;display:flex;justify-content:space-between;width:400px;margin-left:auto;margin-right:auto}#hide-button:focus{color:#db7093}#back{margin-top:auto;font-size:60px;position:absolute;margin-top:auto;margin-left:auto;margin-right:auto;bottom:10px;left:0;right:0}#in-game-header{color:#000;font-size:40px;margin-top:-13px;margin-bottom:20px}.vol-btn{color:#fff;font-size:30px;margin-bottom:auto}#step-statistics-block{padding:15px;display:none;background-color:rgba(0,0,0,.85);width:550px;height:600px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;transform:translate(50%, -10%);top:0;bottom:0;left:0;right:0;z-index:3;border:10px solid gray}#step-statistics{font-size:55px;text-align:left;cursor:default}#artist-info{margin-top:20px;margin-bottom:50px}.chart-stats{filter:grayscale(0%);transition-property:filter;transition-duration:3s;font-size:30px;font-family:"Bebas";display:flex}.ss-judgement-grid{margin-bottom:-12px}#grid-container{display:grid;grid-template-columns:80% 20%;max-width:300px;align-items:start;margin-left:0px;margin-right:auto;transform:translate(0%, -5%)}.ss-judgement-grid:nth-of-type(even){text-align:right;justify-self:end}.ss-judgement-grid:nth-of-type(odd){text-align:left}#judgement{display:block;text-shadow:4px 4px 0 #000;width:250px;height:50px;position:absolute;font-size:50px;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;left:0;bottom:0;top:0;right:0;transform:translate(-287%, -100%)}#fantastic,#fCount{color:#21cce8}#excellent,#eCount{color:#e29c18}#great,#gCount{color:#66c955}#decent,#dCount{color:#b45cff}#way-off,#woCount{color:#c9855e}#misses,#missCount{color:#ff3030}#end-screen{padding:15px;display:none;align-content:center;background-image:linear-gradient(#500050, #500050, black);width:400px;height:240px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;transform:translate(-70%, 0%);top:0;bottom:0;left:0;right:0;z-index:100;border:10px solid gray}#end-message{margin:0;font-size:40px;font-family:"Wendy"}#message-screen{padding:15px;display:none;align-content:center;background-image:linear-gradient(#500050, #500050, black);width:200px;height:80px;position:absolute;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;transform:translate(0%, 0%);top:0;bottom:0;left:0;right:0;z-index:100;border:10px solid gray}#message-message{text-align:center;margin:0;font-size:40px;font-family:"Wendy"}#percentage-score{width:200px;height:100px;display:block;text-align:right;font-family:"Wendy";font-size:100px;position:absolute;margin-right:auto;margin-left:auto;margin-top:auto;margin-bottom:auto;left:0;right:0;top:0;bottom:0;transform:translate(80%, 270%)}#combo-counter{display:block;text-align:center;width:150px;height:50px;color:#fff;font-family:"Wendy";font-size:80px;position:absolute;margin-right:auto;margin-left:auto;margin-top:auto;margin-bottom:auto;left:0;right:0;top:0;bottom:0;transform:translate(-475%, 0%);z-index:20}#chart-banner{display:flex;width:418px;height:164px;margin-top:-10px;margin-bottom:10px;margin-left:auto;margin-right:auto;left:0;right:0}#restart:hover{color:#21cce8}#logo{width:350px;height:auto;display:block;text-align:right;font-family:"Wendy";position:absolute;margin-right:auto;margin-left:auto;margin-top:auto;margin-bottom:auto;left:0;right:0;top:0;bottom:0;z-index:50;transform:translate(130%, -215%)}#github-logo{transition-property:background-color;transition-duration:1s;background-color:rgba(102,201,85,0);border-radius:25px;display:block;width:50px;height:auto;text-align:right;position:absolute;margin-right:auto;margin-left:auto;margin-top:auto;margin-bottom:auto;left:0;right:0;top:0;bottom:0;z-index:50;transform:translate(1200%, 910%)}#github-logo:hover{background-color:#66c955}#difficulty-rating{background-color:purple;filter:grayscale(0%);transition-property:filter;transition-duration:3s;display:block;width:75px;height:75px;font-family:"Wendy";font-size:80px;text-align:center;position:absolute;transform:translate(-849%, -360%)}
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  \*************************************************************************************************************************************/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
-/*# sourceMappingURL=main.css.map*/
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  background-color: black;
+  overflow: hidden;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@font-face {
+  font-family: "Wendy";
+  src: url("../assets/wendy.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Bebas";
+  src: url("../assets/BebasNeue.ttf") format("truetype");
+}
+#information-display {
+  padding: 25px;
+  display: block;
+  align-content: center;
+  background-image: linear-gradient(#500050, #500050, black);
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  border: 10px solid black;
+}
+
+#game-canvas {
+  display: block;
+  background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
+  transition-property: filter;
+  transition-duration: 3s;
+  background-size: cover;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+h1, h2, h3, h4, span, button, p, div, ul, li {
+  font-family: Wendy;
+  text-align: center;
+  color: white;
+  margin-bottom: auto;
+  cursor: default;
+}
+
+h1 {
+  font-size: 90px;
+  margin-bottom: -2%;
+  margin-top: -1%;
+}
+
+h2 {
+  font-size: 50px;
+  margin-bottom: -10px;
+}
+
+h3 {
+  font-size: 35px;
+}
+
+h4 {
+  font-size: 25px;
+  margin-bottom: auto;
+}
+
+#game-desc {
+  display: block;
+  font-size: 24px;
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+}
+
+#love-arrows {
+  width: 500px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.desc-game-controls {
+  width: 450px;
+  margin: 0 auto;
+  list-style: none;
+  display: block;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translate(0%, 200%);
+}
+
+button {
+  transition-property: color;
+  transition-duration: 0.5s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 40px;
+  color: grey;
+  border: none;
+  background: none;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+button:hover {
+  color: palevioletred;
+  cursor: pointer;
+}
+
+.button-selected {
+  color: palevioletred;
+  cursor: pointer;
+}
+
+#start {
+  margin-top: auto;
+  font-size: 60px;
+}
+
+.fake-meta {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fake-meta, span {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: auto;
+  margin-left: 90px;
+  margin-right: 90px;
+  font-family: Bebas;
+  font-size: 15px;
+}
+
+#game-opts {
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(#500050, #500050, black);
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border: 10px solid black;
+}
+
+#in-game-overlay {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(#9d00ff, #009dff, #009dff);
+  width: 200px;
+  height: 120px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(175%, 232%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  border: 10px solid gray;
+}
+
+#tooltip {
+  font-size: 30px;
+}
+
+#game-opts-header {
+  margin-top: auto;
+}
+
+.scroll-rate {
+  margin-top: auto;
+}
+
+#scroll-header, #diff-header {
+  margin-top: auto;
+}
+
+#credits {
+  margin-top: auto;
+  margin-bottom: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#hide-bg {
+  margin-top: auto;
+  font-family: "Wendy";
+  font-size: 45px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#hide-button:focus {
+  color: palevioletred;
+}
+
+#back {
+  margin-top: auto;
+  font-size: 60px;
+  position: absolute;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+#in-game-header {
+  color: black;
+  font-size: 40px;
+  margin-top: -13px;
+  margin-bottom: 20px;
+}
+
+.vol-btn {
+  color: white;
+  font-size: 30px;
+  margin-bottom: auto;
+}
+
+#step-statistics-block {
+  padding: 15px;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 550px;
+  height: 600px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(50%, -10%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  border: 10px solid gray;
+}
+
+#step-statistics {
+  font-size: 55px;
+  text-align: left;
+  cursor: default;
+}
+
+#artist-info {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.chart-stats {
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
+  font-size: 30px;
+  font-family: "Bebas";
+  display: flex;
+}
+
+.ss-judgement-grid {
+  margin-bottom: -12px;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  max-width: 300px;
+  align-items: start;
+  margin-left: 0px;
+  margin-right: auto;
+  transform: translate(0%, -5%);
+}
+
+.ss-judgement-grid:nth-of-type(even) {
+  text-align: right;
+  justify-self: end;
+}
+
+.ss-judgement-grid:nth-of-type(odd) {
+  text-align: left;
+}
+
+#judgement {
+  display: block;
+  text-shadow: 4px 4px 0 #000;
+  width: 250px;
+  height: 50px;
+  position: absolute;
+  font-size: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  transform: translate(-287%, -100%);
+}
+
+#fantastic, #fCount {
+  color: #21cce8;
+}
+
+#excellent, #eCount {
+  color: #e29c18;
+}
+
+#great, #gCount {
+  color: #66c955;
+}
+
+#decent, #dCount {
+  color: #b45cff;
+}
+
+#way-off, #woCount {
+  color: #c9855e;
+}
+
+#misses, #missCount {
+  color: #ff3030;
+}
+
+#end-screen {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(#500050, #500050, black);
+  width: 400px;
+  height: 240px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(-70%, 0%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border: 10px solid gray;
+}
+
+#end-message {
+  margin: 0;
+  font-size: 40px;
+  font-family: "Wendy";
+}
+
+#message-screen {
+  padding: 15px;
+  display: none;
+  align-content: center;
+  background-image: linear-gradient(#500050, #500050, black);
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translate(0%, 0%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border: 10px solid gray;
+}
+
+#message-message {
+  text-align: center;
+  margin: 0;
+  font-size: 40px;
+  font-family: "Wendy";
+}
+
+#percentage-score {
+  width: 200px;
+  height: 100px;
+  display: block;
+  text-align: right;
+  font-family: "Wendy";
+  font-size: 100px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(80%, 270%);
+}
+
+#combo-counter {
+  display: block;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  color: white;
+  font-family: "Wendy";
+  font-size: 80px;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(-475%, 0%);
+  z-index: 20;
+}
+
+#chart-banner {
+  display: flex;
+  width: 418px;
+  height: 164px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+#restart:hover {
+  color: #21CCE8;
+}
+
+#logo {
+  width: 350px;
+  height: auto;
+  display: block;
+  text-align: right;
+  font-family: "Wendy";
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  transform: translate(130%, -215%);
+}
+
+#github-logo {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: rgba(102, 201, 85, 0);
+  border-radius: 25px;
+  display: block;
+  width: 50px;
+  height: auto;
+  text-align: right;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  transform: translate(1200%, 910%);
+}
+
+#github-logo:hover {
+  background-color: #66c955;
+}
+
+#difficulty-rating {
+  background-color: purple;
+  filter: grayscale(0%);
+  transition-property: filter;
+  transition-duration: 3s;
+  display: block;
+  width: 75px;
+  height: 75px;
+  font-family: "Wendy";
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  transform: translate(-849%, -360%);
+}
