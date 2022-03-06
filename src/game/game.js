@@ -389,39 +389,6 @@ class Game {
     }
   }
 
-  // startChart() {
-  //   this.chartIteration();
-  // }
-
-  // async chartIteration() {
-  //   for (let i = 1; i <= this.difficulty.measureCount; i++) {
-  //     const measure = this.steps[`${i}`];
-  //     const quantization = measure.length;
-  //     const delay = this.getDelay(this.bpm, quantization);
-
-  //     for (let j = 0; j < measure.length; j++) {
-  //       const beat = measure[j];
-  //       const quantColorNum = this.getQuantColorNum(j + 1, measure.length);
-
-  //       for (let k = 0; k < beat.length; k++) {
-  //         if (!this.isAlive) {
-  //           return;
-  //         };
-          
-  //         if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
-  //           console.log(`Adding arrow: ${indexToDirection[k]}, ${quantColorNum}`)
-  //           this.addArrow(indexToDirection[k], quantColorNum);
-  //         } else if (beat[k] === "M") {
-  //           console.log(`Adding arrow: ${indexToDirection[k]}, MINE`)
-  //           this.addArrow(indexToDirection[k], 'MINE')
-  //         }
-  //         await timer(delay)
-  //       }
-  //     }
-  //   }
-  //   this.chartFinished = true;
-  // }
-
   startChart() {
     console.log(`Start time: ${Date.now()}`)
     this.chartIteration();
