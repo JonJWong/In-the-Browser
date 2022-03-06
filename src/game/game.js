@@ -397,9 +397,6 @@ class Game {
   async chartIteration() {
     // goes through the chart, needs to wait for the measure
     for (let i = 1; i <= this.difficulty.measureCount; i++) {
-      if (!this.isAlive) {
-        return;
-      }
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
       let delay = this.getDelay(this.bpm, quantization);
@@ -412,9 +409,6 @@ class Game {
     // goes through the measure, needs to wait per note
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
-      if (!this.isAlive) {
-        return;
-      }
       let beat = measure[j];
       let quantColorNum = this.getQuantColorNum(j + 1, measure.length);
       this.laneIteration(beat, quantColorNum)
