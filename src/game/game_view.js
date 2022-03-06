@@ -8,7 +8,7 @@ class GameView {
     this.diff = 9;
     this.currVolume = .5;
 
-    this.fps = 75;
+    this.fps = 60;
     this.fpsInterval = 1000 / this.fps;
 
     this.startButtonHandler = this.startButtonHandler.bind(this);
@@ -34,6 +34,7 @@ class GameView {
   }
 
   getStartDelay() {
+    // 6109ms before first note placed
     const speed = this.game.speed;
     const diff = this.diff;
 
@@ -54,7 +55,7 @@ class GameView {
           case 5:
             return 3180
           case 10:
-            return 1540
+            return 1269
         }
     }
   }
@@ -63,11 +64,11 @@ class GameView {
     // this.game.step();
     this.frame = requestAnimationFrame(this.animate)
     
-    this.now = Date.now();
-    let elapsed = this.now - this.then
+    this.game.currentFrameTime = Date.now();
+    let timeBetweenFrames = this.game.currentFrameTime - this.game.previousFrameTime
     
-    if (elapsed > this.fpsInterval) {
-      this.then = this.now - (elapsed % this.fpsInterval);
+    if (timeBetweenFrames > this.fpsInterval) {
+      this.game.previousFrameTime = this.game.currentFrameTime - (timeBetweenFrames % this.fpsInterval);
       
       this.game.step();
       if (!this.game.isAlive) {
@@ -81,9 +82,9 @@ class GameView {
 
   start() {
     this.game.getStepsAndCount(this.diff);
-    // let startPoint = this.getStartDelay();
-    this.then = Date.now();
-    this.startTime = this.then
+    let startPoint = this.getStartDelay();
+    this.game.previousFrameTime = Date.now();
+    this.game.startTime = this.game.previousFrameTime;
     this.animate();
     // this.interval = setInterval(() => {
       // this.game.step();
@@ -95,27 +96,19 @@ class GameView {
       // }
     // }, 20);
 
-    let rafStart;
-
-    switch (this.diff) {
-      case 2: case 3: case 6:
-        rafStart = 7392;
-      case 8: case 9:
-        rafStart = 1050;
-    }
-
     const messageMessage = document.getElementById('message-message');
     const messageScreen = document.getElementById('message-screen');
-    messageMessage.textContent = "Attempting to sync..."
+    messageMessage.textContent = "Attempting to sync...";
     messageScreen.style.display = "block";
 
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.5);
       messageScreen.style.display = "none";
-    }, rafStart) // the bigger this number, the later the chart
+    }, startPoint) // the bigger this number, the later the chart
 
     this.game.startChart();
+    // it takes 6109ms to place first note
   }
 
   gameWin() {
@@ -168,6 +161,7 @@ class GameView {
 
   restartGame() {
     // clearInterval(this.interval);
+    cancelAnimationFrame(this.frame);
     ctx.clearRect(0, 0, 1280, 960);
 
     const menu = document.getElementById('information-display');
