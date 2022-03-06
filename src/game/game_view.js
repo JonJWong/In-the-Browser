@@ -18,15 +18,10 @@ class GameView {
   }
 
   startButtonHandler() {
-    const menu = document.getElementById('information-display');
-    const optMenu = document.getElementById('game-opts');
-    const inGameOverlay = document.getElementById('in-game-overlay');
-    const stepStats = document.getElementById('step-statistics-block');
-
     optMenu.style.display = "none";
     menu.style.display = "none";
     inGameOverlay.style.display = "block";
-    stepStats.style.display = "block";
+    stepStatsBlock.style.display = "block";
 
     this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
@@ -86,18 +81,7 @@ class GameView {
     this.game.previousFrameTime = Date.now();
     this.game.startTime = this.game.previousFrameTime;
     this.animate();
-    // this.interval = setInterval(() => {
-      // this.game.step();
-      // if (!this.game.isAlive) {
-      //   this.gameFail();
-      // }
-      // if (this.game.chartFinished && !this.game.arrows.length) {
-      //   this.gameWin();
-      // }
-    // }, 20);
 
-    const messageMessage = document.getElementById('message-message');
-    const messageScreen = document.getElementById('message-screen');
     messageMessage.textContent = "Attempting to sync...";
     messageScreen.style.display = "block";
 
@@ -112,14 +96,12 @@ class GameView {
   }
 
   gameWin() {
-    // clearInterval(this.interval);
-    const judgeText = document.getElementById('judgement');
     judgeText.style.display = 'none';
-    const endMessage = document.getElementById('end-message');
+
     endMessage.textContent = `Congratulations, you finished with a score of
     ${this.game.getMoneyScore()}%. Thank you for playing.`
-    const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
+
     cancelAnimationFrame(this.frame);
   }
 
@@ -138,39 +120,25 @@ class GameView {
   gameFail() {
     this.audio.pause();
     this.game.arrows = [];
-    // clearInterval(this.interval);
 
-    const chartStats = document.getElementsByClassName('chart-stats');
     for (let ele of chartStats) {
       ele.style.filter = "grayscale(100%)";
     }
 
-    const stepStats = document.getElementsByClassName('ss-judgement');
     for (let ele of stepStats) {
       ele.style.filter = null
     }
 
-    const endMessage = document.getElementById('end-message');
     endMessage.textContent = `You failed. Please try again, you had 
     ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
-    const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
     window.canvasEl.style.filter = "grayscale(100%)";
     cancelAnimationFrame(this.frame);
   }
 
   restartGame() {
-    // clearInterval(this.interval);
     cancelAnimationFrame(this.frame);
     ctx.clearRect(0, 0, 1280, 960);
-
-    const menu = document.getElementById('information-display');
-    const optMenu = document.getElementById('game-opts');
-    const inGameOverlay = document.getElementById('in-game-overlay');
-    const stepStatsBlock = document.getElementById('step-statistics-block');
-    const stepStats = document.getElementsByClassName('ss-judgement');
-    const chartStats = document.getElementsByClassName('chart-stats');
-    const judgeText = document.getElementById('judgement');
 
     for (let ele of chartStats) {
       ele.style.filter = null
@@ -205,15 +173,13 @@ class GameView {
   }
 
   openCloseOpts() {
-    const mainMenu = document.getElementById('information-display');
-    const optsMenu = document.getElementById('game-opts');
-    let mainCurStyle = mainMenu.style['display'];
+    let mainCurStyle = menu.style['display'];
     if (mainCurStyle === 'none') {
-      mainMenu.style.display = 'block';
-      optsMenu.style.display = 'none';
+      menu.style.display = 'block';
+      optMenu.style.display = 'none';
     } else {
-      mainMenu.style.display = 'none';
-      optsMenu.style.display = 'block';
+      menu.style.display = 'none';
+      optMenu.style.display = 'block';
     }
   }
 

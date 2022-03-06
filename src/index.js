@@ -3,32 +3,48 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
-  const Game = require('./game/game.js');
-  const GameView = require('./game/game_view.js');
-  const Util = require('./util.js');
-  const Options = require('./game/options.js');
-  const Chart = require('./game/chart.js');
+  // const Game = require('./game/game.js');
+  // const GameView = require('./game/game_view.js');
+  // const Util = require('./util.js');
+  // const Options = require('./game/options.js');
+  // const Chart = require('./game/chart.js');
   
-  window.Game = Game;
-  window.GameView = GameView;
-  window.Util = Util;
-  window.Options = Options;
-  window.Chart = Chart;
+  window.Game = require('./game/game.js');
+  window.GameView = require('./game/game_view.js');
+  window.Util = require('./util.js');
+  window.Options = require('./game/options.js');
+  window.Chart = require('./game/chart.js');
 
-  const gameOpts = Options.gameOpts();
+  window.gameOpts = Options.gameOpts();
   window.g = new GameView(gameOpts);
   g.bindKeys();
   
-  const startButton = document.getElementById('start');
-  const optionsButton = document.getElementById('options-btn');
-  const volDown = document.getElementById('vol-down');
-  const volUp = document.getElementById('vol-up');
-  const muteButton = document.getElementById('mute');
-  const diffButtons = document.getElementsByClassName('difficulty-button');
-  const speedButtons = document.getElementsByClassName('speed-button');
-  const hideButtons = document.getElementsByClassName('hide-button');
-  const backButton = document.getElementById('back');
-  const restartButton = document.getElementById('restart');
+  window.menu = document.getElementById('information-display');
+  window.startButton = document.getElementById('start');
+  window.optionsButton = document.getElementById('options-btn');
+
+  window.optMenu = document.getElementById('game-opts');
+  window.diffButtons = document.getElementsByClassName('difficulty-button');
+  window.speedButtons = document.getElementsByClassName('speed-button');
+  window.hideButtons = document.getElementsByClassName('hide-button');
+  window.backButton = document.getElementById('back');
+
+  window.messageMessage = document.getElementById('message-message');
+  window.messageScreen = document.getElementById('message-screen');
+
+  window.inGameOverlay = document.getElementById('in-game-overlay');
+  window.volDown = document.getElementById('vol-down');
+  window.volUp = document.getElementById('vol-up');
+  window.muteButton = document.getElementById('mute');
+
+  window.judgeText = document.getElementById('judgement');
+  window.stepStatsBlock = document.getElementById('step-statistics-block');
+  window.stepStats = document.getElementsByClassName('ss-judgement');
+  window.chartStats = document.getElementsByClassName('chart-stats');
+  
+  window.endMessage = document.getElementById('end-message');
+  window.endScreen = document.getElementById('end-screen');
+  window.restartButton = document.getElementById('restart');
 
   function resetButtons(buttons) {
     for (let button of buttons) {
