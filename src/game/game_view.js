@@ -156,10 +156,9 @@ class GameView {
     
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
-    this.startButton = document.getElementById('start');
+    this.startButton = startButton;
     this.startButton.textContent = "Start Game";
-    const failScreen = document.getElementById('end-screen');
-    failScreen.style.display = "none";
+    endScreen.style.display = "none";
     window.canvasEl.style.filter = "grayscale(0%)";
   }
 
