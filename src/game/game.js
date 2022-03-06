@@ -2,8 +2,19 @@ const Arrow = require('./arrow.js');
 const Options = require('./options.js');
 const Chart = require('./chart.js');
 
-const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
-const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
+const DIRECTION_TO_INDEX = {left: 0, down: 1, up: 2, right: 3};
+const INDEX_TO_DIRECTION = {0: 'left', 1: 'down', 2: 'up', 3: 'right'};
+const ARROW_QUANTIZATION_IMGURL = {
+  4: 'assets/images/quarter.png',
+  8: 'assets/images/eighth.png',
+  16: 'assets/images/sixteenth.png',
+  MINE: 'assets/images/mine.png'
+}
+const MINE_WINDOW = {
+  MIN: -20,
+  MAX: 0
+}
+
 const timer = ms => new Promise((res) => setTimeout((res) => {
 }, ms))
 
@@ -30,59 +41,51 @@ class Game {
     this.decents = 0;
     this.wayOffs = 0;
     this.misses = 0;
+    this.minesDodged = 0;
+    this.minesTotal = 0;
+
     this.hits = 0;
     this.score = 0;
     this.maxScore;
     this.combo = 0;
-    this.minesDodged = 0;
-    this.minesTotal = 0;
 
     this.slayer;
     this.life = 50;
+    this.maxLife = 100;
   }
 
   addArrow(arrowDirection, quantColorNum) {
     const arrowOpts = Options.arrowOpts();
-    switch (quantColorNum) {
-      case 4:
-        arrowOpts['imgUrl'] = 'assets/images/quarter.png';
-        break;
-      case 8:
-        arrowOpts['imgUrl'] = 'assets/images/eighth.png';
-        break;
-      case 16:
-        arrowOpts['imgUrl'] = 'assets/images/sixteenth.png';
-        break;
-      case 'MINE':
-        arrowOpts['imgUrl'] = 'assets/images/mine.png';
-        arrowOpts['isAMine'] = true;
-        break;
+
+    if (quantColorNum === 'MINE') {
+      arrowOpts['imgUrl'] = ARROW_QUANTIZATION_IMGURL[quantColorNum];
+      arrowOpts['isAMine'] = true;
+    } else {
+      arrowOpts['imgUrl'] = ARROW_QUANTIZATION_IMGURL[quantColorNum];
     }
     arrowOpts['direction'] = arrowDirection;
     arrowOpts['velocity'] = [0, -this.speed];
+
     let newArrow = new Arrow(arrowOpts);
     this.arrows.push(newArrow);
   }
 
   getStepsAndCount(rating) {
-    let difficulty;
-    let stepCount = 0;
+
     for (let diff of this.chart.difficulties) {
       if (diff["rating"] === rating){
-        difficulty = diff;
-        stepCount = diff["stepCount"];
+        this.difficulty = diff;
+        this.maxScore = diff["stepCount"] * 5;
+        this.steps = diff["steps"];
+        this.minesTotal = diff["mineCount"]
       }
     }
-    this.difficulty = difficulty;
-    this.steps = difficulty["steps"];
-    this.minesTotal = difficulty["mineCount"]
-    this.maxScore = stepCount * 5;
     this.bpm = parseInt(this.chart.metadata[23].slice(11))
   }
 
   isOutOfBounds(pos) {
     let [x, y] = pos;
-    return (x > 1000 || y > 1000 || x < 0 || y < 90)
+    return x > 1000 || x < 0 || y > 1000 || y < 90
   }
   
   drawArrows() {
@@ -145,12 +148,13 @@ class Game {
   }
 
   getMoneyScore() {
-    return this.score <= 0 ? 0 : ((this.score / this.maxScore) * 100).toFixed(2)
+    return this.score <= 0 
+    ? 0 
+    : ((this.score / this.maxScore) * 100).toFixed(2)
   }
 
   updateStepStats() {
     
-    const stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
     stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
     stepStatsGrid['eCount'].textContent = `${this.excellents}`;
     stepStatsGrid['gCount'].textContent = `${this.greats}`;
@@ -159,10 +163,9 @@ class Game {
     stepStatsGrid['missCount'].textContent = `${this.misses}`;
     stepStatsGrid['mineCount'].textContent = `${this.minesDodged}/${this.minesTotal}`;
 
-    const stepStats = document.getElementsByClassName('ss-judgement');
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
 
-    if (this.combo > 4) {
+    if (this.combo > 2) {
       stepStats['combo-counter'].style.display = 'block'
       stepStats['combo-counter'].textContent = `${this.combo}`;
     } else {
@@ -170,7 +173,6 @@ class Game {
       stepStats['combo-counter'].style.display = 'none'
     }
     
-    const chartStats = document.getElementsByClassName('chart-stats');
     chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
     chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
     chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
@@ -203,15 +205,16 @@ class Game {
   }
 
   checkKeyPress(direction) {
-    const target = this.targets[directionToIndex[direction]]
-    this.hitTarget(target);
+    const target = this.targets[DIRECTION_TO_INDEX[direction]]
+    this.enlargeTarget(target);
     // target indices left: 0, down: 1, up: 2, right: 3
     for (let i = 0; i < this.arrows.length; i++) {
-      let arrow = this.arrows[i];
+      const arrow = this.arrows[i];
       if (arrow.direction === direction) {
-        let distance = target.getDistance(arrow);
+        const distance = target.getDistance(arrow);
         if (distance > 60) break;
-        if (arrow.isAMine && (distance >= -19 && distance < -10)) {
+        if (arrow.isAMine &&
+            (distance >= MINE_WINDOW['MIN'] && distance < MINE_WINDOW['MAX'])) {
           this.combo = 0;
           this.score -= 6;
           this.life -= 10;
@@ -229,7 +232,7 @@ class Game {
     }
   }
 
-  hitTarget(target) {
+  enlargeTarget(target) {
     target.scale = .42;
   }
   
@@ -242,28 +245,26 @@ class Game {
   }
 
   comboRegainLife(judgement) {
-    if (this.combo > 5 && this.life !== 100) {
-      switch (judgement) {
-        case 'FANTASTIC': case 'EXCELLENT':
-          if (this.life + 5 < 100) {
-            this.life += 5
-          } else {
-            this.life = 100;
-          }
-          break;
-        case 'GREAT':
-          if (this.life + 3 < 100) {
-            this.life += 3
-          } else {
-            this.life = 100;
-          }
-          break;
+    if (this.combo > 5 && this.life !== this.maxLife) {
+
+      if (judgement === 'FANTASTIC' || judgement === 'EXCELLENT') {
+        if (this.life + 5 < this.maxLife) {
+          this.life += 5
+        } else {
+          this.life = this.maxLife
+        }
+
+      } else if (judgement === 'GREAT') {
+        if (this.life + 3 < this.maxLife) {
+          this.life += 3
+        } else {
+          this.life = this.maxLife
+        }
       }
     }
   }
 
   setJudgementEle(judgement) {
-    const judgeText = document.getElementById('judgement');
     judgeText.style.display = 'block';
     switch (judgement) {
       case 'Fantastic':
@@ -337,28 +338,16 @@ class Game {
   addTargets(num) {
     const targets = [];
     for (let i = 0; i < num; i++) {
-      let target = this.createTarget(i);
+      const target = this.createTarget(i);
       targets.push(target)
     }
     return targets;
   }
 
   createTarget(i) {
-    const targetOpts = Options.targetOpts()
-    switch (i) {
-      case 0:
-        targetOpts['direction'] = 'left';
-        return new Arrow(targetOpts);
-      case 1:
-        targetOpts['direction'] = 'down';
-        return new Arrow(targetOpts);
-      case 2:
-        targetOpts['direction'] = 'up';
-        return new Arrow(targetOpts);
-      case 3:
-        targetOpts['direction'] = 'right';
-        return new Arrow(targetOpts);
-    }
+    const targetOpts = Options.targetOpts();
+    targetOpts['direction'] = INDEX_TO_DIRECTION[i];
+    return new Arrow(targetOpts);
   }
 
   getDelay(bpm, quantization) {
@@ -397,7 +386,7 @@ class Game {
     for (let i = 1; i <= this.difficulty.measureCount; i++) {
       const measure = this.steps[`${i}`];
       const quantization = measure.length;
-      let delay = this.getDelay(this.bpm, quantization);
+      const delay = this.getDelay(this.bpm, quantization);
       await this.measureIteration(measure, delay);
     }
     this.chartFinished = true;
@@ -407,8 +396,8 @@ class Game {
     // goes through the measure, needs to wait per note
     const timer = ms => new Promise(res => setTimeout(res, ms))
     for (let j = 0; j < measure.length; j++) {
-      let beat = measure[j];
-      let quantColorNum = this.getQuantColorNum(j + 1, measure.length);
+      const beat = measure[j];
+      const quantColorNum = this.getQuantColorNum(j + 1, measure.length);
       this.laneIteration(beat, quantColorNum)
       await timer(delay);
     }
@@ -420,10 +409,10 @@ class Game {
         return;
       }
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
-        this.addArrow(indexToDirection[k], quantColorNum)
+        this.addArrow(INDEX_TO_DIRECTION[k], quantColorNum)
       }
       if (beat[k] === 'M') {
-        this.addArrow(indexToDirection[k], 'MINE')
+        this.addArrow(INDEX_TO_DIRECTION[k], 'MINE')
       }
     }
   }

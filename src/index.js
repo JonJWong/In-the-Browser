@@ -3,12 +3,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.canvasEl = document.getElementById('game-canvas');
   window.ctx = canvasEl.getContext('2d');
 
-  // const Game = require('./game/game.js');
-  // const GameView = require('./game/game_view.js');
-  // const Util = require('./util.js');
-  // const Options = require('./game/options.js');
-  // const Chart = require('./game/chart.js');
-  
   window.Game = require('./game/game.js');
   window.GameView = require('./game/game_view.js');
   window.Util = require('./util.js');
@@ -39,6 +33,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   window.judgeText = document.getElementById('judgement');
   window.stepStatsBlock = document.getElementById('step-statistics-block');
+  window.stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
   window.stepStats = document.getElementsByClassName('ss-judgement');
   window.chartStats = document.getElementsByClassName('chart-stats');
   
@@ -48,6 +43,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   function resetButtons(buttons) {
     for (let button of buttons) {
+      
       if (button.dataset.selected === "true") {
         button.classList.remove('button-selected')
       }
@@ -56,7 +52,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
 
   for (let button of diffButtons) {
-    if (parseInt(button.dataset.number) === g.diff) button.classList.add('button-selected');
+    if (parseInt(button.dataset.number) === g.diff) {
+    button.classList.add('button-selected');
+    } 
+    
     button.addEventListener('click', () =>{
       resetButtons(diffButtons);
       button.dataset.selected = "true";
@@ -66,7 +65,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
 
   for (let button of speedButtons) {
-    if (parseInt(button.dataset.speed) === g.game.speed) button.classList.add('button-selected');
+    if (parseInt(button.dataset.speed) === g.game.speed) {
+      button.classList.add('button-selected');
+    }
+    
     button.addEventListener('click', () =>{
       resetButtons(speedButtons);
       button.dataset.selected = "true";
@@ -76,7 +78,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
   }
   
   for (let button of hideButtons) {
-    if (parseInt(button.value) === g.game.darkened) button.classList.add('button-selected');
+    if (parseInt(button.value) === g.game.darkened) {
+      button.classList.add('button-selected');
+    }
+    
     button.addEventListener('click', () =>{
       resetButtons(hideButtons);
       button.dataset.selected = "true";

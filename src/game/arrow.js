@@ -1,6 +1,11 @@
+const ARROW_GAP = 103;
+
 class Arrow {
   constructor(arrowOpts) {
     this.imgUrl = arrowOpts['imgUrl'];  
+    this.img = new Image();
+    this.img.src = this.imgUrl;
+    
     this.direction = arrowOpts['direction'];
     this.rotation = this.getRotation();
     this.pos = arrowOpts['position'];
@@ -11,8 +16,6 @@ class Arrow {
     // will only be moving upwards
     this.velocity = arrowOpts['velocity'] || [0, 0];
 
-    this.img = new Image();
-    this.img.src = this.imgUrl;
     this.isAMine = arrowOpts['isAMine'] || false;
     this.isATarget = arrowOpts['target'] || false;
     this.isAPop = arrowOpts['isAPop'] || false;
@@ -20,19 +23,18 @@ class Arrow {
 
   setHorizPos() {
     const startPos = this.pos[0];
-    const gap = 103;
     switch(this.direction) {
       case 'left':
-        this.pos[0] = startPos + (gap * 0);
+        this.pos[0] = startPos + (ARROW_GAP * 0);
         break;
       case 'down':
-        this.pos[0] = startPos + (gap * 1);
+        this.pos[0] = startPos + (ARROW_GAP * 1);
         break;
       case 'up':
-        this.pos[0] = startPos + (gap * 2);
+        this.pos[0] = startPos + (ARROW_GAP * 2);
         break;
       case 'right':
-        this.pos[0] = startPos + (gap * 3);
+        this.pos[0] = startPos + (ARROW_GAP * 3);
         break;
     }
   }
@@ -69,8 +71,8 @@ class Arrow {
   }
 
   getDistance(otherArrow) {
-    let ourY = this.pos[1];
-    let theirY = otherArrow.pos[1];
+    const ourY = this.pos[1];
+    const theirY = otherArrow.pos[1];
     return theirY - ourY
   }
 }
