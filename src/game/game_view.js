@@ -153,12 +153,17 @@ class GameView {
     inGameOverlay.style.display = "none";
     stepStatsBlock.style.display = "none";
     judgeText.style.display = "none";
+    endScreen.style.display = "none";
     
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
     this.startButton = startButton;
     this.startButton.textContent = "Start Game";
-    endScreen.style.display = "none";
+
+    window.clearButtons(diffButtons);
+    window.clearButtons(speedButtons);
+    window.clearButtons(hideButtons);
+    
     window.canvasEl.style.filter = "grayscale(0%)";
   }
 

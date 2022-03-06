@@ -15,8 +15,7 @@ const MINE_WINDOW = {
   MAX: 0
 }
 
-const timer = ms => new Promise((res) => setTimeout((res) => {
-}, ms))
+const timer = ms => new Promise(res => setTimeout(res, ms))
 
 class Game {
   constructor(gameOpts) {
