@@ -4,6 +4,9 @@ const Chart = require('./chart.js');
 
 const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
 const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
+const timer = ms => new Promise((res) => setTimeout((res) => {
+  console.log(`Delaying: ${ms} milliseconds`)
+}, ms))
 
 class Game {
   constructor(gameOpts) {
@@ -18,6 +21,9 @@ class Game {
     this.chartFinished = false;
 
     this.fps = 75;
+    this.startTime;
+    this.previousFrameTime;
+    this.currentFrameTime;
 
     this.fantastics = 0;
     this.excellents = 0;
@@ -157,7 +163,7 @@ class Game {
     const stepStats = document.getElementsByClassName('ss-judgement');
     stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
 
-    if (this.combo > 0) {
+    if (this.combo > 4) {
       stepStats['combo-counter'].style.display = 'block'
       stepStats['combo-counter'].textContent = `${this.combo}`;
     } else {
@@ -383,7 +389,41 @@ class Game {
     }
   }
 
+  // startChart() {
+  //   this.chartIteration();
+  // }
+
+  // async chartIteration() {
+  //   for (let i = 1; i <= this.difficulty.measureCount; i++) {
+  //     const measure = this.steps[`${i}`];
+  //     const quantization = measure.length;
+  //     const delay = this.getDelay(this.bpm, quantization);
+
+  //     for (let j = 0; j < measure.length; j++) {
+  //       const beat = measure[j];
+  //       const quantColorNum = this.getQuantColorNum(j + 1, measure.length);
+
+  //       for (let k = 0; k < beat.length; k++) {
+  //         if (!this.isAlive) {
+  //           return;
+  //         };
+          
+  //         if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
+  //           console.log(`Adding arrow: ${indexToDirection[k]}, ${quantColorNum}`)
+  //           this.addArrow(indexToDirection[k], quantColorNum);
+  //         } else if (beat[k] === "M") {
+  //           console.log(`Adding arrow: ${indexToDirection[k]}, MINE`)
+  //           this.addArrow(indexToDirection[k], 'MINE')
+  //         }
+  //         await timer(delay)
+  //       }
+  //     }
+  //   }
+  //   this.chartFinished = true;
+  // }
+
   startChart() {
+    console.log(`Start time: ${Date.now()}`)
     this.chartIteration();
   }
 
@@ -421,6 +461,7 @@ class Game {
         return;
       }
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
+        console.log(`First arrow time: ${Date.now()}`)
         this.addArrow(indexToDirection[k], quantColorNum)
       }
       if (beat[k] === 'M') {
