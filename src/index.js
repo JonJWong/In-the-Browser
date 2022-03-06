@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.endScreen = document.getElementById('end-screen');
   window.restartButton = document.getElementById('restart');
 
-  function resetButtons(buttons) {
+  window.clearButtons = function(buttons) {
     for (let button of buttons) {
       
       if (button.dataset.selected === "true") {
@@ -57,7 +57,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     } 
     
     button.addEventListener('click', () =>{
-      resetButtons(diffButtons);
+      clearButtons(diffButtons);
       button.dataset.selected = "true";
       button.classList.add('button-selected');
       g.diff = parseInt(button.dataset.number);
@@ -70,7 +70,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
     
     button.addEventListener('click', () =>{
-      resetButtons(speedButtons);
+      clearButtons(speedButtons);
       button.dataset.selected = "true";
       button.classList.add('button-selected');
       g.game.speed = parseInt(button.dataset.speed);
@@ -83,7 +83,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
     
     button.addEventListener('click', () =>{
-      resetButtons(hideButtons);
+      clearButtons(hideButtons);
       button.dataset.selected = "true";
       button.classList.add('button-selected');
       g.game.darkened = parseInt(button.value);
