@@ -5,7 +5,6 @@ const Chart = require('./chart.js');
 const directionToIndex = {left: 0, down: 1, up: 2, right: 3};
 const indexToDirection = {0: 'left', 1: 'down', 2: 'up', 3: 'right'}
 const timer = ms => new Promise((res) => setTimeout((res) => {
-  console.log(`Delaying: ${ms} milliseconds`)
 }, ms))
 
 class Game {
@@ -390,7 +389,6 @@ class Game {
   }
 
   startChart() {
-    console.log(`Start time: ${Date.now()}`)
     this.chartIteration();
   }
 
@@ -422,7 +420,6 @@ class Game {
         return;
       }
       if (beat[k] === '1' || beat[k] === '2' || beat[k] === '4') {
-        console.log(`First arrow time: ${Date.now()}`)
         this.addArrow(indexToDirection[k], quantColorNum)
       }
       if (beat[k] === 'M') {
