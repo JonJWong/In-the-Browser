@@ -601,3 +601,8 @@ button:hover {
   position: absolute;
   transform: translate(-849%, -360%);
 }
+
+.difficulty-button, .speed-button {
+  display: block;
+  height: 40px;
+}
