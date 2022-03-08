@@ -29,7 +29,6 @@ class GameView {
   }
 
   getStartDelay() {
-    // 6109ms before first note placed
     const speed = this.game.speed;
     const diff = this.diff;
 
@@ -50,7 +49,7 @@ class GameView {
           case 5:
             return 3180
           case 10:
-            return 1269
+            return 1540
         }
     }
   }
