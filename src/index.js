@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.hideButtons = document.getElementsByClassName('hide-button');
   window.backButton = document.getElementById('back');
 
-  window.messageMessage = document.getElementById('message-message');
+  window.theMessage = document.getElementById('the-message');
   window.messageScreen = document.getElementById('message-screen');
 
   window.inGameOverlay = document.getElementById('in-game-overlay');
