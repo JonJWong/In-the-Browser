@@ -81,7 +81,7 @@ class GameView {
     this.game.startTime = this.game.previousFrameTime;
     this.animate();
 
-    messageMessage.textContent = "Attempting to sync...";
+    theMessage.textContent = "Attempting to sync...";
     messageScreen.style.display = "block";
 
     setTimeout(() => {
