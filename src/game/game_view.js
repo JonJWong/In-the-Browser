@@ -5,7 +5,7 @@ class GameView {
   constructor(gameOpts) {
     this.game = new Game(gameOpts);
     this.ctx = ctx;
-    this.diff = 9;
+    this.diff = 3;
     this.currVolume = .5;
 
     this.startButtonHandler = this.startButtonHandler.bind(this);
