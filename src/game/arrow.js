@@ -18,6 +18,7 @@ class Arrow {
     this.isAPop = arrowOpts['isAPop'] || false;
   }
 
+  // Determine which lane for target based on it's direction/orientation.
   setHorizPos() {
     const startPos = this.pos[0];
     const gap = 103;
@@ -48,6 +49,7 @@ class Arrow {
     ctx.setTransform(1,0,0,1,0,0)
   }
 
+  // Helper to move arrows per frame.
   move() {
     const [x, y] = this.pos;
     const [a, b] = this.velocity;
@@ -55,6 +57,8 @@ class Arrow {
   }
 
   // This is hard-coded for 4 panels, need to refactor to make scalable
+  // Helper to determine which way the arrow will face, since the image is
+  // facing upward by default.
   getRotation() {
     switch (this.direction) {
       case 'left':
@@ -68,6 +72,7 @@ class Arrow {
     }
   }
 
+  // Helper to calculate distance between two Arrow Objects.
   getDistance(otherArrow) {
     let ourY = this.pos[1];
     let theirY = otherArrow.pos[1];
