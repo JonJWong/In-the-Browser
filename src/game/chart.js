@@ -25,18 +25,18 @@ class Chart {
     let breakpoint = 0;
     
     // Segmented incrementation through the chart, creating new arrays based on
-    // each section or measure of the chart, tracking the breakpoint along the way
-    // This allows for multiple quantizations across measures.
+    // each section or difficulty of the chart. This is later expanded on with
+    // the other helper below.
     let doneParsing = false;
     while (!doneParsing) {
       doneParsing = true;
       let currentPart = [];
       
-      // Iterate and populate the current part or measure of chart.
+      // Iterate and populate the current difficulty as rows.
       for(let i = breakpoint; i < chartRows.length; i++) {
         
-        // If the measure is over, set the breakpoint forward, and stop iterating
-        // To finalize the current measure.
+        // If the difficulty is over, stop iterating and keep track of the breakpoint
+        // So that iteration can continue on a new difficulty, on the next loop.
         if (chartRows[i].includes('//--')) {
           breakpoint = i + 1;
           doneParsing = false;
@@ -59,8 +59,10 @@ class Chart {
     }
   }
 
+  // Helper to get the steps from the difficulty chunk.
   getMeasures(difficulty) {
     let steps = {};
+    // Set new chart object metadata from difficulty chunk.
     let chart = {
       "steps": steps,
       "difficulty": difficulty[5].slice(12, difficulty[5].length - 1),
@@ -69,19 +71,30 @@ class Chart {
       "mineCount": 0,
       "startPoint": 0
     };
+
+    // Initialize measure count, and then iterate through chart where measures
+    // exist.
     let measure = 0;
     for (let g = 10; g < difficulty.length; g++) {
+
+      // Parse lines into array parts.
       let line = difficulty[g];
       if (line.startsWith(',') || line.startsWith('//')) {
         measure += 1
         continue
       } else if ('01234M'.includes(line[0])) {
+
+        // Find the startpoint of the chart, some charts have empty space before
+        // the arrows come. This is necessary because the arrows will not come up
+        // on correct time if the empty space is not accurate.
         if (!chart['startPoint'] 
           && (line.includes('1') || line.includes('2') || line.includes('4'))){
           chart['startPoint'] = measure;
-          }  
+          }
         steps[measure] ||= [];
         steps[measure].push(line)
+
+        // Iterate through the line, count the steps and mines for display later.
         for (let i = 0; i < line.length; i++) {
           if (line[i] === '1' || line[i] === '2' || line[i] === '4') {
             chart["stepCount"] += 1
@@ -92,6 +105,8 @@ class Chart {
         continue;
       }
     }
+
+    // Finalize measurecount, and return chart object.
     chart['measureCount'] = measure;
     return chart
   }
