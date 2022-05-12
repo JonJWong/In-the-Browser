@@ -9,24 +9,34 @@ class Chart {
     this.syncChart();
   }
 
+  // Helper to call the methods below synchronously
+  // Not quite sure why this is needed, some JS language behavior to understand.
+  // Bottom 3 functions are asnychronous, and this calls them all synchronously?
   syncChart() {
     this.getChartInfo(this.directory)
   }
   
   async getChartInfo(dir) {
-    // let chart = await fetch('../../assets/chart/drop_pop_candy/drop_pop_candy.ssc').then(res => res.text());
+    // Fetch chart info from file, and then split it into an array where each row
+    // is an item in the array.
     let chart = await fetch(dir).then(res => res.text());
     let chartRows = chart.split("\r\n");
     let metaAndDiffs = [];
     let breakpoint = 0;
     
+    // Segmented incrementation through the chart, creating new arrays based on
+    // each section or measure of the chart, tracking the breakpoint along the way
+    // This allows for multiple quantizations across measures.
     let doneParsing = false;
     while (!doneParsing) {
       doneParsing = true;
       let currentPart = [];
       
+      // Iterate and populate the current part or measure of chart.
       for(let i = breakpoint; i < chartRows.length; i++) {
         
+        // If the measure is over, set the breakpoint forward, and stop iterating
+        // To finalize the current measure.
         if (chartRows[i].includes('//--')) {
           breakpoint = i + 1;
           doneParsing = false;
@@ -37,10 +47,12 @@ class Chart {
       metaAndDiffs.push(currentPart)
     }
 
+    // Parse metadata from the chart file
     this.metadata = metaAndDiffs[0].map(datum => {
       return datum.slice(1, datum.length - 1)
     });
 
+    // Add difficulty to chart object
     for (let i = 1; i < metaAndDiffs.length; i++) {
       const diff = metaAndDiffs[i];
       this.difficulties.push(this.getMeasures(diff))
