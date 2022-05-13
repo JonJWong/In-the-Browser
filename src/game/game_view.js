@@ -13,22 +13,30 @@ class GameView {
     this.restartGame = this.restartGame.bind(this);
   }
 
+  // Helper to remove menus from display, initialize game based on menu options
+  // that were selected.
   startButtonHandler() {
+    // Set variables for HTML elements.
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
     const stepStats = document.getElementById('step-statistics-block');
 
+    // Hide menus, and display in-game elements and overlay.
     optMenu.style.display = "none";
     menu.style.display = "none";
     inGameOverlay.style.display = "block";
     stepStats.style.display = "block";
 
+    // Start game
     this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
     // this.startButton.removeEventListener('click', this.startButtonHandler)
   }
 
+  // Helper to delay the start of the game based on scroll speed, and song start.
+  // Not sure how the numbers came up but its a combination between scroll speed
+  // and how many empty measures are at the beginning of the song.
   getStartDelay() {
     const speed = this.game.speed;
     const diff = this.diff;
@@ -55,7 +63,7 @@ class GameView {
     }
   }
 
-  // for raf refactor
+  // for raf refactor - Done but on another branch.
   startAnimating(fps) {
     fpsInterval = 1000 / fps;
     then = Date.now();
@@ -63,6 +71,7 @@ class GameView {
     animate();
   }
 
+  // 
   start() {
     this.game.getStepsAndCount(this.diff);
     let startPoint = this.getStartDelay();
