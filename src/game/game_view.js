@@ -71,11 +71,12 @@ class GameView {
     animate();
   }
 
-  // 
+  // Helper to start game
   start() {
     this.game.getStepsAndCount(this.diff);
     let startPoint = this.getStartDelay();
 
+    // Set interval attribute, and increment unless win or fail.
     this.interval = setInterval(() => {
       this.game.step();
       if (!this.game.isAlive) {
@@ -86,35 +87,47 @@ class GameView {
       }
     }, 20);
 
+    // Set syncing message on screen so that the game doesn't feel broken
+    // when starting, since the delay is quite long on lower difficulties.
     const messageMessage = document.getElementById('message-message');
     const messageScreen = document.getElementById('message-screen');
     messageMessage.textContent = "Attempting to sync..."
     messageScreen.style.display = "block";
 
+    // Start audio after "sync" and adjust volume, remove sync message.
     setTimeout(() => {
       this.playAudio();
       this.changeVolume(.5);
       messageScreen.style.display = "none";
     }, startPoint) // the bigger this number, the later the chart
 
+    // Generate arrows while the above setTimeout goes.
     this.game.startChart();
   }
 
+  // Conditional helper for when the game is won and the chart ends.
   gameWin() {
+    // remove interval
     clearInterval(this.interval);
+
+    // get HTML elements
     const judgeText = document.getElementById('judgement');
-    judgeText.style.display = 'none';
     const endMessage = document.getElementById('end-message');
+    const endScreen = document.getElementById('end-screen');
+
+    // Remove judgement font, and display congratulation screen with score.
+    judgeText.style.display = 'none';
     endMessage.textContent = `Congratulations, you finished with a score of
     ${this.game.getMoneyScore()}%. Thank you for playing.`
-    const endScreen = document.getElementById('end-screen');
     endScreen.style.display = "block";
   }
 
+  // Helper to determine loss message based on what happened last.
   astralReaper() {
     if (this.game.slayer.isAMine) {
       return "Your life depleted when you hit a mine."
     } else {
+      // This is separated for grammar. "an up" vs "a up".
       if (this.game.slayer.direction === 'up') {
         return "Your life depleted when you missed an up arrow."
       } else {
@@ -123,11 +136,14 @@ class GameView {
     }
   }
 
+  // Conditional method for when game is lost.
   gameFail() {
+    // Stop audio, remove arrows, and clear interval.
     this.audio.pause();
     this.game.arrows = [];
     clearInterval(this.interval);
 
+    // Gather and gray out the step statistics.
     const chartStats = document.getElementsByClassName('chart-stats');
     for (let ele of chartStats) {
       ele.style.filter = "grayscale(100%)";
@@ -138,10 +154,13 @@ class GameView {
       ele.style.filter = null
     }
 
+    // Gather end message and screen elements, and set their content.
     const endMessage = document.getElementById('end-message');
+    const endScreen = document.getElementById('end-screen');
+    
     endMessage.textContent = `You failed. Please try again, you had 
     ${this.game.difficulty.stepCount - this.game.hits} arrows left. ${this.astralReaper()}`
-    const endScreen = document.getElementById('end-screen');
+
     endScreen.style.display = "block";
     window.canvasEl.style.filter = "grayscale(100%)";
   }
