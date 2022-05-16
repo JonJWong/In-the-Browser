@@ -17,7 +17,7 @@ class Game {
     this.isAlive = true;
     this.chartFinished = false;
 
-    this.fps = 75;
+    this.fps = 75; // this is for requestAnimationFrame
 
     this.fantastics = 0;
     this.excellents = 0;
@@ -36,8 +36,10 @@ class Game {
     this.life = 50;
   }
 
+  // Helper to create an arrow based on the quantization
   addArrow(arrowDirection, quantColorNum) {
     const arrowOpts = Options.arrowOpts();
+    // Choose the appropriate image for it's quantization
     switch (quantColorNum) {
       case 4:
         arrowOpts['imgUrl'] = 'assets/images/quarter.png';
@@ -53,21 +55,26 @@ class Game {
         arrowOpts['isAMine'] = true;
         break;
     }
+
     arrowOpts['direction'] = arrowDirection;
     arrowOpts['velocity'] = [0, -this.speed];
     let newArrow = new Arrow(arrowOpts);
     this.arrows.push(newArrow);
   }
 
+  // Helper to deconstruct the chart object into attributes of the game.
+  // Sets game metadata for use later.
   getStepsAndCount(rating) {
     let difficulty;
     let stepCount = 0;
+    
     for (let diff of this.chart.difficulties) {
       if (diff["rating"] === rating){
         difficulty = diff;
         stepCount = diff["stepCount"];
       }
     }
+
     this.difficulty = difficulty;
     this.steps = difficulty["steps"];
     this.minesTotal = difficulty["mineCount"]
@@ -75,17 +82,20 @@ class Game {
     this.bpm = parseInt(this.chart.metadata[23].slice(11))
   }
 
+  // Helper to check whether or not an arrow is off-screen
   isOutOfBounds(pos) {
     let [x, y] = pos;
     return (x > 1000 || y > 1000 || x < 0 || y < 90)
   }
   
+  // Helper to render all arrows in the game.
   drawArrows() {
     this.arrows.forEach(arrow =>{
       arrow.render(ctx);
     })
   }
 
+  // Helper to render targets, and scale them over time.
   drawTargets() {
     this.targets.forEach(target => {
       this.scaleTarget(target);
@@ -93,6 +103,7 @@ class Game {
     })
   }
 
+  // Method to draw the lifebar outline in canvas.
   drawLifebar() {
     ctx.beginPath();
     ctx.rect(120, 15, 300, 50);
@@ -103,6 +114,7 @@ class Game {
     ctx.stroke();
   }
 
+  // Method to fill the lifebar
   fillLifebar() {
     ctx.beginPath();
     ctx.rect(120, 15, this.life*3, 50);
@@ -116,6 +128,7 @@ class Game {
     ctx.fill();
   }
 
+  // Method to draw lane-hider / darken lane
   darkenLane() {
     ctx.beginPath();
     ctx.rect(12, 0, 435, 960);
@@ -123,14 +136,17 @@ class Game {
     ctx.fill();
   }
 
+  // Method that re-draws every canvas element.
   step() {
     if (this.life <= 0) {
       this.isAlive = false;
     }
+
     ctx.clearRect(0, 0, 1280, 960);
     if (this.darkened) {
       this.darkenLane();
     }
+
     this.fillLifebar(ctx);
     this.drawLifebar(ctx);
     this.drawTargets(ctx);
@@ -139,12 +155,13 @@ class Game {
     this.drawArrows(ctx);
   }
 
+  // Helper to calculate percentage score
   getMoneyScore() {
     return this.score <= 0 ? 0 : ((this.score / this.maxScore) * 100).toFixed(2)
   }
 
+  // Helper to update step statistics block, and draw combo.
   updateStepStats() {
-    
     const stepStatsGrid = document.getElementsByClassName('ss-judgement-grid');
     stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
     stepStatsGrid['eCount'].textContent = `${this.excellents}`;
@@ -172,6 +189,7 @@ class Game {
     chartStats['difficulty-rating'].textContent = `${this.difficulty["rating"]}`
   }
 
+  // Method to check arrow collision, out of bounds, and mines.
   moveArrows() {
     this.arrows.forEach(arrow => {
       arrow.move()
@@ -192,11 +210,13 @@ class Game {
     })
   }
 
+  // Method to remove arrow on hit or out of bounds.
   removeArrow(arrow) {
     const removeIndex = this.arrows.indexOf(arrow);
     this.arrows.splice(removeIndex, 1);
   }
 
+  // Method that checks targets upon keypress, to check judgement or mine.
   checkKeyPress(direction) {
     const target = this.targets[directionToIndex[direction]]
     this.hitTarget(target);
