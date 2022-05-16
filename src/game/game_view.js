@@ -165,10 +165,13 @@ class GameView {
     window.canvasEl.style.filter = "grayscale(100%)";
   }
 
+  // Method to restart game, invoked when restart is pressed on end screen.
   restartGame() {
+    // Clear interval, and canvas
     clearInterval(this.interval);
     ctx.clearRect(0, 0, 1280, 960);
 
+    // Gather Menus, and in-game overlay elements.
     const menu = document.getElementById('information-display');
     const optMenu = document.getElementById('game-opts');
     const inGameOverlay = document.getElementById('in-game-overlay');
@@ -177,6 +180,7 @@ class GameView {
     const chartStats = document.getElementsByClassName('chart-stats');
     const judgeText = document.getElementById('judgement');
 
+    // Remove filters (grayscale)
     for (let ele of chartStats) {
       ele.style.filter = null
     }
@@ -185,30 +189,38 @@ class GameView {
       ele.style.filter = null
     }
     
+    // Show menus, and hide in-game overlays.
     menu.style.display = "block";
     optMenu.style.display = "none";
     inGameOverlay.style.display = "none";
     stepStatsBlock.style.display = "none";
     judgeText.style.display = "none";
     
+    // Set parameters for a new game, and hide fail screen.
     const gameOpts = Options.gameOpts();
     this.game = new Game(gameOpts);
     this.startButton = document.getElementById('start');
     this.startButton.textContent = "Start Game";
+    
     const failScreen = document.getElementById('end-screen');
     failScreen.style.display = "none";
+
     window.canvasEl.style.filter = "grayscale(0%)";
   }
 
+  // Helper to play audio
   playAudio() {
     this.audio = this.game.chart.audio;
     this.audio.play();  
   }
 
+  // Helper to adjust audio volume on click. the buttons are coded to increment
+  // by tenths.
   changeVolume(num) {
     this.audio.volume = num;
   }
 
+  // Menu toggle helper, only menu or options can be open at a time.
   openCloseOpts() {
     const mainMenu = document.getElementById('information-display');
     const optsMenu = document.getElementById('game-opts');
