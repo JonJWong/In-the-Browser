@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.g = new GameView(gameOpts);
   g.bindKeys();
   
+  // HTML ELEMENTS
   const startButton = document.getElementById('start');
   const optionsButton = document.getElementById('options-btn');
   const volDown = document.getElementById('vol-down');
@@ -39,6 +40,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
   }
 
+  // GIVING BUTTONS EVENTLISTENERS
   for (let button of diffButtons) {
     if (parseInt(button.dataset.number) === g.diff) button.classList.add('button-selected');
     button.addEventListener('click', () =>{
