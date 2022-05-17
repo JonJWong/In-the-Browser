@@ -223,13 +223,16 @@ class Game {
     // target indices left: 0, down: 1, up: 2, right: 3
     for (let i = 0; i < this.arrows.length; i++) {
       let arrow = this.arrows[i];
+
       if (arrow.direction === direction) {
         let distance = target.getDistance(arrow);
         if (distance > 60) break;
+
         if (arrow.isAMine && (distance >= -19 && distance < -10)) {
           this.combo = 0;
           this.score -= 6;
           this.life -= 10;
+
           if (this.life <= 0) {
             this.slayer = arrow
           };
@@ -244,10 +247,12 @@ class Game {
     }
   }
 
+  // Helper to enlarge target when pressed
   hitTarget(target) {
     target.scale = .42;
   }
   
+  // Helper to incrementally shrink target when frames are drawn.
   scaleTarget(target) {
     if (target.scale - .01 > .35) {
       target.scale -= .01
@@ -256,6 +261,8 @@ class Game {
     }
   }
 
+  // Helper to determine whether or not the player will regain life
+  // based on their current combo, and what judgements were gained.
   comboRegainLife(judgement) {
     if (this.combo > 5 && this.life !== 100) {
       switch (judgement) {
@@ -277,6 +284,7 @@ class Game {
     }
   }
 
+  // Helper to set the text content and color of the judgement element on screen.
   setJudgementEle(judgement) {
     const judgeText = document.getElementById('judgement');
     judgeText.style.display = 'block';
@@ -308,6 +316,7 @@ class Game {
     }
   }
 
+  // Method that calculates score, combo, life gain
   // currently hard-coded for distance, need to figure out how to do this
   // with ms timing later?
   metricsIni(distance) {
@@ -349,6 +358,7 @@ class Game {
     }
   }
 
+  // Method that creates all 4 targets when game instance is created.
   addTargets(num) {
     const targets = [];
     for (let i = 0; i < num; i++) {
@@ -358,6 +368,7 @@ class Game {
     return targets;
   }
 
+  // Helper to create individual targets.
   createTarget(i) {
     const targetOpts = Options.targetOpts()
     switch (i) {
@@ -376,11 +387,14 @@ class Game {
     }
   }
 
+  // Helper to get start delay for chart
   getDelay(bpm, quantization) {
     const minuteInMs = 60000;
     return minuteInMs / ((quantization / 4) * bpm) - 1
   }
 
+  // Helper to get the color of the arrow based on it's quantization.
+  // Called when creating the arrows
   getQuantColorNum(i, length) {
     if (length >= 16) {
       switch(true) {
@@ -403,6 +417,7 @@ class Game {
     }
   }
 
+  // Helper to synchronously call the below 3 async functions.
   startChart() {
     this.chartIteration();
   }
