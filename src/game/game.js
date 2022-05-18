@@ -29,7 +29,6 @@ class Game {
     this.isAlive = true;
     this.chartFinished = false;
 
-    this.fps = 75;
     this.startTime;
     this.previousFrameTime;
     this.currentFrameTime;
