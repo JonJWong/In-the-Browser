@@ -29,12 +29,9 @@ class GameView {
   }
 
   getStartDelay() {
-    const speed = this.game.speed;
-    const diff = this.diff;
-
-    switch(diff) {
+    switch(this.diff) {
       case 2: case 3:
-        switch(speed) {
+        switch(this.game.speed) {
           case 3:
             return 12615
           case 5:
@@ -43,7 +40,7 @@ class GameView {
             return 8890
         }
       case 6: case 8: case 9:
-        switch (speed) {
+        switch (this.game.speed) {
           case 3:
             return 5300
           case 5:
@@ -55,7 +52,6 @@ class GameView {
   }
 
   animate() {
-    // this.game.step();
     this.frame = requestAnimationFrame(this.animate)
     
     this.game.currentFrameTime = Date.now();
