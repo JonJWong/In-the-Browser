@@ -22,21 +22,10 @@ class Arrow {
   }
 
   setHorizPos() {
-    const startPos = this.pos[0];
-    switch(this.direction) {
-      case 'left':
-        this.pos[0] = startPos + (ARROW_GAP * 0);
-        break;
-      case 'down':
-        this.pos[0] = startPos + (ARROW_GAP * 1);
-        break;
-      case 'up':
-        this.pos[0] = startPos + (ARROW_GAP * 2);
-        break;
-      case 'right':
-        this.pos[0] = startPos + (ARROW_GAP * 3);
-        break;
-    }
+    if (this.direction === 'left') this.pos[0] += (ARROW_GAP * 0);
+    if (this.direction === 'down') this.pos[0] += ARROW_GAP;
+    if (this.direction === 'up') this.pos[0] += (ARROW_GAP * 2);
+    if (this.direction === 'right') this.pos[0] += (ARROW_GAP * 3);
   }
   
   // This is hard-coded for 4 panels. need to refactor to make scalable
@@ -58,22 +47,14 @@ class Arrow {
 
   // This is hard-coded for 4 panels, need to refactor to make scalable
   getRotation() {
-    switch (this.direction) {
-      case 'left':
-        return Math.PI * 0.5
-      case 'down':
-        return Math.PI * 0
-      case 'up':
-        return Math.PI * 1
-      case 'right':
-        return Math.PI * 1.5
-    }
+    if (this.direction === 'left') return Math.PI * 0.5;
+    if (this.direction === 'down') return Math.PI * 0;
+    if (this.direction === 'up') return Math.PI;
+    if (this.direction === 'right') return Math.PI * 1.5;
   }
 
   getDistance(otherArrow) {
-    const ourY = this.pos[1];
-    const theirY = otherArrow.pos[1];
-    return theirY - ourY
+    return otherArrow.pos[1] - this.pos[1];
   }
 }
 
