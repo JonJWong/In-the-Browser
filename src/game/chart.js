@@ -14,7 +14,6 @@ class Chart {
   }
   
   async getChartInfo(dir) {
-    // let chart = await fetch('../../assets/chart/drop_pop_candy/drop_pop_candy.ssc').then(res => res.text());
     let chart = await fetch(dir).then(res => res.text());
     let chartRows = chart.split("\r\n");
     let metaAndDiffs = [];
@@ -57,24 +56,40 @@ class Chart {
       "mineCount": 0,
       "startPoint": 0
     };
+
     let measure = 0;
+
+    const findArrow = (line) => {
+      return line.includes('1') || line.includes('2') || line.includes('4')
+    }
+
+    const findStep = (char, chart) => {
+      switch(char) {
+        case '1':
+        case '2':
+        case '4':
+          chart['stepCount']++;
+          break;
+        case 'M':
+          chart['mineCount']++;
+        default:
+        break;
+      }
+    }
+
     for (let g = 10; g < difficulty.length; g++) {
       let line = difficulty[g];
       if (line.startsWith(',') || line.startsWith('//')) {
         measure += 1
         continue
       } else if ('01234M'.includes(line[0])) {
-        if (!chart['startPoint'] 
-          && (line.includes('1') || line.includes('2') || line.includes('4'))){
+        if (!chart['startPoint'] && findArrow(line)) {
           chart['startPoint'] = measure;
-          }  
+        }
         steps[measure] ||= [];
         steps[measure].push(line)
         for (let i = 0; i < line.length; i++) {
-          if (line[i] === '1' || line[i] === '2' || line[i] === '4') {
-            chart["stepCount"] += 1
-          }
-          if (line[i] === 'M') chart["mineCount"] += 1;
+          findStep(line[i], chart);
         }
       } else {
         continue;
