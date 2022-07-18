@@ -2,20 +2,31 @@ const Arrow = require('./arrow.js');
 const Options = require('./options.js');
 const Chart = require('./chart.js');
 
-const DIRECTION_TO_INDEX = {left: 0, down: 1, up: 2, right: 3};
-const INDEX_TO_DIRECTION = {0: 'left', 1: 'down', 2: 'up', 3: 'right'};
+const DIRECTION_TO_INDEX = {
+  left: 0,
+  down: 1,
+  up: 2,
+  right: 3
+};
+
+const INDEX_TO_DIRECTION = {
+  0: 'left',
+  1: 'down',
+  2: 'up',
+  3: 'right'
+};
+
 const ARROW_QUANTIZATION_IMGURL = {
   4: 'assets/images/quarter.png',
   8: 'assets/images/eighth.png',
   16: 'assets/images/sixteenth.png',
   MINE: 'assets/images/mine.png'
 }
+
 const MINE_WINDOW = {
   MIN: -20,
   MAX: 0
 }
-
-const timer = ms => new Promise(res => setTimeout(res, ms))
 
 class Game {
   constructor(gameOpts) {
@@ -53,29 +64,27 @@ class Game {
   }
 
   addArrow(arrowDirection, quantColorNum) {
-    const arrowOpts = Options.arrowOpts();
+    const arrowOpts = Object.assign({}, Options.arrowOpts);
 
     if (quantColorNum === 'MINE') {
-      arrowOpts['imgUrl'] = ARROW_QUANTIZATION_IMGURL[quantColorNum];
-      arrowOpts['isAMine'] = true;
+      arrowOpts.imgUrl = ARROW_QUANTIZATION_IMGURL[quantColorNum];
+      arrowOpts.isAMine = true;
     } else {
-      arrowOpts['imgUrl'] = ARROW_QUANTIZATION_IMGURL[quantColorNum];
+      arrowOpts.imgUrl = ARROW_QUANTIZATION_IMGURL[quantColorNum];
     }
-    arrowOpts['direction'] = arrowDirection;
-    arrowOpts['velocity'] = [0, -this.speed];
+    arrowOpts.direction = arrowDirection;
+    arrowOpts.velocity = [0, -this.speed];
 
-    let newArrow = new Arrow(arrowOpts);
-    this.arrows.push(newArrow);
+    this.arrows.push(new Arrow(arrowOpts));
   }
 
   getStepsAndCount(rating) {
-
     for (let diff of this.chart.difficulties) {
-      if (diff["rating"] === rating){
+      if (diff.rating === rating) {
         this.difficulty = diff;
-        this.maxScore = diff["stepCount"] * 5;
-        this.steps = diff["steps"];
-        this.minesTotal = diff["mineCount"]
+        this.maxScore = diff.stepCount * 5;
+        this.steps = diff.steps;
+        this.minesTotal = diff.mineCount
       }
     }
     this.bpm = parseInt(this.chart.metadata[23].slice(11))
@@ -152,36 +161,35 @@ class Game {
   }
 
   updateStepStats() {
-    
-    stepStatsGrid['fCount'].textContent = `${this.fantastics}`;
-    stepStatsGrid['eCount'].textContent = `${this.excellents}`;
-    stepStatsGrid['gCount'].textContent = `${this.greats}`;
-    stepStatsGrid['dCount'].textContent = `${this.decents}`;
-    stepStatsGrid['woCount'].textContent = `${this.wayOffs}`;
-    stepStatsGrid['missCount'].textContent = `${this.misses}`;
-    stepStatsGrid['mineCount'].textContent = `${this.minesDodged}/${this.minesTotal}`;
+    window.stepStatsGrid.fCount.textContent = `${this.fantastics}`;
+    window.stepStatsGrid.eCount.textContent = `${this.excellents}`;
+    window.stepStatsGrid.gCount.textContent = `${this.greats}`;
+    window.stepStatsGrid.dCount.textContent = `${this.decents}`;
+    window.stepStatsGrid.woCount.textContent = `${this.wayOffs}`;
+    window.stepStatsGrid.missCount.textContent = `${this.misses}`;
+    window.stepStatsGrid.mineCount.textContent = `${this.minesDodged}/${this.minesTotal}`;
 
-    stepStats['percentage-score'].textContent = `${this.getMoneyScore()}%`;
+    window.stepStats.percentage_score.textContent = `${this.getMoneyScore()}%`;
 
     if (this.combo > 2) {
-      stepStats['combo-counter'].style.display = 'block'
-      stepStats['combo-counter'].textContent = `${this.combo}`;
+      window.stepStats.combo_counter.style.display = 'block'
+      window.stepStats.combo_counter.textContent = `${this.combo}`;
     } else {
-      stepStats['combo-counter'].textContent = 0;
-      stepStats['combo-counter'].style.display = 'none'
+      window.stepStats.combo_counter.textContent = 0;
+      window.stepStats.combo_counter.style.display = 'none'
     }
     
-    chartStats['artist-name'].textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
-    chartStats['song-title'].textContent = `Song: ${this.chart.metadata[1].slice(6)}`
-    chartStats['difficulty-name'].textContent = `Difficulty: ${this.difficulty["difficulty"]}`
-    chartStats['difficulty-rating'].textContent = `${this.difficulty["rating"]}`
+    window.chartStats.artist_name.textContent = `Artist: ${this.chart.metadata[3].slice(7)}`
+    window.chartStats.song_title.textContent = `Song: ${this.chart.metadata[1].slice(6)}`
+    window.chartStats.difficulty_name.textContent = `Difficulty: ${this.difficulty.difficulty}`
+    window.chartStats.difficulty_rating.textContent = `${this.difficulty.rating}`
   }
 
   moveArrows() {
     this.arrows.forEach(arrow => {
       arrow.move()
       if (this.isOutOfBounds(arrow.pos) && !arrow.isAMine) {
-        this.misses += 1;
+        this.misses++;
         this.score -= 12;
         this.combo = 0;
         this.life -= 10;
@@ -191,15 +199,14 @@ class Game {
         }
         this.removeArrow(arrow);
       } else if (this.isOutOfBounds(arrow.pos) && arrow.isAMine) {
-        this.minesDodged += 1;
+        this.minesDodged++;
         this.removeArrow(arrow);
       };
     })
   }
 
   removeArrow(arrow) {
-    const removeIndex = this.arrows.indexOf(arrow);
-    this.arrows.splice(removeIndex, 1);
+    this.arrows.splice(this.arrows.indexOf(arrow), 1);
   }
 
   checkKeyPress(direction) {
@@ -224,7 +231,7 @@ class Game {
         };
         this.metricsIni(distance);
         this.removeArrow(arrow);
-        this.hits += 1;
+        this.hits++;
         break;
       }
     }
@@ -296,80 +303,64 @@ class Game {
   // with ms timing later?
   metricsIni(distance) {
     if (distance < 0) distance = -distance;
-    switch (true) {
-      case (distance <= 20):
-        this.score += 5;
-        this.fantastics += 1;
-        this.combo += 1;
-        this.comboRegainLife('FANTASTIC');
-        this.setJudgementEle('Fantastic');
-        break;
-      case (distance <= 30):
-        this.score += 4;
-        this.excellents += 1;
-        this.combo += 1;
-        this.comboRegainLife('EXCELLENT');
-        this.setJudgementEle('Excellent');
-        break;
-      case (distance <= 40):
-        this.score += 2;
-        this.greats += 1;
-        this.combo += 1;
-        this.comboRegainLife('GREAT');
-        this.setJudgementEle('Great');
-        break;
-      case (distance <= 50):
-        this.score += 0;
-        this.decents += 1;
-        this.combo = 0;
-        this.setJudgementEle('Decent');
-        break;
-      case (distance <= 60):
-        this.score -= 6;
-        this.wayOffs += 1;
-        this.combo = 0;
-        this.setJudgementEle('Way-Off');
-        break;
+    if (distance <= 20) {
+      this.score += 5;
+      this.fantastics += 1;
+      this.combo += 1;
+      this.comboRegainLife('FANTASTIC');
+      this.setJudgementEle('Fantastic');
+    } else if (distance <= 30) {
+      this.score += 4;
+      this.excellents += 1;
+      this.combo += 1;
+      this.comboRegainLife('EXCELLENT');
+      this.setJudgementEle('Excellent');
+    } else if (distance <= 40) {
+      this.score += 2;
+      this.greats += 1;
+      this.combo += 1;
+      this.comboRegainLife('GREAT');
+      this.setJudgementEle('Great');
+    } else if (distance <= 50) {
+      this.score += 0;
+      this.decents += 1;
+      this.combo = 0;
+      this.setJudgementEle('Decent');
+    } else if (distance <= 60) {
+      this.score -= 6;
+      this.wayOffs += 1;
+      this.combo = 0;
+      this.setJudgementEle('Way-Off');
     }
   }
 
   addTargets(num) {
     const targets = [];
     for (let i = 0; i < num; i++) {
-      const target = this.createTarget(i);
-      targets.push(target)
+      targets.push(this.createTarget[i])
     }
     return targets;
   }
 
   createTarget(i) {
-    const targetOpts = Options.targetOpts();
-    targetOpts['direction'] = INDEX_TO_DIRECTION[i];
+    const targetOpts = Options.targetOpts;
+    targetOpts.direction = INDEX_TO_DIRECTION[i];
     return new Arrow(targetOpts);
   }
 
   getDelay(bpm, quantization) {
-    const minuteInMs = 60000;
-    return minuteInMs / ((quantization / 4) * bpm) - 1
+    // 60,000 = 1 minute in ms
+    return 60000 / ((quantization / 4) * bpm) - 1
   }
 
   getQuantColorNum(i, length) {
     if (length >= 16) {
-      switch(true) {
-        case (i % 4 === 1):
-          return 4
-        case (i % 4 === 3):
-          return 8
-        case (i % 2 === 0):
-          return 16
-      }
+      if (i % 4 === 1) return 4;
+      if (i % 4 === 3) return 8;
+      if (i % 2 === 0) return 16;
     } else if (length === 8) {
-      switch(true) {
-        case (i % 2 === 1):
-          return 4
-        case (i % 2 === 0):
-          return 8
-      }
+      if (i % 2 === 1) return 4;
+      if (i % 2 === 0) return 8;
     } else {
       return 4
     }
@@ -382,7 +373,7 @@ class Game {
   async chartIteration() {
     // goes through the chart, needs to wait for the measure
     for (let i = 1; i <= this.difficulty.measureCount; i++) {
-      const measure = this.steps[`${i}`];
+      const measure = this.steps[i];
       const quantization = measure.length;
       const delay = this.getDelay(this.bpm, quantization);
       await this.measureIteration(measure, delay);

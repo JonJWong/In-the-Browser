@@ -1,9 +1,9 @@
 class Chart {
   constructor(chartOpts) {
-    this.directory = chartOpts['stepDir'];
-    this.audio = new Audio(chartOpts['audioDir']);
-    this.background = chartOpts['bgDir'];
-    this.banner = chartOpts['bannerDir'];
+    this.directory = chartOpts.stepDir;
+    this.audio = new Audio(chartOpts.audioDir);
+    this.background = chartOpts.bgDir;
+    this.banner = chartOpts.bannerDir;
     this.metadata;
     this.difficulties = [];
     this.syncChart();
@@ -68,10 +68,10 @@ class Chart {
         case '1':
         case '2':
         case '4':
-          chart['stepCount']++;
+          chart.stepCount++;
           break;
         case 'M':
-          chart['mineCount']++;
+          chart.mineCount++;
         default:
         break;
       }
@@ -83,8 +83,8 @@ class Chart {
         measure += 1
         continue
       } else if ('01234M'.includes(line[0])) {
-        if (!chart['startPoint'] && findArrow(line)) {
-          chart['startPoint'] = measure;
+        if (!chart.startPoint && findArrow(line)) {
+          chart.startPoint = measure;
         }
         steps[measure] ||= [];
         steps[measure].push(line)
@@ -95,7 +95,7 @@ class Chart {
         continue;
       }
     }
-    chart['measureCount'] = measure;
+    chart.measureCount = measure;
     return chart
   }
 }

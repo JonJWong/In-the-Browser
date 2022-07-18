@@ -3,48 +3,135 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
+
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 body {
@@ -57,12 +144,14 @@ body {
 
 @keyframes fadeInAnimation {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
+
   100% {
-      opacity: 1;
-   }
+    opacity: 1;
+  }
 }
+
 @font-face {
   font-family: 'Wendy';
   src: url('../assets/wendy.ttf') format("truetype");
@@ -93,7 +182,7 @@ body {
   border: 10px solid black;
 }
 
-#game-canvas{
+#game-canvas {
   display: block;
   background: url(../assets/chart/drop_pop_candy/drop_pop_candy_bg.png);
   transition-property: filter;
@@ -111,7 +200,16 @@ body {
   z-index: -1;
 }
 
-h1, h2, h3, h4, span, button, p, div, ul, li{
+h1,
+h2,
+h3,
+h4,
+span,
+button,
+p,
+div,
+ul,
+li {
   font-family: Wendy;
   text-align: center;
   color: white;
@@ -209,7 +307,8 @@ button:hover {
   margin-right: auto;
 }
 
-.fake-meta, span{
+.fake-meta,
+span {
   display: flex;
   justify-content: space-between;
   margin-bottom: auto;
@@ -271,7 +370,8 @@ button:hover {
   margin-top: auto;
 }
 
-#scroll-header, #diff-header {
+#scroll-header,
+#diff-header {
   margin-top: auto;
 }
 
@@ -407,27 +507,33 @@ button:hover {
   transform: translate(-287%, -100%)
 }
 
-#fantastic, #fCount {
+#fantastic,
+#fCount {
   color: rgb(33, 204, 232);
 }
 
-#excellent, #eCount {
+#excellent,
+#eCount {
   color: rgb(226, 156, 24);
 }
 
-#great, #gCount {
+#great,
+#gCount {
   color: rgb(102, 201, 85);
 }
 
-#decent, #dCount {
+#decent,
+#dCount {
   color: rgb(180, 92, 255);
 }
 
-#way-off, #woCount {
+#way-off,
+#woCount {
   color: rgb(201, 133, 94);
 }
 
-#misses, #missCount {
+#misses,
+#missCount {
   color: #ff3030;
 }
 
@@ -435,7 +541,8 @@ button:hover {
   padding: 15px;
   display: none;
   align-content: center;
-  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);;
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
+  ;
   width: 400px;
   height: 240px;
   position: absolute;
@@ -462,7 +569,8 @@ button:hover {
   padding: 15px;
   display: none;
   align-content: center;
-  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);;
+  background-image: linear-gradient(rgb(80, 0, 80), rgb(80, 0, 80), black);
+  ;
   width: 200px;
   height: 80px;
   position: absolute;
@@ -486,7 +594,7 @@ button:hover {
   font-family: "Wendy";
 }
 
-#percentage-score {
+#percentage_score {
   width: 200px;
   height: 100px;
   display: block;
@@ -505,7 +613,7 @@ button:hover {
   transform: translate(80%, 270%)
 }
 
-#combo-counter {
+#combo_counter {
   display: block;
   text-align: center;
   width: 150px;
@@ -587,7 +695,7 @@ button:hover {
   background-color: rgba(102, 201, 85, 1);
 }
 
-#difficulty-rating {
+#difficulty_rating {
   background-color: purple;
   filter: grayscale(0%);
   transition-property: filter;
@@ -602,7 +710,8 @@ button:hover {
   transform: translate(-849%, -360%);
 }
 
-.difficulty-button, .speed-button {
+.difficulty-button,
+.speed-button {
   display: block;
   height: 40px;
 }

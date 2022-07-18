@@ -2,23 +2,22 @@ const ARROW_GAP = 103;
 
 class Arrow {
   constructor(arrowOpts) {
-    this.imgUrl = arrowOpts['imgUrl'];  
+    this.imgUrl = arrowOpts.imgUrl;
     this.img = new Image();
     this.img.src = this.imgUrl;
     
-    this.direction = arrowOpts['direction'];
+    this.direction = arrowOpts.direction;
     this.rotation = this.getRotation();
-    this.pos = arrowOpts['position'];
+    this.pos = arrowOpts.position;
     this.scale = .35;
     this.size = 268 * this.scale;
     this.setHorizPos();
     // even though velocity has 2 nums, we'll only be using the Y since arrows
     // will only be moving upwards
-    this.velocity = arrowOpts['velocity'] || [0, 0];
+    this.velocity = arrowOpts.velocity || [0, 0];
 
-    this.isAMine = arrowOpts['isAMine'] || false;
-    this.isATarget = arrowOpts['target'] || false;
-    this.isAPop = arrowOpts['isAPop'] || false;
+    this.isAMine = arrowOpts.isAMine || false;
+    this.isATarget = arrowOpts.target || false;
   }
 
   setHorizPos() {

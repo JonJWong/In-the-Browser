@@ -21,7 +21,7 @@ class GameView {
     optMenu.style.display = "none";
     menu.style.display = "none";
     inGameOverlay.style.display = "block";
-    stepStatsBlock.style.display = "block";
+    window.stepStatsBlock.style.display = "block";
 
     this.start(this.diff);
     this.startButton.textContent = "Game Started!"; // ADD DIFFICULTY IN HERE FROM DROPDOWN
@@ -116,11 +116,11 @@ class GameView {
     this.audio.pause();
     this.game.arrows = [];
 
-    for (let ele of chartStats) {
+    for (let ele of window.chartStats) {
       ele.style.filter = "grayscale(100%)";
     }
 
-    for (let ele of stepStats) {
+    for (let ele of window.stepStats) {
       ele.style.filter = null
     }
 
@@ -135,18 +135,18 @@ class GameView {
     cancelAnimationFrame(this.frame);
     ctx.clearRect(0, 0, 1280, 960);
 
-    for (let ele of chartStats) {
+    for (let ele of window.chartStats) {
       ele.style.filter = null
     }
     
-    for (let ele of stepStats) {
+    for (let ele of window.stepStats) {
       ele.style.filter = null
     }
     
     menu.style.display = "block";
     optMenu.style.display = "none";
     inGameOverlay.style.display = "none";
-    stepStatsBlock.style.display = "none";
+    window.stepStatsBlock.style.display = "none";
     judgeText.style.display = "none";
     endScreen.style.display = "none";
     

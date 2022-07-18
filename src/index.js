@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   window.Options = require('./game/options.js');
   window.Chart = require('./game/chart.js');
 
-  window.gameOpts = Options.gameOpts();
+  window.gameOpts = Options.gameOpts;
   window.g = new GameView(gameOpts);
   g.bindKeys();
   
