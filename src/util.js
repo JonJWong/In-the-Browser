@@ -1,5 +1,3 @@
-const Arrow = require('./game/arrow.js');
-const Options = require('./game/options.js')
 const Util = {
   randomDirectionGenerator() {
     const dirs = ['left', 'down', 'up', 'right'];

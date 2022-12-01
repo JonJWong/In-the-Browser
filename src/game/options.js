@@ -9,56 +9,6 @@ const Options = {
     return targetOpts
   },
 
-  bluePopOpts() {
-    const popOpts = {
-      imgUrl: 'assets/images/bluepop.png',
-      velocity: [0, 0],
-      position: [70, 150],
-      isAPop: true
-    };
-    return popOpts
-  },
-
-  yellowPopOpts() {
-    const popOpts = {
-      imgUrl: 'assets/images/yellowPop.png',
-      velocity: [0, 0],
-      position: [70, 150],
-      isAPop: true
-    };
-    return popOpts
-  },
-
-  greenPopOpts() {
-    const popOpts = {
-      imgUrl: 'assets/images/greenPop.png',
-      velocity: [0, 0],
-      position: [70, 150],
-      isAPop: true
-    };
-    return popOpts
-  },
-
-  purplePopOpts() {
-    const popOpts = {
-      imgUrl: 'assets/images/purplePop.png',
-      velocity: [0, 0],
-      position: [70, 150],
-      isAPop: true
-    };
-    return popOpts
-  },
-
-  brownPopOpts() {
-    const popOpts = {
-      imgUrl: 'assets/images/brownPop.png',
-      velocity: [0, 0],
-      position: [70, 150],
-      isAPop: true
-    };
-    return popOpts
-  },
-
   arrowOpts() {
     const arrowOpts = {
       imgUrl: 'assets/images/target.png',
